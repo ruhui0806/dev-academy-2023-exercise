@@ -19,6 +19,8 @@
     },
     "homepage": "https://github.com/ruhui0806/dev-academy-2023-exercise#readme",
     "dependencies": {
+        "apollo-server": "^3.11.1",
+        "apollo-server-express": "^3.11.1",
         "colors": "^1.4.0",
         "cors": "^2.8.5",
         "csv": "^6.2.5",
@@ -33,6 +35,5 @@
     },
     "devDependencies": {
         "nodemon": "^2.0.20"
-    },
-    "type": "module"
+    }
 }
