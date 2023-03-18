@@ -113,8 +113,11 @@ app.get('/', (request, response) => {
 });
 
 app.use('/api/stations', stationRouter);
+// app.get('/api/journeys', (request, response) => {
+//     Journey.find({}).then((journeys) => response.json(journeys));
+// });
 app.get('/api/journeys', (request, response) => {
-    Journey.find({}).then((journeys) => response.json(journeys));
+    response.json(journeys);
 });
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
