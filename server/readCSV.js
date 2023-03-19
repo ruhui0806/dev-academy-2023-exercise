@@ -1,6 +1,13 @@
 const fs = require('fs');
 const { parse } = require('csv-parse');
 
+//download the required files:
+//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
+//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
+//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
+
+//wget https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
+
 // Departure,Return,Departure station id,Departure station name,Return station id,Return station name,Covered distance (m),Duration (sec.)
 const csv_headers = [
     'Departure',
