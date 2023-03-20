@@ -24,9 +24,11 @@ fs.createReadStream('./2021-05.csv')
     .pipe(parse({ delimiter: ',', from_line: 2 }))
     .on('data', function (row) {
         let db_object = {};
-        csv_headers.forEach((columnName, idx) => {
-            db_object[columnName] = row[idx];
-        });
+        if (row[6] > 10 && row[7] > 10) {
+            csv_headers.forEach((columnName, idx) => {
+                db_object[columnName] = row[idx];
+            });
+        }
         console.log(db_object);
     })
     .on('end', function () {
