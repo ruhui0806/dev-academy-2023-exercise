@@ -29,6 +29,7 @@ fs.createReadStream('./2021-05.csv')
                 db_object[columnName] = row[idx];
             });
         }
+        console.log(row)
         console.log(db_object);
     })
     .on('end', function () {
