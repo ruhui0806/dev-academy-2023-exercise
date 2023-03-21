@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { parse } = require('csv-parse');
+const { journeyValidation } = require('./utils/validation')
 
 //download the required files:
 //wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
@@ -24,12 +25,13 @@ fs.createReadStream('./2021-05.csv')
     .pipe(parse({ delimiter: ',', from_line: 2 }))
     .on('data', function (row) {
         let db_object = {};
-        if (row[6] > 10 && row[7] > 10) {
+        if (row.length == 8 && journeyValidation(row)) {
             csv_headers.forEach((columnName, idx) => {
                 db_object[columnName] = row[idx];
             });
         }
-        console.log(row)
+        else { console.log('Incorrect data type in this row: ' + row); }
+
         console.log(db_object);
     })
     .on('end', function () {
