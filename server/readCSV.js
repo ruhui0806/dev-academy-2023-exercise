@@ -8,6 +8,7 @@ const { journeyValidation } = require('./utils/validation')
 //wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
 
 //wget https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
+//mv 726277c507ef4914b0aec3cbcfcbfafc_0.csv stations.csv
 
 // Departure,Return,Departure station id,Departure station name,Return station id,Return station name,Covered distance (m),Duration (sec.)
 const csv_headers = [
@@ -21,7 +22,6 @@ const csv_headers = [
     'Duration_sec',
 ];
 fs.createReadStream('./2021-05.csv')
-
     .pipe(parse({ delimiter: ',', from_line: 2 }))
     .on('data', function (row) {
         let db_object = {};
@@ -31,7 +31,6 @@ fs.createReadStream('./2021-05.csv')
             });
         }
         else { console.log('Incorrect data type in this row: ' + row); }
-
         console.log(db_object);
     })
     .on('end', function () {
@@ -40,3 +39,6 @@ fs.createReadStream('./2021-05.csv')
     .on('error', function (error) {
         console.log(error.message);
     });
+
+
+    //FID,ID,Nimi,Namn,Name,Osoite,Adress,Kaupunki,Stad,Operaattor,Kapasiteet,x,y

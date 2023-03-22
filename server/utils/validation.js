@@ -111,5 +111,8 @@ const journeyValidation = (row) => {
     return true
 }
 
+const stationValidation = (row) => {
+
+}
 
 module.exports = { journeyValidation }
