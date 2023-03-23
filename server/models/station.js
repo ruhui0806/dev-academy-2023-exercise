@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const StationSchema = new mongoose.Schema({
+
     Name: { type: String, unique: true },
     Nimi: { type: String },
     Namn: { type: String },

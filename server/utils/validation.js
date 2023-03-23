@@ -107,12 +107,65 @@ const journeyValidation = (row) => {
     if (Duration_sec < 10 || isNaN(Duration_sec)) {
         return false
     }
-
     return true
 }
 
 const stationValidation = (row) => {
+    if (row.length !== 13) { return false }
+    // const stationFID = Number(row[0])
+    // if (stationFID < 0 || !Number.isInteger(stationFID)) {
+    //     return false
+    // }
+    const stationID = Number(row[1])
+    if (stationID < 0 || !Number.isInteger(stationID)) {
+        return false
+    }
+    const stationNimi = row[2]
+    if (!(typeof stationNimi === 'string' || stationNimi instanceof String)) {
+        return false
+    }
+    const stationNamn = row[3]
+    if (!(typeof stationNamn === 'string' || stationNamn instanceof String)) {
+        return false
+    }
+    const stationName = row[4]
+    if (!(typeof stationName === 'string' || stationName instanceof String)) {
+        return false
+    }
 
+    const stationOsoite = row[5]
+    if (!(typeof stationOsoite === 'string' || stationOsoite instanceof String)) {
+        return false
+    }
+
+    const stationAdress = row[6]
+    if (!(typeof stationAdress === 'string' || stationAdress instanceof String)) {
+        return false
+    }
+
+
+
+    // const stationKaupunki = row[7]
+    // if (typeof stationKaupunki === 'string' || stationKaupunki instanceof String) { return false }
+
+    // const stationStad = row[8]
+    // if (typeof stationStad === 'string' || stationStad instanceof String) { return false }
+
+    // const stationOperaattor = row[9]
+    // if (typeof stationOperaattor === 'string' || stationOperaattor instanceof String) { return false }
+
+
+
+    const stationKapasiteet = Number(row[10])
+    if (stationKapasiteet < 0 || !Number.isInteger(stationKapasiteet)) {
+        return false
+    }
+    const longitude = Number(row[11])
+    if (longitude < -180 || longitude > 180 || isNaN(longitude)) { return false }
+    const latitude = Number(row[12])
+    if (latitude < -90 || latitude > 90 || isNaN(latitude)) { return false }
+
+    return true
 }
 
-module.exports = { journeyValidation }
+module.exports = { journeyValidation, stationValidation }
