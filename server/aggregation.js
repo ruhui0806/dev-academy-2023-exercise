@@ -15,7 +15,7 @@ mongoose
 const pipeline = [
     {
         '$match': {
-            'Departure_station_name': 'Ympyrätalo'
+            'Departure_station_name': "Ympyrätalo"
         }
     }, {
         '$sortByCount': '$Return_station_name'
@@ -27,7 +27,21 @@ const pipeline = [
 ]
 
 const journeyAggrByDepartureStation = (req, res, next) => {
-    Journey.aggregate(pipeline)
+    Journey.aggregate([
+        {
+            '$match': {
+                'Departure_station_name': req.params.departureStation
+            }
+        }, {
+            '$sortByCount': '$Return_station_name'
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$limit': 5
+        }
+    ])
         .then(response => console.log(response))
         .catch(error => {
             logger.error({
@@ -36,4 +50,4 @@ const journeyAggrByDepartureStation = (req, res, next) => {
         })
 }
 // journeyAggrByDepartureStation()
-module.exports = journeyAggrByDepartureStation
+module.exports = { journeyAggrByDepartureStation }
