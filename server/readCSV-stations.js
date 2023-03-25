@@ -1,18 +1,18 @@
 const fs = require('fs');
 const { parse } = require('csv-parse');
-const { journeyValidation, stationValidation } = require('./utils/validation')
+const { stationValidation } = require('./utils/validation')
 const mongoose = require('mongoose');
 const Station = require('./models/station');
-const Journey = require('./models/journey');
+
 const config = require('./utils/config');
 const logger = require('./utils/logger');
-//download the required files:
-//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
-//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
-//wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
 
+////before run the current file, run the following two commands in the terminal:
+//download the csv file:
 //wget https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
+//change the csv file name to stations.csv:
 //mv 726277c507ef4914b0aec3cbcfcbfafc_0.csv stations.csv
+
 mongoose.set('strictQuery', false);
 mongoose
     .connect(config.MONGODB_URI)
@@ -60,7 +60,7 @@ fs.createReadStream('./stations.csv')
         logger.error(error.message);
     });
 
-// // Departure,Return,Departure station id,Departure station name,Return station id,Return station name,Covered distance (m),Duration (sec.)
+// // Departure, Return, Departure station id, Departure station name, Return station id, Return station name, Covered distance(m), Duration(sec.)
 // const journeyHeaders = [
 //     'Departure',
 //     'Return',
@@ -71,21 +71,21 @@ fs.createReadStream('./stations.csv')
 //     'Covered_distance_m',
 //     'Duration_sec',
 // ];
-// const parseOptions = (chunkSize, count) => {
-//     let parseObjList = []
-//     for (let i = 0; i < (count / chunkSize); i++) {
-//         const from_line = (i * chunkSize) + 1
-//         const to_line = (i + 1) * chunkSize;
-//         let parseObj = {
-//             delimiter: ',',
-//             from_line: from_line,
-//             to_line: to_line,
-//             skip_empty_lines: true
-//         }
-//         parseObjList.push(parseObj);
-//     }
-//     return parseObjList;
-// }
+// // const parseOptions = (chunkSize, count) => {
+// //     let parseObjList = []
+// //     for (let i = 0; i < (count / chunkSize); i++) {
+// //         const from_line = (i * chunkSize) + 1
+// //         const to_line = (i + 1) * chunkSize;
+// //         let parseObj = {
+// //             delimiter: ',',
+// //             from_line: from_line,
+// //             to_line: to_line,
+// //             skip_empty_lines: true
+// //         }
+// //         parseObjList.push(parseObj);
+// //     }
+// //     return parseObjList;
+// // }
 // // delimiter: ",",
 // // from_line: 1, // it will read from line one
 // // to_line: 5 // to line 5 and skip everything that comes after line number 5, you may remove it if you want to read complete file
@@ -94,11 +94,14 @@ fs.createReadStream('./stations.csv')
 // // journey_object.Duration_sec = Number(journey_object.Duration_sec)
 // // .pipe(parse({ delimiter: ',', from_line: startLine, to_line: startLine + chunkSize }))
 // // function parseJourney(filepath) {
-// //     const count = fs.readFileSync(filepath, 'utf8').split('\n').length - 1;
+// //     const count = 820000
 // //     const chunkSize = 10000;
+// //     let failedRows = 0;
+// //     let journeyRows = [];
 // //     const parseObjList = parseOptions(chunkSize, count)
+// //     logger.info('starting parsing');
 // //     for (let i = 0; i < parseObjList.length; i++) {
-// //         fs.createReadStream(filepath, { highWaterMark: 128 * 1024 })
+// //         fs.createReadStream(filepath, { highWaterMark: 1024 })
 // //             .pipe(parse(parseObjList[i]))
 // //             .on('data', function (row) {
 // //                 let journey_object = {};
@@ -106,40 +109,59 @@ fs.createReadStream('./stations.csv')
 // //                     journeyHeaders.forEach((columnName, idx) => {
 // //                         journey_object[columnName] = row[idx];
 // //                     });
-// //                     logger.info(journey_object);
-// //                     Journey.create(journey_object).catch(error => {
-// //                         logger.error(error);
-// //                     })
+// //                     // logger.info(journey_object);
+// //                     // Journey.create(journey_object).catch(error => {
+// //                     //     logger.error(error);
+// //                     // })
+// //                     journeyRows.push(journey_object);
+// //                 } else {
+// //                     failedRows++;
 // //                 }
-// //                 else { logger.error('Incorrect data type in this row: ' + row); }
 // //             })
 // //             .on('end', function () {
-// //                 logger.info('finished');
+// //                 logger.info('chunk finished');
+// //                 logger.info('failed rows currently: ' + failedRows);
 // //             })
 // //             .on('error', function (error) {
+// //                 logger.info('failed rows currently: ' + failedRows);
 // //                 logger.error(error.message);
 // //             });
 // //     }
+// //     logger.info('Journeys saved:', journeyRows.length);
 // // }
-// fs.createReadStream('./2021-05.csv', { highWaterMark: 128 * 1024 })
-//     .pipe(parse(parseOptions(10000, 820000)[0]))
+// // parseJourney('./2021-05.csv')
+// let failedRows = 0;
+// let journeyRows = [];
+// fs.createReadStream('./2021-05.csv', { highWaterMark: 8 * 1024 })
+//     .pipe(parse({
+//         delimiter: ',',
+//         from_line: 2,
+//         skip_empty_lines: true
+//     }))
 //     .on('data', function (row) {
 //         let journey_object = {};
 //         if (journeyValidation(row)) {
 //             journeyHeaders.forEach((columnName, idx) => {
 //                 journey_object[columnName] = row[idx];
 //             });
-//             logger.info(journey_object);
-//             Journey.create(journey_object).catch(error => {
-//                 logger.error(error);
-//             })
+//             journeyRows.push(journey_object);
 //         }
-//         else { logger.error('Incorrect data type in this row: ' + row); }
+//         else { failedRows++; }
 //     })
 //     .on('end', function () {
 //         logger.info('finished');
+//         logger.info('failed rows currently: ' + failedRows);
+//         logger.info('Journeys saved:', journeyRows.length);
+//         Journey.insertMany(journeyRows).then(function () {
+//             console.log("Data inserted")  // Success
+//         }).catch(function (error) {
+//             console.log(error)      // Failure
+//         });
 //     })
 //     .on('error', function (error) {
 //         logger.error(error.message);
+//         logger.info('failed rows currently: ' + failedRows);
 //     });
-// // parseJourney('./2021-05.csv')
+
+
+
