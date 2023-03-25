@@ -30,7 +30,7 @@ const journeyAggrByDepartureStation = (req, res, next) => {
     Journey.aggregate([
         {
             '$match': {
-                'Departure_station_name': req.params.departureStation
+                'Departure_station_id': req.params.departureStation
             }
         }, {
             '$sortByCount': '$Return_station_name'
@@ -42,7 +42,30 @@ const journeyAggrByDepartureStation = (req, res, next) => {
             '$limit': 5
         }
     ])
-        .then(response => console.log(response))
+        .then(result => res.json(result))
+        .catch(error => {
+            logger.error({
+                message: 'An error occured!' + error.message
+            })
+        })
+}
+const journeyAggrByReturnStation = (req, res, next) => {
+    Journey.aggregate([
+        {
+            '$match': {
+                'Return_station_id': req.params.returnStation
+            }
+        }, {
+            '$sortByCount': '$Departure_station_name'
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$limit': 5
+        }
+    ])
+        .then(result => res.json(result))
         .catch(error => {
             logger.error({
                 message: 'An error occured!' + error.message
@@ -50,4 +73,4 @@ const journeyAggrByDepartureStation = (req, res, next) => {
         })
 }
 // journeyAggrByDepartureStation()
-module.exports = { journeyAggrByDepartureStation }
+module.exports = { journeyAggrByDepartureStation, journeyAggrByReturnStation }
