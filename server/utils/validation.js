@@ -63,7 +63,6 @@ const isDate = (date) => {
 
 const journeyValidation = (row) => {
     if (row.length !== 8) {
-        // throw new Error('Incorrect data length:' + row);
         return false
     }
     const departureDate = new Date(row[0])
@@ -76,7 +75,7 @@ const journeyValidation = (row) => {
         // throw new Error('Incorrect date type: ' + returnDate)
         return false
     }
-    if (departureDate > returnDate) {
+    if (departureDate.getTime() > returnDate.getTime()) {
         // throw new Error('Departure date should not be later than return date');
         return false
     }

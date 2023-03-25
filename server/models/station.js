@@ -1,24 +1,25 @@
 const mongoose = require('mongoose');
 
 const StationSchema = new mongoose.Schema({
-
-    Name: { type: String, unique: true },
-    Nimi: { type: String },
-    Namn: { type: String },
-    Osoite: { type: String },
-    Adress: { type: String },
-    Kaupunki: { type: String },
-    Stad: { type: String },
-    Operaattor: { type: String },
-    Kapasiteet: { type: Number },
-    x: { type: String, unique: true },
-    y: { type: String, unique: true },
+    FID: { type: String },
+    Name: { type: String, unique: true, required: true },
+    Nimi: { type: String, required: true },
+    Namn: { type: String, required: true },
+    Osoite: { type: String, required: true },
+    Adress: { type: String, required: true },
+    Kaupunki: { type: String, required: true },
+    Stad: { type: String, required: true },
+    Operaattor: { type: String, required: true },
+    Kapasiteet: { type: String, required: true },
+    x: { type: String, unique: true, required: true },
+    y: { type: String, unique: true, required: true },
     ID: {
-        type: Number,
+        type: String,
         unique: true,
-        default: function () {
-            return Math.floor(Math.random() * 10000 + 999);
-        },
+        required: true
+        // default: function () {
+        //     return Math.floor(Math.random() * 10000 + 999);
+        // },
     },
 });
 

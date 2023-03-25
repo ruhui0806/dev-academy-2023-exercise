@@ -8,6 +8,7 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const Station = require('./models/station');
 const Journey = require('./models/journey');
+const journeyRouter = require('./controllers/journeyRouter');
 mongoose.set('strictQuery', false);
 mongoose
     .connect(config.MONGODB_URI)
@@ -18,48 +19,48 @@ mongoose
         logger.error('error connecting to MongoDB:', error.message);
     });
 
-let journeys = [
-    {
-        Departure: '2021_05_31T23:57:25',
-        Return: '2021_06_01T00:05:46',
-        Departure_station_id: 94,
-        Departure_station_name: 'Laajalahden aukio',
-        Return_station_id: 100,
-        Return_station_name: 'Teljäntie',
-        Covered_distance_m: 2043,
-        Duration_sec: 500,
-    },
-    {
-        Departure: '2021_05_31T23:57:25',
-        Return: '2021_06_01T00:05:46',
-        Departure_station_id: 95,
-        Departure_station_name: 'Laajalahden aukio',
-        Return_station_id: 100,
-        Return_station_name: 'Teljäntie',
-        Covered_distance_m: 2043,
-        Duration_sec: 500,
-    },
-    {
-        Departure: '2021_05_31T23:57:25',
-        Return: '2021_06_01T00:05:46',
-        Departure_station_id: 34,
-        Departure_station_name: 'Laajalahden aukio',
-        Return_station_id: 100,
-        Return_station_name: 'Teljäntie',
-        Covered_distance_m: 2043,
-        Duration_sec: 500,
-    },
-    {
-        Departure: '2021_05_31T23:57:25',
-        Return: '2021_06_01T00:05:46',
-        Departure_station_id: 56,
-        Departure_station_name: 'Laajalahden aukio',
-        Return_station_id: 100,
-        Return_station_name: 'Teljäntie',
-        Covered_distance_m: 2043,
-        Duration_sec: 500,
-    },
-];
+// let journeys = [
+//     {
+//         Departure: '2021_05_31T23:57:25',
+//         Return: '2021_06_01T00:05:46',
+//         Departure_station_id: 94,
+//         Departure_station_name: 'Laajalahden aukio',
+//         Return_station_id: 100,
+//         Return_station_name: 'Teljäntie',
+//         Covered_distance_m: 2043,
+//         Duration_sec: 500,
+//     },
+//     {
+//         Departure: '2021_05_31T23:57:25',
+//         Return: '2021_06_01T00:05:46',
+//         Departure_station_id: 95,
+//         Departure_station_name: 'Laajalahden aukio',
+//         Return_station_id: 100,
+//         Return_station_name: 'Teljäntie',
+//         Covered_distance_m: 2043,
+//         Duration_sec: 500,
+//     },
+//     {
+//         Departure: '2021_05_31T23:57:25',
+//         Return: '2021_06_01T00:05:46',
+//         Departure_station_id: 34,
+//         Departure_station_name: 'Laajalahden aukio',
+//         Return_station_id: 100,
+//         Return_station_name: 'Teljäntie',
+//         Covered_distance_m: 2043,
+//         Duration_sec: 500,
+//     },
+//     {
+//         Departure: '2021_05_31T23:57:25',
+//         Return: '2021_06_01T00:05:46',
+//         Departure_station_id: 56,
+//         Departure_station_name: 'Laajalahden aukio',
+//         Return_station_id: 100,
+//         Return_station_name: 'Teljäntie',
+//         Covered_distance_m: 2043,
+//         Duration_sec: 500,
+//     },
+// ];
 // let stations = [
 //     {
 //         ID: 501,
@@ -116,9 +117,7 @@ app.use('/api/stations', stationRouter);
 // app.get('/api/journeys', (request, response) => {
 //     Journey.find({}).then((journeys) => response.json(journeys));
 // });
-app.get('/api/journeys', (request, response) => {
-    response.json(journeys);
-});
+app.use('/api/journeys', journeyRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 module.exports = app;
