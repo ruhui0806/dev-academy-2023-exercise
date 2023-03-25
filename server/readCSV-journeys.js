@@ -47,6 +47,8 @@ fs.createReadStream('./2021-05.csv', { highWaterMark: 8 * 1024 })
             journeyHeaders.forEach((columnName, idx) => {
                 journey_object[columnName] = row[idx];
             });
+            journey_object.Covered_distance_m = Number(journey_object.Covered_distance_m)
+            journey_object.Duration_sec = Number(journey_object.Duration_sec)
             journeyRows.push(journey_object);
         }
         else { failedRows++; }
@@ -65,6 +67,8 @@ fs.createReadStream('./2021-05.csv', { highWaterMark: 8 * 1024 })
         logger.error(error.message);
         logger.info('failed rows currently: ' + failedRows);
     });
+
+    //node readCSV-journeys.js
 
 
 

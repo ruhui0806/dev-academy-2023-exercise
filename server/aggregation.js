@@ -12,28 +12,95 @@ mongoose
     .catch((error) => {
         logger.error('error connecting to MongoDB:', error.message);
     });
-const pipeline = [
-    {
-        '$match': {
-            'Departure_station_name': 'Ympyrätalo'
-        }
-    }, {
-        '$sortByCount': '$Return_station_name'
-    }, {
-        '$sort': {
-            'count': -1
-        }
-    }
-]
 
 const journeyAggrByDepartureStation = (req, res, next) => {
-    Journey.aggregate(pipeline)
-        .then(response => console.log(response))
+    Journey.aggregate([
+        {
+            '$match': {
+                'Departure_station_id': req.params.departureStation
+            }
+        }, {
+            '$sortByCount': '$Return_station_name'
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$limit': 5
+        }
+    ])
+        .then(result => res.json(result))
         .catch(error => {
             logger.error({
                 message: 'An error occured!' + error.message
             })
         })
 }
-// journeyAggrByDepartureStation()
-module.exports = journeyAggrByDepartureStation
+const journeyAggrByReturnStation = (req, res, next) => {
+    Journey.aggregate([
+        {
+            '$match': {
+                'Return_station_id': req.params.returnStation
+            }
+        }, {
+            '$sortByCount': '$Departure_station_name'
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$limit': 5
+        }
+    ])
+        .then(result => res.json(result))
+        .catch(error => {
+            logger.error({
+                message: 'An error occured!' + error.message
+            })
+        })
+}
+
+const journeyDistAggrByDeparture = (req, res, next) => {
+    Journey.aggregate([
+        {
+            '$match': {
+                'Departure_station_id': req.params.departureStation
+            }
+        }, {
+            '$group': {
+                '_id': "$Departure_station_id",
+                'averageDistance': {
+                    '$avg': '$Covered_distance_m'
+                }
+            }
+        }
+    ]).then(result => res.json(result))
+        .catch(error => {
+            logger.error({
+                message: 'An error occured!' + error.message
+            })
+        })
+}
+const journeyDistAggrByReturn = (req, res, next) => {
+    Journey.aggregate([
+        {
+            '$match': {
+                'Return_station_id': req.params.returnStation
+            }
+        }, {
+            '$group': {
+                '_id': "$Return_station_id",
+                'averageDistance': {
+                    '$avg': '$Covered_distance_m'
+                }
+            }
+        }
+    ]).then(result => res.json(result))
+        .catch(error => {
+            logger.error({
+                message: 'An error occured!' + error.message
+            })
+        })
+}
+
+module.exports = { journeyAggrByDepartureStation, journeyAggrByReturnStation, journeyDistAggrByDeparture, journeyDistAggrByReturn }
