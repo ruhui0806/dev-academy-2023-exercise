@@ -5,7 +5,7 @@ stationRouter.get('/', (request, response) => {
     Station.find({}).then((stations) => response.json(stations));
 });
 stationRouter.get('/:id', (request, response, next) => {
-    Station.findById(request.params.id)
+    Station.findOne({ ID: request.params.id })
         .then((station) => {
             if (station) {
                 response.json(station);
