@@ -23,7 +23,7 @@ export default function StationView() {
     const station = useStation(ID)
     console.log(station)
     if (!station) {
-        return <div>not found...</div>;
+        return <div>wait...</div>;
     }
     return (
         <div>
@@ -35,8 +35,10 @@ export default function StationView() {
                             <th>ID</th>
                             <th>Address</th>
                             <th>City</th>
-                            <th>Journeys start from here</th>
-                            <th>Journeys end at here</th>
+                            <th>Journeys start here</th>
+                            <th>Journeys end here</th>
+                            <th>Ave Dist: journeys departure from here</th>
+                            <th>Ave Dist: journeys end at here</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,9 +49,25 @@ export default function StationView() {
                             <td>{station.currentStation.Kaupunki}</td>
                             <td>{station.countJourneyStartHere}</td>
                             <td>{station.countJourneyEndHere}</td>
+                            <td>{station.averageDepartunreDistance[0].averageDistance}</td>
+                            <td>{station.averageReturnDistance[0].averageDistance}</td>
+
                         </tr>
                     </tbody>
                 </table>
+
+                <h4>Top 5 most popular return stations for journeys starting from: {station.currentStation.Name}</h4>
+                <ul>
+                    {station.aggrJourneyDeparture.map((journey) => (
+                        <li>{journey._id}: {journey.count}</li>
+                    ))}
+                </ul>
+                <h4>Top 5 most popular departure stations for journeys ending at: {station.currentStation.Name}</h4>
+                <ul>
+                    {station.aggrJourneyReturn.map((journey) => (
+                        <li>{journey._id}: {journey.count}</li>
+                    ))}
+                </ul>
                 <div className="d-flex mb-3 gap-3">
                     {/* <UpdateStationModal station={station} /> */}
                     <Link
