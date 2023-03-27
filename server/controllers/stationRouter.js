@@ -13,16 +13,41 @@ stationRouter.get('/:ID', async (request, response, next) => {
         const countJourneyStartHere = await Journey.find({ Departure_station_id: request.params.ID }).count()
         const countJourneyEndHere = await Journey.find({ Return_station_id: request.params.ID }).count()
             .count()
-        response.json({ currentStation: station, countJourneyStartHere: countJourneyStartHere, countJourneyEndHere: countJourneyEndHere });
+        const aggrJourneyReturn = await Journey.aggregate([
+            {
+                '$match': {
+                    'Return_station_id': request.params.ID
+                }
+            }, {
+                '$sortByCount': '$Departure_station_name'
+            }, {
+                '$sort': {
+                    'count': -1
+                }
+            }, {
+                '$limit': 5
+            }
+        ])
+        const aggrJourneyDeparture = await Journey.aggregate([
+            {
+                '$match': {
+                    'Departure_station_id': request.params.ID
+                }
+            }, {
+                '$sortByCount': '$Return_station_name'
+            }, {
+                '$sort': {
+                    'count': -1
+                }
+            }, {
+                '$limit': 5
+            }
+        ])
+        response.json({ currentStation: station, countJourneyStartHere: countJourneyStartHere, countJourneyEndHere: countJourneyEndHere, aggrJourneyReturn: aggrJourneyReturn, aggrJourneyDeparture: aggrJourneyDeparture });
     }
     catch (exception) {
         next(exception)
     }
 });
-stationRouter.get('/:ID/returnAggregation', aggregation.journeyAggrByReturnStation)
-stationRouter.get('/:ID/deparAggregation', aggregation.journeyAggrByDepartureStation)
-
-stationRouter.get('/:ID/distAggrByReturn', aggregation.journeyDistAggrByReturn)
-stationRouter.get('/:ID/distAggrByDeparture', aggregation.journeyDistAggrByDeparture)
 
 module.exports = stationRouter;
