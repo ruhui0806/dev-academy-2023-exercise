@@ -79,7 +79,6 @@ export default function StationView() {
                 </div>
             </div>
 
-
             <div className="ratio ratio-16x9 mb-3">
                 {/* <StationMap x={Number(station.x)} y={Number(station.y)} /> */}
             </div>

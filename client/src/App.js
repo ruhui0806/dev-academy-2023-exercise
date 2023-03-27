@@ -5,7 +5,6 @@ import Stations from './pages/Stations';
 import StationView from './pages/StationView';
 
 
-//App component--> should move to the file App.js
 const App = () => {
 
   return (
