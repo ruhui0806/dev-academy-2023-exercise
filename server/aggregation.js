@@ -17,7 +17,7 @@ const journeyAggrByDepartureStation = (req, res, next) => {
     Journey.aggregate([
         {
             '$match': {
-                'Departure_station_id': req.params.departureStation
+                'Departure_station_id': req.params.ID
             }
         }, {
             '$sortByCount': '$Return_station_name'
@@ -40,7 +40,7 @@ const journeyAggrByReturnStation = (req, res, next) => {
     Journey.aggregate([
         {
             '$match': {
-                'Return_station_id': req.params.returnStation
+                'Return_station_id': req.params.ID
             }
         }, {
             '$sortByCount': '$Departure_station_name'
@@ -64,7 +64,7 @@ const journeyDistAggrByDeparture = (req, res, next) => {
     Journey.aggregate([
         {
             '$match': {
-                'Departure_station_id': req.params.departureStation
+                'Departure_station_id': req.params.ID
             }
         }, {
             '$group': {
@@ -85,7 +85,7 @@ const journeyDistAggrByReturn = (req, res, next) => {
     Journey.aggregate([
         {
             '$match': {
-                'Return_station_id': req.params.returnStation
+                'Return_station_id': req.params.ID
             }
         }, {
             '$group': {

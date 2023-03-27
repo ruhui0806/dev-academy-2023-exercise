@@ -6,10 +6,10 @@ const getAllStations = () => {
     return req.then((res) => res.data);
 };
 
-const getStationById = (id) => {
-    const req = axios.get(`${baseUrl}/${id}`);
-    return req.then((res) => res.data);
+const getStationByID = (ID) => {
+    const req = axios.get(`${baseUrl}/${ID}`);
+    return req.then((res) => (res.data));
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAllStations, getStationById };
+export default { getAllStations, getStationByID };

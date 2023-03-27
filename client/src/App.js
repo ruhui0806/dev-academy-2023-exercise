@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import Stations from './pages/Stations';
+import StationView from './pages/StationView';
 
 
 //App component--> should move to the file App.js
@@ -13,9 +14,12 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/stations" element={<Stations />} />
+          <Route
+            path="/stations/:ID"
+            element={<StationView />}
+          />
         </Routes>
       </Router>
-
     </div>
   )
 }
