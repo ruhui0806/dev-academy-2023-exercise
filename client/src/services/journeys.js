@@ -9,6 +9,5 @@ const getAllJourneys = () => {
 const getJourneyByDeparture = (departureStation) => {
     const req = axios.get(`${baseUrl}/departureFrom/${departureStation}`);
     return req.then((res) => console.log(res.data));
-
 }
 
