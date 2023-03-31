@@ -52,19 +52,6 @@ export default function Journeys() {
                     <label className=" p-3 form-label ml-auto">
                         Stations Per Page:
                     </label>
-                    <select
-                        id="journeysPerPage"
-                        className="w-30 ml-auto"
-                        value={journeysPerPage}
-                        form-select-border-width="1"
-                        onChange={(e) =>
-                            setJourneysPerPage(parseInt(e.target.value))
-                        }
-                    >
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
                 </div>
             <table>
                 <thead>
