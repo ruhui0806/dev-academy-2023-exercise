@@ -3,8 +3,7 @@ const Journey = require('../models/journey');
 const aggregation = require('../aggregation');
 
 journeyRouter.get('/', (request, response) => {
-    // console.log(request)
-    // request.query.order = ['Return_station_name', 'descending']
+    // request.query.order should be an array of array. e.g., sort([['Return_station_name', 'ascending']])
     Journey.find({}).sort(
         [request.query.order.split(',')]
     ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
