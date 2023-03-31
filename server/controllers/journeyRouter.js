@@ -16,15 +16,21 @@ const aggregation = require('../aggregation');
 //     }).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
 // })
 //http://localhost:3001/api/journeys?limit=3&offset=0
+// journeyRouter.get('/', (request, response) => {
+//     // console.log(request)
+//     Journey.find({}).sort(
+//         [['Return_station_name', 'ascending']]
+//     ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
+// })
 journeyRouter.get('/', (request, response) => {
     // console.log(request)
-    Journey.find({}).sort({
-        Departure_station_name: 1
-    }).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
+    // request.query.order = ['Return_station_name', 'descending']
+    Journey.find({}).sort(
+        [request.query.order.split(',')]
+    ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
+    console.log(request.query)
 })
-// journeyRouter.get('/:offset/:limit', (request, response) => {
-//     Journey.find({}).sort(request.query.order).skip(Number(request.params.offset)).limit(Number(request.params.limit)).then((journeys) => { response.json(journeys); })
-// })
+
 //organize journeys by departure station id:
 journeyRouter.get('/departureFrom/:ID', (request, response) => {
     Journey.find({ Departure_station_id: request.params.ID }).then(journeys => response.json(journeys));

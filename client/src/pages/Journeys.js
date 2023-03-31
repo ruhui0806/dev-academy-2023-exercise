@@ -9,27 +9,28 @@ export default function Journeys() {
     const [page, setPage] = useState(0);
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
   
-    // const [offset, setoffset] = useState(0);
+    // const [offset, setoffset] = useState(0); //'Return_station_name', 'ascending'
     const [sortConfig, setSortConfig] = useState({
         attr: 'ID',
         direction: 'ascending',
     });
     useEffect(() => {
+        // const orderByColumn = [[sortConfig.attr, sortConfig.direction]];
         //getJourneys =  (offset, limit) => {} //Number(page*journeysPerPage), Number(journeysPerPage) 
         journeyService.getJourneys(page*journeysPerPage,journeysPerPage).then(data => {
             setJourneys(data)
         })
-    }, [page, journeysPerPage]);
+    }, [page, journeysPerPage, sortConfig.attr, sortConfig.direction]);
     //sort-by-column functions:
-    const SortByColumn = (a, b) => {
-        if (a[sortConfig.attr] < b[sortConfig.attr]) {
-            return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.attr] > b[sortConfig.attr]) {
-            return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-    };
+    // const SortByColumn = (a, b) => {
+    //     if (a[sortConfig.attr] < b[sortConfig.attr]) {
+    //         return sortConfig.direction === 'ascending' ? -1 : 1;
+    //     }
+    //     if (a[sortConfig.attr] > b[sortConfig.attr]) {
+    //         return sortConfig.direction === 'ascending' ? 1 : -1;
+    //     }
+    //     return 0;
+    // };
     const requestSort = (attr) => {
         let direction = 'ascending';
         if (sortConfig.attr === attr && sortConfig.direction === 'ascending') {
@@ -127,7 +128,6 @@ export default function Journeys() {
                 <tbody>
 
                     {journeys
-                    .sort(SortByColumn)
                     // .slice(offset, offset + journeysPerPage)
                     .map(journey => (
                         <JourneyRow key={journey._id} journey={journey} />
