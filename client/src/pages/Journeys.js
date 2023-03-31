@@ -15,8 +15,8 @@ export default function Journeys() {
         direction: 'ascending',
     });
     useEffect(() => {
-        //getJourneys =  (offset, limit) => {}
-        journeyService.getJourneys(Number(page*journeysPerPage), Number(journeysPerPage)).then(data => {
+        //getJourneys =  (offset, limit) => {} //Number(page*journeysPerPage), Number(journeysPerPage) 
+        journeyService.getJourneys(page*journeysPerPage,journeysPerPage).then(data => {
             setJourneys(data)
         })
     }, [page, journeysPerPage]);

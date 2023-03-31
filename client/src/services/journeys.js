@@ -7,14 +7,17 @@ const baseUrl = '/api/journeys'
 //     return req.then((res) => res.data);
 // }
 
-const getJourneys = async (offset, limit) => {
-    const res = await axios.get(`${baseUrl}/${offset}/${limit}`);
-    return res.data;
-}
-// const getJourneyById = (id) => {
-//     const req = axios.get(`${baseUrl}/${id}`);
-//     return req.then((res) => res.data);
+// const getJourneys = async (offset, limit, order) => {
+//     const res = await axios.get(`${baseUrl}/${offset}/${limit}/${order}`);
+//     return res.data;
 // }
+
+const getJourneys = async (offset, limit) => {
+    offset = parseInt(offset);
+    limit = parseInt(limit);
+    const res = await axios.get(`${baseUrl}?offset=${offset}&limit=${limit}`);
+    return res.data
+}
 
 const getJourneyByDeparture = (departureStation) => {
     const req = axios.get(`${baseUrl}/departureFrom/${departureStation}`);
