@@ -1,22 +1,9 @@
 import axios from 'axios';
 const baseUrl = '/api/journeys'
 
-
-// const getJourneys = (offset, limit) => {
-//     const req = axios.get(`${baseUrl}/${offset}/${limit}`);
-//     return req.then((res) => res.data);
-// }
-
-// const getJourneys = async (offset, limit, order) => {
-//     const res = await axios.get(`${baseUrl}/${offset}/${limit}/${order}`);
-//     return res.data;
-// }
-
 const getJourneys = async (offset, limit,order) => {
     offset = parseInt(offset);
     limit = parseInt(limit);
-    // let order = ['Return_station_name', 'ascending'];
-    // console.log("order",order)
     const res = await axios.get(`${baseUrl}?offset=${offset}&limit=${limit}&order=${order}`);
     return res.data
 }

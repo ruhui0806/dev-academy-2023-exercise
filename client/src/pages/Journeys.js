@@ -118,7 +118,6 @@ export default function Journeys() {
                 <tbody>
 
                     {journeys
-                    // .slice(offset, offset + journeysPerPage)
                     .map(journey => (
                         <JourneyRow key={journey._id} journey={journey} />
                     ))}
