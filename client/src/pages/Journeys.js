@@ -8,29 +8,19 @@ export default function Journeys() {
     const [journeys, setJourneys] = useState([]);
     const [page, setPage] = useState(0);
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
-  
-    // const [offset, setoffset] = useState(0); //'Return_station_name', 'ascending'
     const [sortConfig, setSortConfig] = useState({
-        attr: 'ID',
+        attr: 'Return_station_name',
         direction: 'ascending',
     });
     useEffect(() => {
-        // const orderByColumn = [[sortConfig.attr, sortConfig.direction]];
-        //getJourneys =  (offset, limit) => {} //Number(page*journeysPerPage), Number(journeysPerPage) 
-        journeyService.getJourneys(page*journeysPerPage,journeysPerPage).then(data => {
+        // let orderByColumn = ['Return_station_name', 'descending']
+        let orderByColumn = [[sortConfig.attr, sortConfig.direction]];
+        //offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
+        journeyService.getJourneys(page*journeysPerPage, journeysPerPage, orderByColumn).then(data => {
             setJourneys(data)
         })
     }, [page, journeysPerPage, sortConfig.attr, sortConfig.direction]);
-    //sort-by-column functions:
-    // const SortByColumn = (a, b) => {
-    //     if (a[sortConfig.attr] < b[sortConfig.attr]) {
-    //         return sortConfig.direction === 'ascending' ? -1 : 1;
-    //     }
-    //     if (a[sortConfig.attr] > b[sortConfig.attr]) {
-    //         return sortConfig.direction === 'ascending' ? 1 : -1;
-    //     }
-    //     return 0;
-    // };
+ 
     const requestSort = (attr) => {
         let direction = 'ascending';
         if (sortConfig.attr === attr && sortConfig.direction === 'ascending') {

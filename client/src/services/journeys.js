@@ -12,11 +12,11 @@ const baseUrl = '/api/journeys'
 //     return res.data;
 // }
 
-const getJourneys = async (offset, limit) => {
+const getJourneys = async (offset, limit,order) => {
     offset = parseInt(offset);
     limit = parseInt(limit);
-    let order = ['Return_station_name', 'ascending'];
-    console.log(order)
+    // let order = ['Return_station_name', 'ascending'];
+    // console.log("order",order)
     const res = await axios.get(`${baseUrl}?offset=${offset}&limit=${limit}&order=${order}`);
     return res.data
 }

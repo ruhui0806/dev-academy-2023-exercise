@@ -28,7 +28,6 @@ journeyRouter.get('/', (request, response) => {
     Journey.find({}).sort(
         [request.query.order.split(',')]
     ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
-    console.log(request.query)
 })
 
 //organize journeys by departure station id:
