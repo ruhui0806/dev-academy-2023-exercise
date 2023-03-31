@@ -2,26 +2,6 @@ const journeyRouter = require('express').Router();
 const Journey = require('../models/journey');
 const aggregation = require('../aggregation');
 
-// const journeyPaginate = (req) => {
-//     return (req, res, next) => {
-//         req.offset = Number(offset);
-//         req.limit = Number(limit);
-//         next()
-//     }
-// }
-// journeyRouter.get('/', (request, response) => {
-//     console.log(request)
-//     Journey.find({}).sort({
-//         Departure_station_id: -1
-//     }).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
-// })
-//http://localhost:3001/api/journeys?limit=3&offset=0
-// journeyRouter.get('/', (request, response) => {
-//     // console.log(request)
-//     Journey.find({}).sort(
-//         [['Return_station_name', 'ascending']]
-//     ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
-// })
 journeyRouter.get('/', (request, response) => {
     // console.log(request)
     // request.query.order = ['Return_station_name', 'descending']
