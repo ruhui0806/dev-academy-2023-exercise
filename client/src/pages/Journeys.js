@@ -10,11 +10,14 @@ export default function Journeys() {
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
     const [sortConfig, setSortConfig] = useState({
         attr: 'Return_station_name',
-        direction: 'ascending',
+        direction: 'descending',
     });
     useEffect(() => {
         // let orderByColumn = ['Return_station_name', 'descending']
-        let orderByColumn = [[sortConfig.attr, sortConfig.direction]];
+        //let orderByColumn = 'Departure_station_name,ascending';
+        let direction = sortConfig.direction === 'ascending'? '' : '-';
+        let orderByColumn = direction + sortConfig.attr;
+        console.log(orderByColumn)
         //offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
         journeyService.getJourneys(page*journeysPerPage, journeysPerPage, orderByColumn).then(data => {
             setJourneys(data)
