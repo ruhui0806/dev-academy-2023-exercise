@@ -2,6 +2,7 @@ const journeyRouter = require("express").Router();
 const Journey = require("../models/journey");
 const aggregation = require("../aggregation");
 
+<<<<<<< HEAD
 journeyRouter.get("/", (request, response) => {
   Journey.find({})
     .sort(request.query.order)
@@ -11,6 +12,13 @@ journeyRouter.get("/", (request, response) => {
       response.json(journeys);
     });
 });
+=======
+journeyRouter.get('/', (request, response) => {
+    Journey.find({}).sort(
+        request.query.order
+    ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
+})
+>>>>>>> 5fa7e4d (delete commented codes)
 
 //organize journeys by departure station id:
 journeyRouter.get("/departureFrom/:ID", (request, response) => {
