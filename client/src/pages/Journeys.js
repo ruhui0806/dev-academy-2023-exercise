@@ -13,8 +13,6 @@ export default function Journeys() {
         direction: 'descending',
     });
     useEffect(() => {
-        // let orderByColumn = ['Return_station_name', 'descending']
-        //let orderByColumn = 'Departure_station_name,ascending';
         let direction = sortConfig.direction === 'ascending'? '' : '-';
         let orderByColumn = direction + sortConfig.attr;
         console.log(orderByColumn)
