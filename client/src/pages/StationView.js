@@ -59,8 +59,8 @@ const handleDeleteStation = (id) => {
                             <td>{station.currentStation.Kaupunki}</td>
                             <td>{station.countJourneyStartHere}</td>
                             <td>{station.countJourneyEndHere}</td>
-                            <td>{station.averageDepartunreDistance[0].averageDistance}</td>
-                            <td>{station.averageReturnDistance[0].averageDistance}</td>
+                            <td>{Math.ceil(station.averageDepartunreDistance[0].averageDistance)}</td>
+                            <td>{Math.ceil(station.averageReturnDistance[0].averageDistance)}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,8 +1,7 @@
 const stationRouter = require('express').Router();
 const Station = require('../models/station');
 const Journey = require('../models/journey');
-const aggregation = require('../aggregation');
-const { populate } = require('../models/station');
+//const aggregation = require('../aggregation');
 
 stationRouter.get('/', (request, response) => {
     Station.find({}).then((stations) => response.json(stations));
