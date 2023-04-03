@@ -67,24 +67,6 @@ const Stations = () => {
                     placeholder="Search for stations"
                     onChange={(e) => setValueToSearch(e.target.value)}
                 />
-                {/* <div className="d-inline p-3 form-group ml-auto">
-                    <label className=" p-3 form-label ml-auto">
-                        Stations Per Page:
-                    </label>
-                    <select
-                        id="stationsPerPage"
-                        className="w-30 ml-auto"
-                        value={stationsPerPage}
-                        form-select-border-width="1"
-                        onChange={(e) =>
-                            setStationsPerPage(parseInt(e.target.value))
-                        }
-                    >
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
-                </div> */}
             </form>
 
             <table className="table table-hover mt-3">

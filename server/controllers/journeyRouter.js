@@ -4,8 +4,12 @@ const aggregation = require('../aggregation');
 
 journeyRouter.get('/', (request, response) => {
     // request.query.order should be an array of array. e.g., sort([['Return_station_name', 'ascending']])
+    // or object: request.query.order = {"Return_station_name": "descending"}
+    //or string: request.query.order='-Return_station_name' //descending order
+    //or string: request.query.order='Return_station_name' //ascending order
+
     Journey.find({}).sort(
-        [request.query.order.split(',')]
+        request.query.order
     ).skip(Number(request.query.offset)).limit(Number(request.query.limit)).then((journeys) => { response.json(journeys); })
 })
 

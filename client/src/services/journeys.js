@@ -1,9 +1,11 @@
 import axios from 'axios';
 const baseUrl = '/api/journeys'
 
-const getJourneys = async (offset, limit,order) => {
+const getJourneys = async (offset, limit, order) => {
     offset = parseInt(offset);
     limit = parseInt(limit);
+    
+    console.log("order in journeyService: ",order)
     const res = await axios.get(`${baseUrl}?offset=${offset}&limit=${limit}&order=${order}`);
     return res.data
 }
