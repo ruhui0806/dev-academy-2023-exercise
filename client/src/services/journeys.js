@@ -10,10 +10,10 @@ const getJourneys = async (offset, limit, order,filterByDistance, filterByDurati
     return res.data
 }
 
-const getJourneyByDeparture = (departureStation) => {
-    const req = axios.get(`${baseUrl}/departureFrom/${departureStation}`);
-    return req.then((res) => res.data);
-}
+// const getJourneyByDeparture = (departureStation) => {
+//     const req = axios.get(`${baseUrl}/departureFrom/${departureStation}`);
+//     return req.then((res) => res.data);
+// }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getJourneys, getJourneyByDeparture };
+export default { getJourneys };

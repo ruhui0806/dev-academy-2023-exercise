@@ -132,8 +132,10 @@ export default function Journeys() {
                 </thead>
                 <tbody>
 
-                    {[...journeys]
-                    .filter(journey => journey.Departure_station_name.includes(valueForSearch) || journey.Return_station_name.includes(valueForSearch))
+                    {
+                    // [...journeys]
+                    // .filter(journey => journey.Departure_station_name.includes(valueForSearch) || journey.Return_station_name.includes(valueForSearch))
+                    journeys
                     .map(journey => (
                         <JourneyRow key={journey._id} journey={journey} />
                     ))

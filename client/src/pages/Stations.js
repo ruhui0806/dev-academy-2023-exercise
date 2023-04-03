@@ -48,13 +48,22 @@ const Stations = () => {
         paddingRight: 5,
         fontSize: 15,
     };
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
     const handleChangeRowsPerPage = (event) => {
         setStationsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    const stationToShow = [...stations].filter(
+        (station) =>
+        station.Name.includes(valueToSearch) ||
+        station.Osoite.includes(valueToSearch)
+        )
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+        if(stationToShow.length < stationsPerPage) {
+        setPage(0)
+        }
+    };
+   
     return (
         <div>
             <form className="form-inline">
@@ -124,12 +133,7 @@ const Stations = () => {
                 </thead>
                 <tbody>
                     {
-                        [...stations]
-                            .filter(
-                                (station) =>
-                                    station.Name.includes(valueToSearch) ||
-                                    station.Osoite.includes(valueToSearch)
-                            )
+                        stationToShow
                             .sort(SortByColumn)
                             .slice(
                                 page * stationsPerPage,
