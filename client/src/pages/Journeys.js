@@ -9,6 +9,8 @@ export default function Journeys() {
     const [page, setPage] = useState(0);
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
     const [valueForSearch, setValueForSearch] = useState('')
+    const [valueForFilterByDistance, setValueForFilterByDistance] = useState(0)
+    const [valueForFilterByDuration, setValueForFilterByDuration] = useState(0)
     const [sortConfig, setSortConfig] = useState({
         attr: 'Return_station_name',
         direction: 'descending',
@@ -17,10 +19,10 @@ export default function Journeys() {
         let direction = sortConfig.direction === 'ascending'? '' : '-';
         let orderByColumn = direction + sortConfig.attr;
         //offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
-        journeyService.getJourneys(page*journeysPerPage, journeysPerPage, orderByColumn).then(data => {
+        journeyService.getJourneys(page*journeysPerPage, journeysPerPage, orderByColumn, valueForFilterByDistance,valueForFilterByDuration).then(data => {
             setJourneys(data)
         })
-    }, [page, journeysPerPage, sortConfig.attr, sortConfig.direction]);
+    }, [page, journeysPerPage, sortConfig.attr, sortConfig.direction,valueForFilterByDistance,valueForFilterByDuration]);
  
     const requestSort = (attr) => {
         let direction = 'ascending';
@@ -50,16 +52,35 @@ export default function Journeys() {
         <div>
             <h3>Journeys</h3>
             <div className="d-inline p-3 form-group ml-auto">
-            <h5 className="d-inline p-3">
+                <h5 className="d-inline p-3">
                     Search journey by depature/return station name:
                 </h5>
                 <input
                     type="text"
-                    id="nameToSearch"
-                    placeholder="Search for stations"
+                    id="nameForSearch"
+                    placeholder="Search by stations"
                     onChange={(e) => setValueForSearch(e.target.value)}
                 />
-                </div>
+                <h5 className="d-inline p-3">
+                    Filter journey by covered distance (km):
+                </h5>
+                <input
+                    type="number"
+                    id="valueForFilterByDistance"
+                    placeholder="Filter by distance"
+                    onChange={(e) => setValueForFilterByDistance((e.target.value)*1000)}
+                />
+                <h5 className="d-inline p-3">
+                    Filter journey by duration (min):
+                </h5>
+                <input
+                    type="number"
+                    id="valueForFilterByDuration"
+                    placeholder="Filter by duration"
+                    onChange={(e) => setValueForFilterByDuration((e.target.value)*60)}
+                />
+            </div>
+                
             <table>
                 <thead>
                     <tr>
@@ -68,7 +89,7 @@ export default function Journeys() {
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
                                 onClick={() => requestSort('Departure_station_name')}
-                                id="btn-sort-id"
+                                id="Departure_station_name"
                             >
                                 {' '}
                                 <FaSort />
@@ -79,7 +100,7 @@ export default function Journeys() {
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
                                 onClick={() => requestSort('Return_station_name')}
-                                id="btn-sort-id"
+                                id="Return_station_name"
                             >
                                 {' '}
                                 <FaSort />
@@ -90,7 +111,7 @@ export default function Journeys() {
                                 style={buttonStyle}
                                 className="btn btn-light btn-sm"
                                 onClick={() => requestSort('Covered_distance_m')}
-                                id="btn-sort-id"
+                                id="valueForFilterByDistance"
                             >
                                 {' '}
                                 <FaSort />
