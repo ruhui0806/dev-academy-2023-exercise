@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import stationService from '../services/stations'
 import StationMap from '../components/StationMap'
 import { useLoadScript } from '@react-google-maps/api';
-
+import { FaTrashAlt } from 'react-icons/fa'
 export default function StationView() {
     const { ID } = useParams()
+    const navigate = useNavigate()
     const { mapLoading } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     })
@@ -20,7 +21,15 @@ export default function StationView() {
         }, [ID])
         return station
     }
-
+const handleDeleteStation = (id) => {
+    if(window.confirm(`Are you sure you want to delete ${station.currentStation.Name}?`)){
+        stationService.deleteStationByID(id)
+          .then(data => console.log(data))
+          .catch(err => console.log(err))
+        
+        navigate('/stations')
+    }
+}
     const station = useStation(ID)
     console.log(station)
     if (!station) {
@@ -75,6 +84,12 @@ export default function StationView() {
                     >
                         Go Back
                     </Link>
+                    <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDeleteStation(station.currentStation.ID)}
+                >
+                    <FaTrashAlt />{' '}
+                </button>
                 </div>
 
                 {/* <div className="ratio ratio-16x9 mb-3">

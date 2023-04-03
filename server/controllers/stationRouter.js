@@ -7,6 +7,9 @@ const { populate } = require('../models/station');
 stationRouter.get('/', (request, response) => {
     Station.find({}).then((stations) => response.json(stations));
 });
+stationRouter.delete('/:ID', (request, response) => {
+    Station.findOneAndDelete({ID: request.params.ID}).then((station) => response.json(station));
+})
 
 stationRouter.get('/:ID', async (request, response, next) => {
     try {

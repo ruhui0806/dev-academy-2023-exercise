@@ -1,7 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaTrashAlt } from 'react-icons/fa'
+import stationService from "../services/stations"
 export default function StationRow({ station }) {
+    const navigate = useNavigate()
+    const handleDeleteStation = (id) => {
+        if(window.confirm(`Are you sure you want to delete ${station.currentStation.Name}?`)){
+            stationService.deleteStationByID(id)
+              .then(data => console.log(data))
+              .catch(err => console.log(err))
+            
+            navigate('/stations')
+        }
+    }
     return (
         <tr>
             <td>
@@ -28,7 +39,7 @@ export default function StationRow({ station }) {
             <td>
                 <button
                     className="btn btn-danger btn-sm"
-                // onClick={deleteStation}
+                    onClick={() => handleDeleteStation(station.ID)}
                 >
                     <FaTrashAlt />{' '}
                 </button>

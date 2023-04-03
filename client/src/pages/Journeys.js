@@ -8,6 +8,7 @@ export default function Journeys() {
     const [journeys, setJourneys] = useState([]);
     const [page, setPage] = useState(0);
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
+    const [valueForSearch, setValueForSearch] = useState('')
     const [sortConfig, setSortConfig] = useState({
         attr: 'Return_station_name',
         direction: 'descending',
@@ -49,9 +50,15 @@ export default function Journeys() {
         <div>
             <h3>Journeys</h3>
             <div className="d-inline p-3 form-group ml-auto">
-                    <label className=" p-3 form-label ml-auto">
-                        Stations Per Page:
-                    </label>
+            <h5 className="d-inline p-3">
+                    Search journey by depature/return station name:
+                </h5>
+                <input
+                    type="text"
+                    id="nameToSearch"
+                    placeholder="Search for stations"
+                    onChange={(e) => setValueForSearch(e.target.value)}
+                />
                 </div>
             <table>
                 <thead>
@@ -104,10 +111,12 @@ export default function Journeys() {
                 </thead>
                 <tbody>
 
-                    {journeys
+                    {[...journeys]
+                    .filter(journey => journey.Departure_station_name.includes(valueForSearch) || journey.Return_station_name.includes(valueForSearch))
                     .map(journey => (
                         <JourneyRow key={journey._id} journey={journey} />
-                    ))}
+                    ))
+                    }
                 </tbody>
             </table>
             <Pagination
