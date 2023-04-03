@@ -15,7 +15,6 @@ export default function Journeys() {
     useEffect(() => {
         let direction = sortConfig.direction === 'ascending'? '' : '-';
         let orderByColumn = direction + sortConfig.attr;
-        console.log(orderByColumn)
         //offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
         journeyService.getJourneys(page*journeysPerPage, journeysPerPage, orderByColumn).then(data => {
             setJourneys(data)
