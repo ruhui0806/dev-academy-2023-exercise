@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import LoadingSpinner from '../LoadingSpinner';
 import { FaSort } from 'react-icons/fa';
 import Pagination from '../components/pagination';
 import stationService from '../services/stations.js';

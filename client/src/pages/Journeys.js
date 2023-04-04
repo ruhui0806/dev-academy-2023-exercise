@@ -8,7 +8,8 @@ export default function Journeys() {
     const [journeys, setJourneys] = useState([]);
     const [page, setPage] = useState(0);
     const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
-    const [valueForSearch, setValueForSearch] = useState('')
+    //// eslint-disable-next-line no-unused-vars
+    //const [valueForSearch, setValueForSearch] = useState('')
     const [valueForFilterByDistance, setValueForFilterByDistance] = useState(0)
     const [valueForFilterByDuration, setValueForFilterByDuration] = useState(0)
     const [sortConfig, setSortConfig] = useState({
@@ -43,16 +44,20 @@ export default function Journeys() {
         };
         const handleChangePage = (event, newPage) => {
             setPage(newPage);
+            if(journeys.length < journeysPerPage) {
+                setPage(0)
+            }
         };
         const handleChangeRowsPerPage = (event) => {
             setJourneysPerPage(parseInt(event.target.value, 10));
             setPage(0);
         };
+
     return (
         <div>
             <h3>Journeys</h3>
             <div className="d-inline p-3 form-group ml-auto">
-                <h5 className="d-inline p-3">
+                {/* <h5 className="d-inline p-3">
                     Search journey by depature/return station name:
                 </h5>
                 <input
@@ -60,23 +65,23 @@ export default function Journeys() {
                     id="nameForSearch"
                     placeholder="Search by stations"
                     onChange={(e) => setValueForSearch(e.target.value)}
-                />
+                /> */}
                 <h5 className="d-inline p-3">
-                    Filter journey by covered distance (km):
+                    Filter journey by covered distance (km) longer than:
                 </h5>
                 <input
                     type="number"
                     id="valueForFilterByDistance"
-                    placeholder="Filter by distance"
+                    placeholder="filter by distance"
                     onChange={(e) => setValueForFilterByDistance((e.target.value)*1000)}
                 />
                 <h5 className="d-inline p-3">
-                    Filter journey by duration (min):
+                    Filter journey by duration (min) longer than:
                 </h5>
                 <input
                     type="number"
                     id="valueForFilterByDuration"
-                    placeholder="Filter by duration"
+                    placeholder="filter by duration"
                     onChange={(e) => setValueForFilterByDuration((e.target.value)*60)}
                 />
             </div>
