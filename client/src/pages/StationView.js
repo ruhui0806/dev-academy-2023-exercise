@@ -45,6 +45,7 @@ const handleDeleteStation = (id) => {
                             <th>Name</th>
                             <th>ID</th>
                             <th>Address</th>
+                            {/* <th>City</th> */}
                             <th>Journeys start here</th>
                             <th>Journeys end here</th>
                             <th>Ave Dist: journeys departure from here</th>
@@ -56,7 +57,7 @@ const handleDeleteStation = (id) => {
                             <td>{station.currentStation.Name}</td>
                             <td>{station.currentStation.ID}</td>
                             <td>{station.currentStation.Osoite}</td>
-                            <td>{station.currentStation.Kaupunki}</td>
+                            {/* <td>{station.currentStation.Kaupunki}</td> */}
                             <td>{station.countJourneyStartHere}</td>
                             <td>{station.countJourneyEndHere}</td>
                             <td>{Math.ceil(station.averageDepartunreDistance[0].averageDistance)}</td>
@@ -76,7 +77,7 @@ const handleDeleteStation = (id) => {
                         <li key={journey._id}>{journey._id}: {journey.count}</li>
                     ))}
                 </ul>
-                <div>
+                <div className='station-view-footer'>
                     {/* <UpdateStationModal station={station} /> */}
                     <Link
                         to="/stations"

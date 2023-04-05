@@ -9,12 +9,12 @@ import StationView from './pages/StationView';
 const App = () => {
 
   return (
-    <div>
+    <div className="box">
       <h1>hello world</h1>
       <Router>
-        <div>
-          <Link to="/stations" id="stations">Stations</Link>
-          <Link to="/journeys" id="journeys">Journeys</Link>
+        <div className='router-link-container'>
+          <Link to="/stations">Stations</Link>
+          <Link to="/journeys">Journeys</Link>
         </div>
         <Routes>
           <Route path="/stations" element={<Stations />} />

@@ -24,14 +24,14 @@ export default function JourneyRow({ journey }) {
                 {/* <Link to={`/stations/${journey.ID}`} className="page-link ">
                 </Link> */}
             </td>
-            <td>
+            {/* <td>
                 <button
                     className="btn btn-danger btn-sm"
                 // onClick={deletejourney}
                 >
                     <FaTrashAlt />{' '}
                 </button>
-            </td>
+            </td> */}
         </tr>
     )
 

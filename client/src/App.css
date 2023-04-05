@@ -37,19 +37,92 @@
   }
 }
 h1 {
-  color: green;
+  color: #fff;
   font-size: 5em;
+  font-family:'Courier New', Courier, monospace
 }
+h5 {font-family: "Rock Salt"}
 li {
   list-style-type: none;
 }
 a:link {
-  color: rgb(138, 125, 209);
+  color: rgb(234, 233, 240);
+  text-decoration: none;
 }
 
 a:visited {
-  color: green;
+  color: rgb(13, 21, 43);
 }
 a:hover {
-  color: darkblue
+  color: rgb(10,25,41);
+  text-decoration: underline;
+}
+.box {
+  position:static;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 3%;
+  padding-right: 3%;
+  border-radius: 5px;
+  background-image: linear-gradient(to right bottom, rgb(106, 217, 230), rgb(157, 77, 231) 100%);
+  /* Black shadow with 10px blur */
+  filter: drop-shadow(6px 6px 3px rgb(187, 188, 209));
+
+  background-color: #dbdde0;
+  display:flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.router-link-container {
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  justify-content:space-between;
+  /* border: 5px solid rgb(30, 194, 219); */
+}
+/* #stations-page {} */
+table {
+  position:static;
+  table-layout: fixed;
+  width: 100%;
+  border: 1px solid rgb(98, 141, 168);
+  border-radius: 5px;
+  background-color: #1f7792;
+
+  /* Black shadow with 10px blur */
+  /* filter: drop-shadow(6px 6px 3px rgb(187, 188, 209)); */
+}
+.station-view-footer {
+  padding-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+thead th,
+tfoot th {
+  font-family:-apple-system, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+th {
+  letter-spacing: 2px;
+  
+}
+
+td {
+  letter-spacing: 1px;
+  font-family:-apple-system, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
+  color: #fff;
+}
+
+tbody td {
+  text-align: center;
+}
+
+tfoot th {
+  text-align: right;
 }

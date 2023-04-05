@@ -64,7 +64,7 @@ const Stations = () => {
     };
    
     return (
-        <div>
+        <div id='stations-page'>
             <form className="form-inline">
                 <h5 className="d-inline p-3">
                     Search Station by Name/Address:
@@ -77,7 +77,7 @@ const Stations = () => {
                 />
             </form>
 
-            <table className="table table-hover mt-3">
+            <table>
                 <thead>
                     <tr>
                         <th>
@@ -128,6 +128,7 @@ const Stations = () => {
                                 <FaSort />
                             </button>
                         </th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
