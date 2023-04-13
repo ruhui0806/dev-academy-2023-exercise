@@ -2,63 +2,31 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 h1 {
-  color: #fff;
+  color: black;
   font-size: 5em;
-  font-family:'Courier New', Courier, monospace
+  font-family: "Black Han Sans", sans-serif;
 }
-h5 {font-family: "Rock Salt"}
+h5 {
+  font-family: "Balsamiq Sans", sans-serif;
+}
 li {
   list-style-type: none;
 }
 a:link {
-  color: rgb(234, 233, 240);
+  color: #293241;
   text-decoration: none;
 }
 
 a:visited {
-  color: rgb(13, 21, 43);
+  color: rgb(13, 14, 15);
 }
 a:hover {
-  color: rgb(10,25,41);
+  color: rgb(106, 128, 138);
   text-decoration: underline;
 }
 .box {
-  position:static;
+  position: static;
   margin-top: 25px;
   margin-bottom: 15px;
   margin-left: 15px;
@@ -66,57 +34,53 @@ a:hover {
   padding-left: 3%;
   padding-right: 3%;
   border-radius: 5px;
-  background-image: linear-gradient(to right bottom, rgb(106, 217, 230), rgb(157, 77, 231) 100%);
-  /* Black shadow with 10px blur */
-  filter: drop-shadow(6px 6px 3px rgb(187, 188, 209));
-
-  background-color: #dbdde0;
-  display:flex;
+  background-image: linear-gradient(to right bottom, #c9dfeb, #f3f8f8 100%);
+  filter: drop-shadow(6px 6px 3px #778da9);
+  display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
 }
 .router-link-container {
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
   /* border: 5px solid rgb(30, 194, 219); */
 }
-/* #stations-page {} */
+
 table {
-  position:static;
+  margin-top: 10px;
+  position: static;
   table-layout: fixed;
   width: 100%;
-  border: 1px solid rgb(98, 141, 168);
+  border: 1px solid #c0c0c0;
   border-radius: 5px;
-  background-color: #1f7792;
-
-  /* Black shadow with 10px blur */
-  /* filter: drop-shadow(6px 6px 3px rgb(187, 188, 209)); */
+  /* background-color: #3d5a80; */
 }
 .station-view-footer {
   padding-bottom: 2%;
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 thead th,
 tfoot th {
-  font-family:-apple-system, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
-  color: #fff;
+  font-family: -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue",
+    sans-serif;
+  color: #403d39;
   font-size: 1.2em;
 }
 
 th {
   letter-spacing: 2px;
-  
 }
 
 td {
   letter-spacing: 1px;
-  font-family:-apple-system, 'Segoe UI','Open Sans', 'Helvetica Neue', sans-serif;
-  color: #fff;
+  font-family: -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue",
+    sans-serif;
+  color: #403d39;
 }
 
 tbody td {
@@ -125,4 +89,9 @@ tbody td {
 
 tfoot th {
   text-align: right;
+}
+
+#search-station,
+#filter-journey {
+  margin-bottom: 10px;
 }

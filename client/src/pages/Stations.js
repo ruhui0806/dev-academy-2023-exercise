@@ -51,27 +51,28 @@ const Stations = () => {
     setStationsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const stationToShow = [...stations].filter(
+  const stationToShow = stations.filter(
     (station) =>
       station.Name.toLowerCase().includes(valueToSearch) ||
       station.Osoite.toLowerCase().includes(valueToSearch)
   );
+  const handleStationToShow = (event) => {
+    setValueToSearch(event.target.value);
+    setPage(0);
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    if (stationToShow.length < stationsPerPage) {
-      setPage(0);
-    }
   };
 
   return (
     <div id="stations-page">
-      <form className="form-inline">
+      <form id="search-station">
         <h5 className="d-inline p-3">Search Station by Name/Address:</h5>
         <input
           type="text"
           id="nameToSearch"
           placeholder="Search for stations"
-          onChange={(e) => setValueToSearch(e.target.value)}
+          onChange={handleStationToShow}
         />
       </form>
 
@@ -130,22 +131,28 @@ const Stations = () => {
           </tr>
         </thead>
         <tbody>
-          {stationToShow
-            .sort(SortByColumn)
-            .slice(
-              page * stationsPerPage,
-              page * stationsPerPage + stationsPerPage
-            )
-            .map((station) => (
-              <StationRow station={station} key={station.ID} />
-            ))}
+          {stationToShow.length > stationsPerPage
+            ? stationToShow
+                .sort(SortByColumn)
+                .slice(
+                  page * stationsPerPage,
+                  page * stationsPerPage + stationsPerPage
+                )
+                .map((station) => (
+                  <StationRow station={station} key={station.ID} />
+                ))
+            : stationToShow
+                .sort(SortByColumn)
+                .map((station) => (
+                  <StationRow station={station} key={station.ID} />
+                ))}
         </tbody>
       </table>
       <Pagination
-        count={Number(stations.length)}
+        count={Number(stationToShow.length)}
         component="div"
         rowsPerPage={stationsPerPage}
-        page={page}
+        page={stationToShow.length > stationsPerPage ? page : 0}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
       />

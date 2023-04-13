@@ -69,19 +69,15 @@ export default function Journeys() {
   return (
     <div id="journeys-page">
       <h3>Journeys</h3>
-      <div className="d-inline p-3 form-group ml-auto">
-        <h5 className="d-inline p-3">
-          Filter journey by covered distance (km) longer than:
-        </h5>
+      <div id="filter-journey">
+        <h5>Filter journey by covered distance (km) longer than:</h5>
         <input
           type="number"
           id="valueForFilterByDistance"
           placeholder="filter by distance"
           onChange={(e) => setValueForFilterByDistance(e.target.value * 1000)}
         />
-        <h5 className="d-inline p-3">
-          Filter journey by duration (min) longer than:
-        </h5>
+        <h5>Filter journey by duration (min) longer than:</h5>
         <input
           type="number"
           id="valueForFilterByDuration"
