@@ -14,6 +14,7 @@ export default function Journeys() {
     attr: "Return_station_name",
     direction: "descending",
   });
+  const [journeyCount, setJourneyCount] = useState(Number(782598));
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
     let orderByColumn = direction + sortConfig.attr;
@@ -27,7 +28,8 @@ export default function Journeys() {
         valueForFilterByDuration
       )
       .then((data) => {
-        setJourneys(data);
+        setJourneys(data.journeys);
+        setJourneyCount(data.journeysCount);
       });
   }, [
     page,
@@ -57,12 +59,17 @@ export default function Journeys() {
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    if (journeys.length < journeysPerPage) {
-      setPage(0);
-    }
   };
   const handleChangeRowsPerPage = (event) => {
     setJourneysPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  const handleFilterByDistance = (event) => {
+    setValueForFilterByDistance(event.target.value * 1000);
+    setPage(0);
+  };
+  const handleFilterByDuration = (event) => {
+    setValueForFilterByDuration(event.target.value * 60);
     setPage(0);
   };
 
@@ -75,14 +82,14 @@ export default function Journeys() {
           type="number"
           id="valueForFilterByDistance"
           placeholder="filter by distance"
-          onChange={(e) => setValueForFilterByDistance(e.target.value * 1000)}
+          onChange={handleFilterByDistance}
         />
         <h5>Filter journey by duration (min) longer than:</h5>
         <input
           type="number"
           id="valueForFilterByDuration"
           placeholder="filter by duration"
-          onChange={(e) => setValueForFilterByDuration(e.target.value * 60)}
+          onChange={handleFilterByDuration}
         />
       </div>
 
@@ -146,7 +153,7 @@ export default function Journeys() {
         </tbody>
       </table>
       <Pagination
-        count={Number(782598)}
+        count={journeyCount}
         component="div"
         rowsPerPage={journeysPerPage}
         page={page}

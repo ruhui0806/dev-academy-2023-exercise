@@ -11,8 +11,8 @@ const App = () => {
       <h1>Helsinki City Bike</h1>
       <Router>
         <div className="router-link-container">
-          <Link to="/stations">Stations</Link>
-          <Link to="/journeys">Journeys</Link>
+          <Link to="/stations">STATIONS</Link>
+          <Link to="/journeys">JOURNEYS</Link>
         </div>
         <Routes>
           <Route path="/stations" element={<Stations />} />
