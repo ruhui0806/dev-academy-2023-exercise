@@ -8,8 +8,6 @@ export default function Journeys() {
   const [journeys, setJourneys] = useState([]);
   const [page, setPage] = useState(0);
   const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
-  //// eslint-disable-next-line no-unused-vars
-  //const [valueForSearch, setValueForSearch] = useState('')
   const [valueForFilterByDistance, setValueForFilterByDistance] = useState(0);
   const [valueForFilterByDuration, setValueForFilterByDuration] = useState(0);
   const [sortConfig, setSortConfig] = useState({
@@ -72,15 +70,6 @@ export default function Journeys() {
     <div id="journeys-page">
       <h3>Journeys</h3>
       <div className="d-inline p-3 form-group ml-auto">
-        {/* <h5 className="d-inline p-3">
-                    Search journey by depature/return station name:
-                </h5>
-                <input
-                    type="text"
-                    id="nameForSearch"
-                    placeholder="Search by stations"
-                    onChange={(e) => setValueForSearch(e.target.value)}
-                /> */}
         <h5 className="d-inline p-3">
           Filter journey by covered distance (km) longer than:
         </h5>
@@ -155,13 +144,9 @@ export default function Journeys() {
           </tr>
         </thead>
         <tbody>
-          {
-            // [...journeys]
-            // .filter(journey => journey.Departure_station_name.includes(valueForSearch) || journey.Return_station_name.includes(valueForSearch))
-            journeys.map((journey) => (
-              <JourneyRow key={journey._id} journey={journey} />
-            ))
-          }
+          {journeys.map((journey) => (
+            <JourneyRow key={journey._id} journey={journey} />
+          ))}
         </tbody>
       </table>
       <Pagination
