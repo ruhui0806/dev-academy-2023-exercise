@@ -53,8 +53,8 @@ const Stations = () => {
   };
   const stationToShow = stations.filter(
     (station) =>
-      station.Name.toLowerCase().includes(valueToSearch) ||
-      station.Osoite.toLowerCase().includes(valueToSearch)
+      station.Name.toLowerCase().includes(valueToSearch.toLowerCase()) ||
+      station.Osoite.toLowerCase().includes(valueToSearch.toLowerCase())
   );
   const handleStationToShow = (event) => {
     setValueToSearch(event.target.value);

@@ -28,7 +28,6 @@ a:hover {
 .box {
   position: static;
   margin-top: 25px;
-  margin-bottom: 15px;
   margin-left: 15px;
   margin-right: 15px;
   padding-left: 3%;
@@ -58,11 +57,14 @@ table {
   border-radius: 5px;
   /* background-color: #3d5a80; */
 }
+#table-pagination {
+  margin-bottom: 20px;
+}
 .station-view-footer {
-  padding-bottom: 2%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 40px;
 }
 thead th,
 tfoot th {

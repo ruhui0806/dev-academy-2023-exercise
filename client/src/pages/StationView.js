@@ -37,7 +37,7 @@ export default function StationView() {
     }
   };
   const station = useStation(ID);
-  console.log(station);
+  //   console.log(station);
   if (!station) {
     return <div>wait...</div>;
   }
@@ -45,91 +45,81 @@ export default function StationView() {
     return <div>wait...</div>;
   }
   return (
-    <div>
-      <div>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>ID</th>
-              <th>Address</th>
-              <th>Journeys start here</th>
-              <th>Journeys end here</th>
-              <th colspan="2">Average distance </th>
-            </tr>
-            <tr>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <th>journeys start here</th>
-              <th>journeys end here</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{station.currentStation.Name}</td>
-              <td>{station.currentStation.ID}</td>
-              <td>{station.currentStation.Osoite}</td>
-              {/* <td>{station.currentStation.Kaupunki}</td> */}
-              <td>{station.countJourneyStartHere}</td>
-              <td>{station.countJourneyEndHere}</td>
-              <td>
-                {Math.ceil(
-                  station.averageDepartunreDistance[0].averageDistance
-                )}
-              </td>
-              <td>
-                {Math.ceil(station.averageReturnDistance[0].averageDistance)}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <h4>
-          Top 5 most popular return stations for journeys starting from:{" "}
-          {station.currentStation.Name}
-        </h4>
-        <ul>
-          {station.aggrJourneyDeparture.map((journey) => (
-            <li key={journey._id}>
-              {journey._id}: {journey.count}
-            </li>
-          ))}
-        </ul>
-        <h4>
-          Top 5 most popular departure stations for journeys ending at:{" "}
-          {station.currentStation.Name}
-        </h4>
-        <ul>
-          {station.aggrJourneyReturn.map((journey) => (
-            <li key={journey._id}>
-              {journey._id}: {journey.count}
-            </li>
-          ))}
-        </ul>
-        <div className="station-view-footer">
-          {/* <UpdateStationModal station={station} /> */}
-          <Link to="/stations" className="btn btn-primary ms-auto ">
-            Go Back
-          </Link>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => handleDeleteStation(station.currentStation.ID)}
-          >
-            <FaTrashAlt />{" "}
-          </button>
-        </div>
-
-        {/* <div className="ratio ratio-16x9 mb-3">
-                    {station && !mapLoading &&
-                        <div>
-                            <h4>map container</h4>
-
-                            <StationMap x={Number(station.currentStation.x)} y={Number(station.currentStation.y)} />
-                        </div>
-                    }
-                </div> */}
+    <div id="station-view-page">
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Address</th>
+            <th>Journeys start here</th>
+            <th>Journeys end here</th>
+            <th colSpan="2">Average distance </th>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <th>journeys start here</th>
+            <th>journeys end here</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{station.currentStation.Name}</td>
+            <td>{station.currentStation.ID}</td>
+            <td>{station.currentStation.Osoite}</td>
+            <td>{station.countJourneyStartHere}</td>
+            <td>{station.countJourneyEndHere}</td>
+            <td>
+              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
+            </td>
+            <td>
+              {Math.ceil(station.averageReturnDistance[0].averageDistance)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>
+        Top 5 most popular return stations for journeys starting from:{" "}
+        {station.currentStation.Name}
+      </h4>
+      <ul>
+        {station.aggrJourneyDeparture.map((journey) => (
+          <li key={journey._id}>
+            {journey._id}: {journey.count}
+          </li>
+        ))}
+      </ul>
+      <h4>
+        Top 5 most popular departure stations for journeys ending at:{" "}
+        {station.currentStation.Name}
+      </h4>
+      <ul>
+        {station.aggrJourneyReturn.map((journey) => (
+          <li key={journey._id}>
+            {journey._id}: {journey.count}
+          </li>
+        ))}
+      </ul>
+      {station && !mapLoading && (
+        <StationMap
+          x={Number(station.currentStation.x)}
+          y={Number(station.currentStation.y)}
+        />
+      )}
+      <div className="station-view-footer">
+        <Link to="/stations" className="btn btn-primary ms-auto ">
+          Go Back
+        </Link>
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => handleDeleteStation(station.currentStation.ID)}
+        >
+          <FaTrashAlt />{" "}
+        </button>
       </div>
     </div>
   );
