@@ -14,7 +14,7 @@ const StationMap = ({ x, y }) => {
           height: "400px",
           width: "800px",
           marginTop: "20px",
-          marginBottom: "40px",
+          marginBottom: "20px",
         }}
       >
         <MarkerF position={center} />

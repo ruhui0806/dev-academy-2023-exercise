@@ -83,7 +83,7 @@ export default function StationView() {
         </tbody>
       </table>
       <h4>
-        Top 5 most popular return stations for journeys starting from:{" "}
+        Top 5 most popular return stations for journeys (counts) starting from:{" "}
         {station.currentStation.Name}
       </h4>
       <ul>
@@ -94,7 +94,7 @@ export default function StationView() {
         ))}
       </ul>
       <h4>
-        Top 5 most popular departure stations for journeys ending at:{" "}
+        Top 5 most popular departure stations for journeys (counts) ending at:
         {station.currentStation.Name}
       </h4>
       <ul>
