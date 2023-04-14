@@ -8,9 +8,10 @@ header {
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-top: 5px;
   border-radius: 50px;
+  filter: drop-shadow(6px 6px 3px #1f6fb6);
 }
 h1 {
   color: rgb(244, 239, 239);
@@ -138,6 +139,16 @@ tfoot th {
 #filter-journey {
   margin-bottom: 10px;
 }
+input {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888;
+  font-size: medium;
+}
+
 @media screen and (max-width: 760px) {
   /* Force table to not be like tables anymore */
   header,

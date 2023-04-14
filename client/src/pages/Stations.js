@@ -21,6 +21,17 @@ const Stations = () => {
 
   //sort-by-column functions:
   const SortByColumn = (a, b) => {
+    if (sortConfig.attr === "Kapasiteet") {
+      a[sortConfig.attr] = parseInt(a[sortConfig.attr]);
+      b[sortConfig.attr] = parseInt(b[sortConfig.attr]);
+      if (a[sortConfig.attr] < b[sortConfig.attr]) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (a[sortConfig.attr] > b[sortConfig.attr]) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    }
     if (a[sortConfig.attr] < b[sortConfig.attr]) {
       return sortConfig.direction === "ascending" ? -1 : 1;
     }
@@ -45,6 +56,7 @@ const Stations = () => {
     fontSize: 15,
   };
   const handleChangeRowsPerPage = (event) => {
+    event.preventDefault();
     setStationsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -54,10 +66,12 @@ const Stations = () => {
       station.Osoite.toLowerCase().includes(valueToSearch.toLowerCase())
   );
   const handleStationToShow = (event) => {
+    event.preventDefault();
     setValueToSearch(event.target.value);
     setPage(0);
   };
   const handleChangePage = (event, newPage) => {
+    event.preventDefault();
     setPage(newPage);
   };
 
@@ -68,7 +82,7 @@ const Stations = () => {
         <input
           type="text"
           id="nameToSearch"
-          placeholder="Search for stations"
+          placeholder="Search stations"
           onChange={handleStationToShow}
         />
       </form>

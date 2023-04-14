@@ -55,17 +55,21 @@ export default function Journeys() {
     fontSize: 15,
   };
   const handleChangePage = (event, newPage) => {
+    event.preventDefault();
     setPage(newPage);
   };
   const handleChangeRowsPerPage = (event) => {
+    event.preventDefault();
     setJourneysPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
   const handleFilterByDistance = (event) => {
+    event.preventDefault();
     setValueForFilterByDistance(event.target.value * 1000);
     setPage(0);
   };
   const handleFilterByDuration = (event) => {
+    event.preventDefault();
     setValueForFilterByDuration(event.target.value * 60);
     setPage(0);
   };
@@ -78,14 +82,14 @@ export default function Journeys() {
         <input
           type="number"
           id="valueForFilterByDistance"
-          placeholder="filter by distance"
+          placeholder="Filter by distance"
           onChange={handleFilterByDistance}
         />
         <h5>Filter journey by duration (min) longer than:</h5>
         <input
           type="number"
           id="valueForFilterByDuration"
-          placeholder="filter by duration"
+          placeholder="Filter by duration"
           onChange={handleFilterByDuration}
         />
       </div>
