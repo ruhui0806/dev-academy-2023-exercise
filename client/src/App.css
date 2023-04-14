@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-#header {
+header {
   background-color: rgb(11, 125, 239);
   width: 100%;
   display: flex;
@@ -74,6 +74,7 @@ a:hover {
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
+  overflow-x: auto;
 }
 #station-view-div-box {
   margin-top: 20px;
@@ -88,7 +89,6 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
 }
-
 table {
   margin-top: 10px;
   position: static;
@@ -98,6 +98,10 @@ table {
   border-radius: 5px;
   background-color: #f2f5f7;
 }
+.table-container {
+  overflow-x: auto;
+}
+
 #table-pagination {
   margin-bottom: 20px;
 }
@@ -111,7 +115,7 @@ thead th,
 tfoot th {
   font-family: Georgia, "Times New Roman", Times, serif sans-serif;
   color: #403d39;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 th {
@@ -136,4 +140,63 @@ tfoot th {
 #search-station,
 #filter-journey {
   margin-bottom: 10px;
+}
+@media screen and (max-width: 760px) {
+  /* Force table to not be like tables anymore */
+  header,
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  header {
+    position: relative;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    flex-flow: column wrap;
+  }
+  h1 {
+    font-size: 16pt;
+  }
+  /* Hide table headers (but not display: none;, for accessibility) */
+  /* thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 15pt;
+  } */
+
+  tr,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-size: 12pt;
+  }
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 10%;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
 }

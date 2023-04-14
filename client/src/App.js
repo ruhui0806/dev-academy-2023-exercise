@@ -8,7 +8,7 @@ import StationView from "./pages/StationView";
 const App = () => {
   return (
     <div className="box">
-      <header id="header">
+      <header>
         <h1>Helsinki City Bike</h1>
       </header>
 
