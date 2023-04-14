@@ -1,92 +1,158 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
-import stationService from '../services/stations'
-import StationMap from '../components/StationMap'
-import { useLoadScript } from '@react-google-maps/api';
-
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import stationService from "../services/stations";
+import StationMap from "../components/StationMap";
+import { useLoadScript } from "@react-google-maps/api";
+import { FaTrashAlt } from "react-icons/fa";
 export default function StationView() {
-    const { ID } = useParams()
-    const { mapLoading } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    })
-    const useStation = (ID) => {
-        const [station, setStation] = useState(null)
-        useEffect(() => {
-            if (ID !== "") {
-                stationService.getStationByID(ID)
-                    .then(data => setStation(data))
-                    .catch(err => console.log(err))
-            }
-        }, [ID])
-        return station
-    }
+  const { ID } = useParams();
+  const navigate = useNavigate();
+  const { mapLoading } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
+  });
+  const useStation = (ID) => {
+    const [station, setStation] = useState(null);
+    useEffect(() => {
+      if (ID !== "") {
+        stationService
+          .getStationByID(ID)
+          .then((data) => setStation(data))
+          .catch((err) => console.log(err));
+      }
+    }, [ID]);
+    return station;
+  };
+  const handleDeleteStation = (id) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${station.currentStation.Name}?`
+      )
+    ) {
+      stationService
+        .deleteStationByID(id)
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
 
-    const station = useStation(ID)
-    console.log(station)
-    if (!station) {
-        return <div>wait...</div>;
+      navigate("/stations");
     }
-    if (mapLoading) { return <div>wait...</div> }
-    return (
+  };
+  const station = useStation(ID);
+  //   console.log(station);
+  if (!station) {
+    return <div>wait...</div>;
+  }
+  if (mapLoading) {
+    return <div>wait...</div>;
+  }
+  const buttonStyle = {
+    paddingTop: 6,
+    paddingBottom: 6,
+    paddingLeft: 7,
+    paddingRight: 7,
+    fontSize: 15,
+  };
+  return (
+    <div id="station-view-page">
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Address</th>
+            <th>Journeys start here</th>
+            <th>Journeys end here</th>
+            {/* <th colSpan="2">Average distance </th> */}
+          </tr>
+          {/* <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <th>journeys start here</th>
+            <th>journeys end here</th>
+          </tr> */}
+        </thead>
+        <tbody>
+          <tr>
+            <td>{station.currentStation.Name}</td>
+            <td>{station.currentStation.ID}</td>
+            <td>{station.currentStation.Osoite}</td>
+            <td>{station.countJourneyStartHere}</td>
+            <td>{station.countJourneyEndHere}</td>
+            {/* <td>
+              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
+            </td>
+            <td>
+              {Math.ceil(station.averageReturnDistance[0].averageDistance)}
+            </td> */}
+          </tr>
+        </tbody>
+      </table>
+      <div id="station-view-div-box">
         <div>
-            <div>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Address</th>
-                            <th>Journeys start here</th>
-                            <th>Journeys end here</th>
-                            <th>Ave Dist: journeys departure from here</th>
-                            <th>Ave Dist: journeys end at here</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{station.currentStation.Name}</td>
-                            <td>{station.currentStation.ID}</td>
-                            <td>{station.currentStation.Osoite}</td>
-                            <td>{station.currentStation.Kaupunki}</td>
-                            <td>{station.countJourneyStartHere}</td>
-                            <td>{station.countJourneyEndHere}</td>
-                            <td>{station.averageDepartunreDistance[0].averageDistance}</td>
-                            <td>{station.averageReturnDistance[0].averageDistance}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h4>Top 5 most popular return stations for journeys starting from: {station.currentStation.Name}</h4>
-                <ul>
-                    {station.aggrJourneyDeparture.map((journey) => (
-                        <li key={journey._id}>{journey._id}: {journey.count}</li>
-                    ))}
-                </ul>
-                <h4>Top 5 most popular departure stations for journeys ending at: {station.currentStation.Name}</h4>
-                <ul>
-                    {station.aggrJourneyReturn.map((journey) => (
-                        <li key={journey._id}>{journey._id}: {journey.count}</li>
-                    ))}
-                </ul>
-                <div>
-                    {/* <UpdateStationModal station={station} /> */}
-                    <Link
-                        to="/stations"
-                        className="btn btn-primary ms-auto "
-                    >
-                        Go Back
-                    </Link>
-                </div>
-
-                {/* <div className="ratio ratio-16x9 mb-3">
-                    {station && !mapLoading &&
-                        <div>
-                            <h4>map container</h4>
-
-                            <StationMap x={Number(station.currentStation.x)} y={Number(station.currentStation.y)} />
-                        </div>
-                    }
-                </div> */}
-            </div>
+          <div>
+            <h4>
+              Top 5 most popular return stations for journeys (counts) starting
+              from: {station.currentStation.Name}
+            </h4>
+            <ul>
+              {station.aggrJourneyDeparture.map((journey) => (
+                <li key={journey._id}>
+                  {journey._id}: {journey.count}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4>
+              Top 5 most popular departure stations for journeys (counts) ending
+              at:
+              {station.currentStation.Name}
+            </h4>
+            <ul>
+              {station.aggrJourneyReturn.map((journey) => (
+                <li key={journey._id}>
+                  {journey._id}: {journey.count}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-    )
+
+        <div>
+          <div>
+            <h4>Average distance of all journeys start here (m):</h4>
+            <li>
+              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
+            </li>
+          </div>
+          <div>
+            <h4>Average distance of all journeys end here (m):</h4>
+            <li>
+              {Math.ceil(station.averageReturnDistance[0].averageDistance)}
+            </li>
+          </div>
+        </div>
+      </div>
+      {station && !mapLoading && (
+        <StationMap
+          x={Number(station.currentStation.x)}
+          y={Number(station.currentStation.y)}
+        />
+      )}
+      <div className="station-view-footer">
+        <Link to="/stations" className="button-link">
+          Go Back
+        </Link>
+        <button
+          className="button"
+          style={buttonStyle}
+          onClick={() => handleDeleteStation(station.currentStation.ID)}
+        >
+          <FaTrashAlt />{" "}
+        </button>
+      </div>
+    </div>
+  );
 }

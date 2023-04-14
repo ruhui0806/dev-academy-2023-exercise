@@ -1,38 +1,212 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  background-color: rgb(11, 125, 239);
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: center;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  border-radius: 50px;
+  height: fit-content;
+  filter: drop-shadow(6px 6px 3px #b6bec5);
+}
+h2 {
+  color: rgb(244, 239, 239);
+  font-size: 3em;
+  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+    sans-serif;
+  font-weight: bolder;
+}
+h5 {
+  font-family: "Balsamiq Sans", sans-serif;
+}
+li {
+  list-style-type: none;
+}
+a:link {
+  color: #293241;
+  text-decoration: none;
+}
+
+a:visited {
+  color: rgb(11, 125, 239);
+}
+a:hover {
+  color: rgb(72, 169, 225);
+  text-decoration: wavy;
+}
+.button,
+.button-link,
+.button-order {
+  display: inline-flex;
+  width: auto;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  cursor: pointer;
+  font-family: Arial, Georgia, serif;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5000px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888;
+  background-color: transparent;
+  font-size: big;
+  padding: 7px 25px;
+  color: rgb(11, 125, 239);
+  background-color: rgb(244, 239, 239);
+}
+.button {
+  border-radius: 25% 10%;
+}
+.box {
+  position: static;
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 3%;
+  padding-right: 3%;
+  border-radius: 5px;
+  background-image: linear-gradient(to right bottom, #e9f0f4, #f3f8f8 100%);
+  filter: drop-shadow(6px 6px 3px #778da9);
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-around;
+  overflow-x: auto;
+}
+#station-view-div-box {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: top;
+  justify-content: space-around;
+}
+.router-link-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+table {
+  margin-top: 10px;
+  position: static;
+  table-layout: fixed;
+  width: 100%;
+  border: 1px solid #f2f5f8;
+  border-radius: 5px;
+  background-color: #f2f5f7;
 }
 
-.App-link {
-  color: #61dafb;
+#table-pagination {
+  margin-bottom: 20px;
+}
+.station-view-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+thead th,
+tfoot th {
+  font-family: Georgia, "Times New Roman", Times, serif sans-serif;
+  color: #403d39;
+  font-size: 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+th {
+  letter-spacing: 2px;
+}
+
+td {
+  letter-spacing: 1px;
+  font-family: "Gotham Rounded A", "Gotham Rounded B", Arial, Georgia, serif;
+  color: #403d39;
+  /* font-weight: bold; */
+}
+
+tbody td {
+  text-align: center;
+}
+
+tfoot th {
+  text-align: right;
+}
+
+#search-station,
+#filter-journey {
+  margin-bottom: 10px;
+}
+input {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888;
+  font-size: medium;
+}
+
+@media screen and (max-width: 760px) {
+  /* Force table to not be like tables anymore */
+  header,
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
   }
-  to {
-    transform: rotate(360deg);
+  header {
+    position: relative;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    flex-flow: column wrap;
+  }
+  /* h1,
+  h2 {
+    font-size: 16pt;
+  } */
+  /* Hide table headers (but not display: none;, for accessibility) */
+  /* thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 15pt;
+  } */
+
+  tr,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-size: 12pt;
+  }
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 10%;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
   }
 }
