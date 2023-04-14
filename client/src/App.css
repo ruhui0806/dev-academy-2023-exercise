@@ -71,7 +71,6 @@ a:hover {
   padding-right: 3%;
   border-radius: 5px;
   background-image: linear-gradient(to right bottom, #e9f0f4, #f3f8f8 100%);
-  /* filter: drop-shadow(6px 6px 3px #778da9); */
   display: flex;
   flex-flow: column wrap;
   align-items: center;
