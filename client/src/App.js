@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="box">
       <header>
-        <h1>Helsinki City Bike</h1>
+        <h2>Helsinki City Bike App</h2>
       </header>
 
       <Router>
