@@ -120,6 +120,9 @@ th {
   letter-spacing: 2px;
 }
 
+tr {
+  line-height: 30px;
+}
 td {
   letter-spacing: 1px;
   font-family: "Gotham Rounded A", "Gotham Rounded B", Arial, Georgia, serif;
@@ -188,6 +191,7 @@ input {
   }
   tr {
     border: 1px solid #ccc;
+    line-height: 20px;
   }
 
   td {
