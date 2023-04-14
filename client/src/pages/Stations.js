@@ -72,80 +72,80 @@ const Stations = () => {
           onChange={handleStationToShow}
         />
       </form>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>
-                ID
-                <button
-                  style={buttonStyle}
-                  className="button-order"
-                  onClick={() => requestSort("ID")}
-                  id="btn-sort-id"
-                >
-                  {" "}
-                  <FaSort />
-                </button>
-              </th>
-              <th>
-                Name
-                <button
-                  onClick={() => requestSort("Name")}
-                  style={buttonStyle}
-                  className="button-order"
-                  id="btn-sort-name"
-                >
-                  {" "}
-                  <FaSort />
-                </button>
-              </th>
-              <th>
-                Address
-                <button
-                  onClick={() => requestSort("Osoite")}
-                  style={buttonStyle}
-                  className="button-order"
-                  id="btn-sort-address"
-                >
-                  {" "}
-                  <FaSort />
-                </button>
-              </th>
-              <th>
-                Capacity
-                <button
-                  onClick={() => requestSort("Kapasiteet")}
-                  style={buttonStyle}
-                  className="button-order"
-                  id="btn-sort-capacity"
-                >
-                  {" "}
-                  <FaSort />
-                </button>
-              </th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stationToShow.length > stationsPerPage
-              ? stationToShow
-                  .sort(SortByColumn)
-                  .slice(
-                    page * stationsPerPage,
-                    page * stationsPerPage + stationsPerPage
-                  )
-                  .map((station) => (
-                    <StationRow station={station} key={station.ID} />
-                  ))
-              : stationToShow
-                  .sort(SortByColumn)
-                  .map((station) => (
-                    <StationRow station={station} key={station.ID} />
-                  ))}
-          </tbody>
-        </table>
-      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              ID
+              <button
+                style={buttonStyle}
+                className="button-order"
+                onClick={() => requestSort("ID")}
+                id="btn-sort-id"
+              >
+                {" "}
+                <FaSort />
+              </button>
+            </th>
+            <th>
+              Name
+              <button
+                onClick={() => requestSort("Name")}
+                style={buttonStyle}
+                className="button-order"
+                id="btn-sort-name"
+              >
+                {" "}
+                <FaSort />
+              </button>
+            </th>
+            <th>
+              Address
+              <button
+                onClick={() => requestSort("Osoite")}
+                style={buttonStyle}
+                className="button-order"
+                id="btn-sort-address"
+              >
+                {" "}
+                <FaSort />
+              </button>
+            </th>
+            <th>
+              Capacity
+              <button
+                onClick={() => requestSort("Kapasiteet")}
+                style={buttonStyle}
+                className="button-order"
+                id="btn-sort-capacity"
+              >
+                {" "}
+                <FaSort />
+              </button>
+            </th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stationToShow.length > stationsPerPage
+            ? stationToShow
+                .sort(SortByColumn)
+                .slice(
+                  page * stationsPerPage,
+                  page * stationsPerPage + stationsPerPage
+                )
+                .map((station) => (
+                  <StationRow station={station} key={station.ID} />
+                ))
+            : stationToShow
+                .sort(SortByColumn)
+                .map((station) => (
+                  <StationRow station={station} key={station.ID} />
+                ))}
+        </tbody>
+      </table>
+
       <Pagination
         count={Number(stationToShow.length)}
         component="div"
