@@ -1,11 +1,23 @@
 .App {
   text-align: center;
 }
-
+#header {
+  background-color: rgb(11, 125, 239);
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  border-radius: 50px;
+}
 h1 {
-  color: black;
+  color: rgb(244, 239, 239);
   font-size: 5em;
-  font-family: "Black Han Sans", sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+    sans-serif;
+  font-weight: bolder;
 }
 h5 {
   font-family: "Balsamiq Sans", sans-serif;
@@ -19,11 +31,34 @@ a:link {
 }
 
 a:visited {
-  color: rgb(13, 14, 15);
+  color: rgb(11, 125, 239);
 }
 a:hover {
-  color: rgb(106, 128, 138);
-  text-decoration: underline;
+  color: rgb(72, 169, 225);
+  text-decoration: wavy;
+}
+.button,
+.button-link,
+.button-order {
+  display: inline-flex;
+  width: auto;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, Georgia, serif;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5000px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888;
+  background-color: transparent;
+  font-size: big;
+  padding: 7px 25px;
+  color: rgb(11, 125, 239);
+  background-color: rgb(244, 239, 239);
+}
+.button {
+  border-radius: 25% 10%;
 }
 .box {
   position: static;
@@ -33,11 +68,18 @@ a:hover {
   padding-left: 3%;
   padding-right: 3%;
   border-radius: 5px;
-  background-image: linear-gradient(to right bottom, #c9dfeb, #f3f8f8 100%);
+  background-image: linear-gradient(to right bottom, #e9f0f4, #f3f8f8 100%);
   filter: drop-shadow(6px 6px 3px #778da9);
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+  justify-content: space-around;
+}
+#station-view-div-box {
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: top;
   justify-content: space-around;
 }
 .router-link-container {
@@ -45,7 +87,6 @@ a:hover {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* border: 5px solid rgb(30, 194, 219); */
 }
 
 table {
@@ -53,9 +94,9 @@ table {
   position: static;
   table-layout: fixed;
   width: 100%;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #f2f5f8;
   border-radius: 5px;
-  /* background-color: #3d5a80; */
+  background-color: #f2f5f7;
 }
 #table-pagination {
   margin-bottom: 20px;
@@ -68,8 +109,7 @@ table {
 }
 thead th,
 tfoot th {
-  font-family: -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif sans-serif;
   color: #403d39;
   font-size: 1.2em;
 }
@@ -80,9 +120,9 @@ th {
 
 td {
   letter-spacing: 1px;
-  font-family: -apple-system, "Segoe UI", "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Gotham Rounded A", "Gotham Rounded B", Arial, Georgia, serif;
   color: #403d39;
+  /* font-weight: bold; */
 }
 
 tbody td {

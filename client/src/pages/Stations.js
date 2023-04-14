@@ -40,11 +40,8 @@ const Stations = () => {
   //component styles:
   const buttonStyle = {
     marginLeft: 5,
-    padding: 0.5,
-    paddingBottom: 3.5,
-    paddingTop: 2,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
     fontSize: 15,
   };
   const handleChangeRowsPerPage = (event) => {
@@ -67,7 +64,7 @@ const Stations = () => {
   return (
     <div id="stations-page">
       <form id="search-station">
-        <h5 className="d-inline p-3">Search Station by Name/Address:</h5>
+        <h5>Search Station by Name/Address:</h5>
         <input
           type="text"
           id="nameToSearch"
@@ -83,7 +80,7 @@ const Stations = () => {
               ID
               <button
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 onClick={() => requestSort("ID")}
                 id="btn-sort-id"
               >
@@ -96,7 +93,7 @@ const Stations = () => {
               <button
                 onClick={() => requestSort("Name")}
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 id="btn-sort-name"
               >
                 {" "}
@@ -108,7 +105,7 @@ const Stations = () => {
               <button
                 onClick={() => requestSort("Osoite")}
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 id="btn-sort-address"
               >
                 {" "}
@@ -120,7 +117,7 @@ const Stations = () => {
               <button
                 onClick={() => requestSort("Kapasiteet")}
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 id="btn-sort-capacity"
               >
                 {" "}

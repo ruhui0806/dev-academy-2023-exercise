@@ -50,11 +50,8 @@ export default function Journeys() {
   //component styles:
   const buttonStyle = {
     marginLeft: 5,
-    padding: 0.5,
-    paddingBottom: 3.5,
-    paddingTop: 2,
-    paddingLeft: 5,
-    paddingRight: 5,
+    paddingLeft: 7,
+    paddingRight: 7,
     fontSize: 15,
   };
   const handleChangePage = (event, newPage) => {
@@ -100,7 +97,7 @@ export default function Journeys() {
               Departure Station
               <button
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 onClick={() => requestSort("Departure_station_name")}
                 id="Departure_station_name"
               >
@@ -112,7 +109,7 @@ export default function Journeys() {
               Return Station
               <button
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 onClick={() => requestSort("Return_station_name")}
                 id="Return_station_name"
               >
@@ -124,7 +121,7 @@ export default function Journeys() {
               Covered distance km
               <button
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 onClick={() => requestSort("Covered_distance_m")}
                 id="valueForFilterByDistance"
               >
@@ -136,7 +133,7 @@ export default function Journeys() {
               Duration in min
               <button
                 style={buttonStyle}
-                className="btn btn-light btn-sm"
+                className="button-order"
                 onClick={() => requestSort("Duration_sec")}
                 id="btn-sort-id"
               >

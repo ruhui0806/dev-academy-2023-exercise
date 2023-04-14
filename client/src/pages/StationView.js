@@ -44,6 +44,13 @@ export default function StationView() {
   if (mapLoading) {
     return <div>wait...</div>;
   }
+  const buttonStyle = {
+    paddingTop: 6,
+    paddingBottom: 6,
+    paddingLeft: 7,
+    paddingRight: 7,
+    fontSize: 15,
+  };
   return (
     <div id="station-view-page">
       <table className="table table-hover">
@@ -54,9 +61,9 @@ export default function StationView() {
             <th>Address</th>
             <th>Journeys start here</th>
             <th>Journeys end here</th>
-            <th colSpan="2">Average distance </th>
+            {/* <th colSpan="2">Average distance </th> */}
           </tr>
-          <tr>
+          {/* <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -64,7 +71,7 @@ export default function StationView() {
             <td>&nbsp;</td>
             <th>journeys start here</th>
             <th>journeys end here</th>
-          </tr>
+          </tr> */}
         </thead>
         <tbody>
           <tr>
@@ -73,37 +80,61 @@ export default function StationView() {
             <td>{station.currentStation.Osoite}</td>
             <td>{station.countJourneyStartHere}</td>
             <td>{station.countJourneyEndHere}</td>
-            <td>
+            {/* <td>
               {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
             </td>
             <td>
               {Math.ceil(station.averageReturnDistance[0].averageDistance)}
-            </td>
+            </td> */}
           </tr>
         </tbody>
       </table>
-      <h4>
-        Top 5 most popular return stations for journeys (counts) starting from:{" "}
-        {station.currentStation.Name}
-      </h4>
-      <ul>
-        {station.aggrJourneyDeparture.map((journey) => (
-          <li key={journey._id}>
-            {journey._id}: {journey.count}
-          </li>
-        ))}
-      </ul>
-      <h4>
-        Top 5 most popular departure stations for journeys (counts) ending at:
-        {station.currentStation.Name}
-      </h4>
-      <ul>
-        {station.aggrJourneyReturn.map((journey) => (
-          <li key={journey._id}>
-            {journey._id}: {journey.count}
-          </li>
-        ))}
-      </ul>
+      <div id="station-view-div-box">
+        <div>
+          <div>
+            <h4>
+              Top 5 most popular return stations for journeys (counts) starting
+              from: {station.currentStation.Name}
+            </h4>
+            <ul>
+              {station.aggrJourneyDeparture.map((journey) => (
+                <li key={journey._id}>
+                  {journey._id}: {journey.count}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4>
+              Top 5 most popular departure stations for journeys (counts) ending
+              at:
+              {station.currentStation.Name}
+            </h4>
+            <ul>
+              {station.aggrJourneyReturn.map((journey) => (
+                <li key={journey._id}>
+                  {journey._id}: {journey.count}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <h4>Average distance of all journeys start here (m):</h4>
+            <li>
+              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
+            </li>
+          </div>
+          <div>
+            <h4>Average distance of all journeys end here (m):</h4>
+            <li>
+              {Math.ceil(station.averageReturnDistance[0].averageDistance)}
+            </li>
+          </div>
+        </div>
+      </div>
       {station && !mapLoading && (
         <StationMap
           x={Number(station.currentStation.x)}
@@ -111,11 +142,12 @@ export default function StationView() {
         />
       )}
       <div className="station-view-footer">
-        <Link to="/stations" className="btn btn-primary ms-auto ">
+        <Link to="/stations" className="button-link">
           Go Back
         </Link>
         <button
-          className="btn btn-danger btn-sm"
+          className="button"
+          style={buttonStyle}
           onClick={() => handleDeleteStation(station.currentStation.ID)}
         >
           <FaTrashAlt />{" "}

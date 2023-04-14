@@ -8,11 +8,19 @@ import StationView from "./pages/StationView";
 const App = () => {
   return (
     <div className="box">
-      <h1>Helsinki City Bike</h1>
+      <header id="header">
+        <h1>Helsinki City Bike</h1>
+      </header>
+
       <Router>
         <div className="router-link-container">
-          <Link to="/stations">STATIONS</Link>
-          <Link to="/journeys">JOURNEYS</Link>
+          <Link className="button-link" to="/stations">
+            {" "}
+            STATIONS
+          </Link>
+          <Link className="button-link" to="/journeys">
+            JOURNEYS
+          </Link>
         </div>
         <Routes>
           <Route path="/stations" element={<Stations />} />
