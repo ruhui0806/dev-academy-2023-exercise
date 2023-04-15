@@ -53,25 +53,35 @@ export default function StationView() {
   };
   return (
     <div id="station-view-page">
-      <table className="table table-hover">
+      <div className="station-info-box">
+        <li>
+          {" "}
+          <b>Name:</b> {station.currentStation.Name}
+        </li>
+        <li>
+          <b>ID:</b> {station.currentStation.ID}
+        </li>
+        <li>
+          <b>Address:</b> {station.currentStation.Osoite}
+        </li>
+        <li>
+          <b>Count Journeys: start here</b>
+          {station.countJourneyStartHere}{" "}
+        </li>
+        <li>
+          <b>Count Journeys: end here</b>
+          {station.countJourneyEndHere}
+        </li>
+      </div>
+      {/* <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>ID</th>
             <th>Address</th>
-            <th>Journeys start here</th>
-            <th>Journeys end here</th>
-            {/* <th colSpan="2">Average distance </th> */}
+            <th>Count Journeys: start here </th>
+            <th>Count Journeys: end here</th>
           </tr>
-          {/* <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <th>journeys start here</th>
-            <th>journeys end here</th>
-          </tr> */}
         </thead>
         <tbody>
           <tr>
@@ -80,15 +90,9 @@ export default function StationView() {
             <td>{station.currentStation.Osoite}</td>
             <td>{station.countJourneyStartHere}</td>
             <td>{station.countJourneyEndHere}</td>
-            {/* <td>
-              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
-            </td>
-            <td>
-              {Math.ceil(station.averageReturnDistance[0].averageDistance)}
-            </td> */}
           </tr>
         </tbody>
-      </table>
+      </table> */}
       <div id="station-view-div-box">
         <div>
           <div>
@@ -107,8 +111,7 @@ export default function StationView() {
           <div>
             <h4>
               Top 5 most popular departure stations for journeys (counts) ending
-              at:
-              {station.currentStation.Name}
+              at: <strong>{station.currentStation.Name}</strong>
             </h4>
             <ul>
               {station.aggrJourneyReturn.map((journey) => (
