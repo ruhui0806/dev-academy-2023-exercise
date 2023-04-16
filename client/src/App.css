@@ -52,12 +52,12 @@ a:hover {
   border-radius: 5000px;
   border-width: 1px;
   border-style: solid;
-  border-color: #888;
+  border-color: #c7bdbd;
   background-color: transparent;
   font-size: big;
   padding: 7px 25px;
   color: rgb(11, 125, 239);
-  background-color: rgb(244, 239, 239);
+  background-color: white;
 }
 .button {
   border-radius: 25% 10%;
@@ -84,6 +84,9 @@ a:hover {
   align-items: top;
   justify-content: space-around;
 }
+.station-info-box {
+  margin-top: 40px;
+}
 .router-link-container {
   width: 100%;
   display: flex;
@@ -97,7 +100,7 @@ table {
   width: 100%;
   border: 1px solid #f2f5f8;
   border-radius: 5px;
-  background-color: #f2f5f7;
+  background-color: white;
 }
 
 #table-pagination {
@@ -163,24 +166,6 @@ input {
   tr {
     display: block;
   }
-  header {
-    position: relative;
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
-    flex-flow: column wrap;
-  }
-  /* h1,
-  h2 {
-    font-size: 16pt;
-  } */
-  /* Hide table headers (but not display: none;, for accessibility) */
-  /* thead {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-    font-size: 15pt;
-  } */
 
   tr,
   h2,
@@ -212,4 +197,12 @@ input {
     padding-right: 10px;
     white-space: nowrap;
   }
+
+  /* #tabs,
+  #app-bar {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 15pt;
+  } */
 }

@@ -6,7 +6,6 @@ const StationMap = ({ x, y }) => {
   const center = useMemo(() => ({ lng: x, lat: y }), [x, y]);
   return (
     <div>
-      <h3>Station map container</h3>
       <GoogleMap
         zoom={14}
         center={center}

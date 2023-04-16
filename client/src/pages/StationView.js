@@ -4,12 +4,62 @@ import stationService from "../services/stations";
 import StationMap from "../components/StationMap";
 import { useLoadScript } from "@react-google-maps/api";
 import { FaTrashAlt } from "react-icons/fa";
+import PropTypes from "prop-types";
+
+import SwipeableViews from "react-swipeable-views";
+import { useTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
+
 export default function StationView() {
+  const theme = useTheme();
   const { ID } = useParams();
   const navigate = useNavigate();
   const { mapLoading } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   });
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
   const useStation = (ID) => {
     const [station, setStation] = useState(null);
     useEffect(() => {
@@ -37,7 +87,6 @@ export default function StationView() {
     }
   };
   const station = useStation(ID);
-  //   console.log(station);
   if (!station) {
     return <div>wait...</div>;
   }
@@ -64,86 +113,135 @@ export default function StationView() {
         <li>
           <b>Address:</b> {station.currentStation.Osoite}
         </li>
-        <li>
-          <b>Count Journeys: start here</b>
-          {station.countJourneyStartHere}{" "}
-        </li>
-        <li>
-          <b>Count Journeys: end here</b>
-          {station.countJourneyEndHere}
-        </li>
       </div>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ID</th>
-            <th>Address</th>
-            <th>Count Journeys: start here </th>
-            <th>Count Journeys: end here</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{station.currentStation.Name}</td>
-            <td>{station.currentStation.ID}</td>
-            <td>{station.currentStation.Osoite}</td>
-            <td>{station.countJourneyStartHere}</td>
-            <td>{station.countJourneyEndHere}</td>
-          </tr>
-        </tbody>
-      </table> */}
       <div id="station-view-div-box">
-        <div>
-          <div>
-            <h4>
-              Top 5 most popular return stations for journeys (counts) starting
-              from: {station.currentStation.Name}
-            </h4>
-            <ul>
-              {station.aggrJourneyDeparture.map((journey) => (
-                <li key={journey._id}>
-                  {journey._id}: {journey.count}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4>
-              Top 5 most popular departure stations for journeys (counts) ending
-              at: <strong>{station.currentStation.Name}</strong>
-            </h4>
-            <ul>
-              {station.aggrJourneyReturn.map((journey) => (
-                <li key={journey._id}>
-                  {journey._id}: {journey.count}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div>
-          <div>
-            <h4>Average distance of all journeys start here (m):</h4>
-            <li>
+        <Box sx={{ bgcolor: "transparent", width: "100%" }}>
+          <AppBar
+            id="app-bar"
+            position="static"
+            sx={{ borderBottom: 1, borderColor: "divider" }}
+          >
+            <Tabs
+              id="tabs"
+              value={value}
+              onChange={handleChange}
+              indicatorColor="inherit"
+              textColor="inherit"
+              variant="fullWidth"
+            >
+              <Tab label="Journeys start here" {...a11yProps(0)} />
+              <Tab label="Journeys end here" {...a11yProps(1)} />
+              <Tab
+                label="Average journey distance start here"
+                {...a11yProps(2)}
+              />
+              <Tab
+                label="Average journey distance end here"
+                {...a11yProps(3)}
+              />
+              <Tab label="Top 5 return stations" {...a11yProps(4)} />
+              <Tab label="Top 5 departure stations" {...a11yProps(5)} />
+              <Tab label="Location " {...a11yProps(6)} />
+            </Tabs>
+          </AppBar>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <TabPanel
+              value={value}
+              index={0}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              The amount of journeys that start from{" "}
+              {station.currentStation.Name}: {station.countJourneyStartHere}
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={1}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              The amount of journeys that end at {station.currentStation.Name}:{" "}
+              {station.countJourneyEndHere}
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={2}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              Average ditance of journeys that start from{" "}
+              {station.currentStation.Name}:{" "}
               {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
-            </li>
-          </div>
-          <div>
-            <h4>Average distance of all journeys end here (m):</h4>
-            <li>
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={3}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              Average ditance of journeys that end at{" "}
+              {station.currentStation.Name}:{" "}
               {Math.ceil(station.averageReturnDistance[0].averageDistance)}
-            </li>
-          </div>
-        </div>
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={4}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              <p>
+                Below are the top 5 Return stations for journeys starting from
+                here
+              </p>
+              <ul>
+                {station.aggrJourneyDeparture.map((journey) => (
+                  <li key={journey._id}>
+                    {journey._id}: {journey.count}
+                  </li>
+                ))}
+              </ul>
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={5}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              <div>
+                <p>
+                  Below are the top 5 departure stations for journeys ends here{" "}
+                  {station.currentStation.Name}:
+                </p>
+                <ul>
+                  {station.aggrJourneyReturn.map((journey) => (
+                    <li key={journey._id}>
+                      {journey._id}: {journey.count}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </TabPanel>
+            <TabPanel
+              value={value}
+              index={6}
+              dir={theme.direction}
+              className="tab-panel"
+            >
+              {station && !mapLoading && (
+                <StationMap
+                  x={Number(station.currentStation.x)}
+                  y={Number(station.currentStation.y)}
+                />
+              )}
+            </TabPanel>
+          </SwipeableViews>
+        </Box>
       </div>
-      {station && !mapLoading && (
-        <StationMap
-          x={Number(station.currentStation.x)}
-          y={Number(station.currentStation.y)}
-        />
-      )}
+
       <div className="station-view-footer">
         <Link to="/stations" className="button-link">
           Go Back
