@@ -17,8 +17,8 @@ journeyRouter.get("/", async (request, response, next) => {
     }).count();
     response.json({ journeys, journeysCount });
     console.log(request.query);
-  } catch (exception) {
-    next(exception);
+  } catch (error) {
+    return next(error);
   }
 });
 
