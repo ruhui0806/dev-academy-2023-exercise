@@ -140,6 +140,7 @@ td {
 
 tbody td {
   text-align: center;
+  padding: 8px;
 }
 tbody tr:nth-child(odd) {
   background-color: #fff;
