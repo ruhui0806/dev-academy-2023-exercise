@@ -49,6 +49,7 @@ export default function StationView() {
   const { ID } = useParams();
   const navigate = useNavigate();
   const { mapLoading } = useLoadScript({
+    // eslint-disable-next-line no-undef
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   });
   const [value, setValue] = useState(0);
