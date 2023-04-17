@@ -26,7 +26,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -88,10 +88,10 @@ export default function StationView() {
   };
   const station = useStation(ID);
   if (!station) {
-    return <div>wait...</div>;
+    return <span class="loader"></span>;
   }
   if (mapLoading) {
-    return <div>wait...</div>;
+    return <span class="loader"></span>;
   }
   const buttonStyle = {
     paddingTop: 6,
@@ -193,10 +193,10 @@ export default function StationView() {
               dir={theme.direction}
               className="tab-panel"
             >
-              <p>
-                Below are the top 5 Return stations for journeys starting from
-                here
-              </p>
+              <span>
+                Below are the top 5 Return stations for journeys starting from{" "}
+                {station.currentStation.Name}:
+              </span>
               <ul>
                 {station.aggrJourneyDeparture.map((journey) => (
                   <li key={journey._id}>
@@ -211,19 +211,17 @@ export default function StationView() {
               dir={theme.direction}
               className="tab-panel"
             >
-              <div>
-                <p>
-                  Below are the top 5 departure stations for journeys ends here{" "}
-                  {station.currentStation.Name}:
-                </p>
-                <ul>
-                  {station.aggrJourneyReturn.map((journey) => (
-                    <li key={journey._id}>
-                      {journey._id}: {journey.count}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <span>
+                Below are the top 5 departure stations for journeys ends here{" "}
+                {station.currentStation.Name}:
+              </span>
+              <ul>
+                {station.aggrJourneyReturn.map((journey) => (
+                  <li key={journey._id}>
+                    {journey._id}: {journey.count}
+                  </li>
+                ))}
+              </ul>
             </TabPanel>
             <TabPanel
               value={value}
