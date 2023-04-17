@@ -12,7 +12,7 @@ stationRouter.delete("/:ID", async (request, response) => {
   response.status(204).end();
 });
 
-stationRouter.get("/:ID", async (request, response, next) => {
+stationRouter.get("/:ID", async (request, response) => {
   const station = await Station.findOne({ ID: request.params.ID });
   if (station) {
     const countJourneyStartHere = await Journey.find({

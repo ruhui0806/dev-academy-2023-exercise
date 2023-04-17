@@ -1,7 +1,7 @@
 const journeyRouter = require("express").Router();
 const Journey = require("../models/journey");
 
-journeyRouter.get("/", async (request, response, next) => {
+journeyRouter.get("/", async (request, response) => {
   const journeys = await Journey.find({
     Covered_distance_m: { $gte: request.query.filterByDistance },
     Duration_sec: { $gte: request.query.filterByDuration },
@@ -15,6 +15,7 @@ journeyRouter.get("/", async (request, response, next) => {
     Duration_sec: { $gte: request.query.filterByDuration },
   }).count();
   response.json({ journeys, journeysCount });
+
   console.log(request.query);
 });
 
