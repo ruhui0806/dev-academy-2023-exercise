@@ -88,10 +88,10 @@ export default function StationView() {
   };
   const station = useStation(ID);
   if (!station) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
   if (mapLoading) {
-    return <span class="loader"></span>;
+    return <span className="loader"></span>;
   }
   const buttonStyle = {
     paddingTop: 6,
