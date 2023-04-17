@@ -17,6 +17,8 @@ const getJourneys = async (
   );
   return res.data;
 };
+// const deleteJourneyById = (objectId) => {
+//   const res = axios.delete(`${baseUrl}?objectId=${objectId}`);
+// }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default { getJourneys };

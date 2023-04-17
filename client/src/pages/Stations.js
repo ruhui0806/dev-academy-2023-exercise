@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { FaSort } from "react-icons/fa";
 import Pagination from "../components/pagination";

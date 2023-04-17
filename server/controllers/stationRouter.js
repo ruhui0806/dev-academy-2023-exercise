@@ -2,18 +2,19 @@ const stationRouter = require("express").Router();
 const Station = require("../models/station");
 const Journey = require("../models/journey");
 
-stationRouter.get("/", (request, response) => {
-  Station.find({}).then((stations) => response.json(stations));
-});
-stationRouter.delete("/:ID", (request, response) => {
-  Station.findOneAndDelete({ ID: request.params.ID }).then((station) =>
-    response.json(station)
-  );
+stationRouter.get("/", async (request, response) => {
+  const stations = await Station.find({});
+  response.json(stations);
 });
 
-stationRouter.get("/:ID", async (request, response, next) => {
-  try {
-    const station = await Station.findOne({ ID: request.params.ID });
+stationRouter.delete("/:ID", async (request, response) => {
+  await Station.findOneAndDelete({ ID: request.params.ID });
+  response.status(204).end();
+});
+
+stationRouter.get("/:ID", async (request, response) => {
+  const station = await Station.findOne({ ID: request.params.ID });
+  if (station) {
     const countJourneyStartHere = await Journey.find({
       Departure_station_id: request.params.ID,
     }).count();
@@ -60,8 +61,8 @@ stationRouter.get("/:ID", async (request, response, next) => {
       averageDepartunreDistance: averageDepartunreDistance,
       averageReturnDistance: averageReturnDistance,
     });
-  } catch (exception) {
-    next(exception);
+  } else {
+    response.status(404).send({ error: "unknown endpoint" });
   }
 });
 

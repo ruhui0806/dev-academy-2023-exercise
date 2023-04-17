@@ -52,12 +52,12 @@ a:hover {
   border-radius: 5000px;
   border-width: 1px;
   border-style: solid;
-  border-color: #888;
+  border-color: #c7bdbd;
   background-color: transparent;
   font-size: big;
   padding: 7px 25px;
   color: rgb(11, 125, 239);
-  background-color: rgb(244, 239, 239);
+  background-color: white;
 }
 .button {
   border-radius: 25% 10%;
@@ -84,6 +84,9 @@ a:hover {
   align-items: top;
   justify-content: space-around;
 }
+.station-info-box {
+  margin-top: 40px;
+}
 .router-link-container {
   width: 100%;
   display: flex;
@@ -97,7 +100,7 @@ table {
   width: 100%;
   border: 1px solid #f2f5f8;
   border-radius: 5px;
-  background-color: #f2f5f7;
+  background-color: white;
 }
 
 #table-pagination {
@@ -109,28 +112,43 @@ table {
   justify-content: space-between;
   margin-bottom: 40px;
 }
-thead th,
+
 tfoot th {
   font-family: Georgia, "Times New Roman", Times, serif sans-serif;
   color: #403d39;
   font-size: 1em;
 }
-
+thead th {
+  background-color: rgb(11, 125, 239);
+  color: white;
+}
 th {
   letter-spacing: 2px;
 }
 
+tr {
+  line-height: 30px;
+}
+tr:hover td {
+  background-color: rgb(223, 226, 226);
+}
 td {
   letter-spacing: 1px;
   font-family: "Gotham Rounded A", "Gotham Rounded B", Arial, Georgia, serif;
   color: #403d39;
-  /* font-weight: bold; */
 }
 
 tbody td {
   text-align: center;
+  padding: 8px;
+}
+tbody tr:nth-child(odd) {
+  background-color: #fff;
 }
 
+tbody tr:nth-child(even) {
+  background-color: #eee;
+}
 tfoot th {
   text-align: right;
 }
@@ -148,6 +166,25 @@ input {
   border-color: #888;
   font-size: medium;
 }
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: rgb(11, 125, 239);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @media screen and (max-width: 760px) {
   /* Force table to not be like tables anymore */
@@ -160,24 +197,6 @@ input {
   tr {
     display: block;
   }
-  header {
-    position: relative;
-    align-items: center;
-    justify-content: space-around;
-    display: flex;
-    flex-flow: column wrap;
-  }
-  /* h1,
-  h2 {
-    font-size: 16pt;
-  } */
-  /* Hide table headers (but not display: none;, for accessibility) */
-  /* thead {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-    font-size: 15pt;
-  } */
 
   tr,
   h2,
@@ -188,6 +207,7 @@ input {
   }
   tr {
     border: 1px solid #ccc;
+    line-height: 20px;
   }
 
   td {
@@ -208,4 +228,12 @@ input {
     padding-right: 10px;
     white-space: nowrap;
   }
+
+  /* #tabs,
+  #app-bar {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 15pt;
+  } */
 }
