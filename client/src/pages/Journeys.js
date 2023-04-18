@@ -49,6 +49,8 @@ export default function Journeys() {
   };
   //component styles:
   const buttonStyle = {
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 5,
     paddingLeft: 7,
     paddingRight: 7,
