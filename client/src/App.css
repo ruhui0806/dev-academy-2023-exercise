@@ -199,14 +199,15 @@ input {
     display: block;
     text-align: center;
   }
-
-  tr,
   h1,
-  h2,
+  h2 {
+    font-size: 16pt;
+  }
+  tr,
   h3,
   h4,
   h5 {
-    font-size: 12pt;
+    font-size: 11pt;
   }
   tr {
     border: 1px solid #ccc;
