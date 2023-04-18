@@ -196,9 +196,11 @@ input {
   td,
   tr {
     display: block;
+    text-align: center;
   }
 
   tr,
+  h1,
   h2,
   h3,
   h4,
@@ -228,12 +230,27 @@ input {
     padding-right: 10px;
     white-space: nowrap;
   }
+}
 
-  /* #tabs,
-  #app-bar {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-    font-size: 15pt;
-  } */
+@media screen and (max-width: 850px) {
+  /* hide the following containers when the screen gets smaller */
+  #tab-box,
+  #tab-container,
+  #app-bar,
+  .station-info-box {
+    display: none;
+  }
+
+  #station-info-table-sm {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+/* hide the following containers when the screen gets bigger */
+@media only screen and (min-width: 852px) {
+  #station-info-table-sm {
+    display: none;
+  }
 }

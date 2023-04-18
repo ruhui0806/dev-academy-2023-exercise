@@ -13,9 +13,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
+//define helper functions for Tab navigation:
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -44,6 +45,7 @@ function a11yProps(index) {
   };
 }
 
+//define stationView component for single station:
 export default function StationView() {
   const theme = useTheme();
   const { ID } = useParams();
@@ -101,6 +103,23 @@ export default function StationView() {
     paddingRight: 7,
     fontSize: 15,
   };
+
+  const boxStyle = {
+    bgcolor: "transparent",
+    width: {
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1280,
+    },
+  };
+
+  const appBarStyle = {
+    borderBottom: 1,
+    borderColor: "divider",
+    width: { tablet: 640, laptop: 1024, desktop: 1280 },
+    fontSize: 12,
+    height: "window.innerHeight",
+  };
   return (
     <div id="station-view-page">
       <div className="station-info-box">
@@ -116,14 +135,10 @@ export default function StationView() {
         </li>
       </div>
       <div id="station-view-div-box">
-        <Box sx={{ bgcolor: "transparent", width: "100%" }}>
-          <AppBar
-            id="app-bar"
-            position="static"
-            sx={{ borderBottom: 1, borderColor: "divider" }}
-          >
+        <Box sx={boxStyle} id="tab-box">
+          <AppBar id="app-bar" position="static" sx={appBarStyle}>
             <Tabs
-              id="tabs"
+              id="tab-container"
               value={value}
               onChange={handleChange}
               indicatorColor="inherit"
@@ -239,6 +254,83 @@ export default function StationView() {
             </TabPanel>
           </SwipeableViews>
         </Box>
+        <div id="station-info-table-sm">
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Address</th>
+                <th>Journeys start here</th>
+                <th>Journeys end here</th>
+                <th>journeys start here</th>
+                <th>journeys end here</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{station.currentStation.Name}</td>
+                <td>{station.currentStation.ID}</td>
+                <td>{station.currentStation.Osoite}</td>
+                <td>{station.countJourneyStartHere}</td>
+                <td>{station.countJourneyEndHere}</td>
+                <td>
+                  {Math.ceil(
+                    station.averageDepartunreDistance[0].averageDistance
+                  )}
+                </td>
+                <td>
+                  {Math.ceil(station.averageReturnDistance[0].averageDistance)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <div>
+              <h4>
+                Top 5 most popular return stations for journeys (counts)
+                starting from: {station.currentStation.Name}
+              </h4>
+              <ul>
+                {station.aggrJourneyDeparture.map((journey) => (
+                  <li key={journey._id}>
+                    {journey._id}: {journey.count}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4>
+                Top 5 most popular departure stations for journeys (counts)
+                ending at:
+                {station.currentStation.Name}
+              </h4>
+              <ul>
+                {station.aggrJourneyReturn.map((journey) => (
+                  <li key={journey._id}>
+                    {journey._id}: {journey.count}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p>
+              Average distance for journey starts here:{" "}
+              {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}{" "}
+              m
+            </p>
+            <p>
+              Average distance for journey ends here:{" "}
+              {Math.ceil(station.averageReturnDistance[0].averageDistance)} m
+            </p>
+          </div>
+          {station && !mapLoading && (
+            <StationMap
+              id="stationMap"
+              x={Number(station.currentStation.x)}
+              y={Number(station.currentStation.y)}
+            />
+          )}
+        </div>
       </div>
 
       <div className="station-view-footer">
