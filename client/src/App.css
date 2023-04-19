@@ -148,13 +148,14 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr:nth-child(even) {
-  background-color: #eee;
+  background-color: #fbf9f9;
 }
 tfoot th {
   text-align: right;
 }
-
-#search-station,
+#search-station {
+  margin-bottom: 25px;
+}
 #filter-journey {
   margin-bottom: 25px;
   display: flex;
@@ -238,6 +239,14 @@ input {
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
+  }
+
+  #search-station,
+  #filter-journey {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 }
 

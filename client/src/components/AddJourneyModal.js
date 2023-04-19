@@ -14,6 +14,11 @@ import stationService from "../services/stations.js";
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
+  const [departureTime, setDepartureTime] = useState("");
+  const [returnTime, setReturnTime] = useState("");
+  const [departureStation, setDepartureStation] = useState("");
+  const [returnStation, setReturnStation] = useState("");
+
   useEffect(() => {
     stationService.getAllStations().then((stations) => {
       setStations(stations);
@@ -42,65 +47,55 @@ export default function FormDialog() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="dialog-title">Add New Journey</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText>Add new journey...</DialogContentText> */}
           <form onSubmit={addJourney}>
             <InputLabel style={{ marginTop: 20 }}>Departure time</InputLabel>
             <TextField
-              autoFocus
               margin="dense"
-              id="departure"
-              //   label="Departure Time"
+              id="departureTime"
               type="date"
               fullWidth
               variant="standard"
-              //   placeholder="."
-              //   value={departure}
-              //   onChange={({ target }) => setDeparture(target.value)}
+              value={departureTime}
+              onChange={({ target }) => setDepartureTime(target.value)}
             />
             <InputLabel style={{ marginTop: 20 }}>Return time</InputLabel>
             <TextField
-              autoFocus
               margin="dense"
-              id="return"
-              //   label="Return Time"
+              id="returnTime"
               type="date"
               fullWidth
               variant="standard"
+              value={returnTime}
+              onChange={({ target }) => setReturnTime(target.value)}
             />
             <InputLabel style={{ marginTop: 20 }}>Departure Station</InputLabel>
-            {/* <TextField
-              autoFocus
-              margin="dense"
+            <Select
+              variant="standard"
               id="departureStation"
               type="text"
               fullWidth
-              variant="standard"
-            /> */}
-            <Select
-              id="departureStation"
-              label="Departure Station"
-              fullWidth
-              //   value={departureStation}
-              //   onChange={handleDepartureStationChange}
+              margin="dense"
+              value={departureStation}
+              onChange={({ target }) => setDepartureStation(target.value)}
             >
               {stations &&
-                stations.map((station) => (
-                  <MenuItem key={station._id} value={station.Name}>
-                    {station.ID}: {station.Name}
-                  </MenuItem>
-                ))}
+                stations
+                  .sort((a, b) => Number(a.ID) - Number(b.ID))
+                  .map((station) => (
+                    <MenuItem key={station._id} value={station.Name}>
+                      {station.ID}: {station.Name}
+                    </MenuItem>
+                  ))}
             </Select>
             <InputLabel style={{ marginTop: 20 }}>Return Station</InputLabel>
             <Select
-              //   autoFocus
+              variant="standard"
               id="returnStation"
-              label="Return Station"
               type="text"
               fullWidth
-              //   variant="standard"
               margin="dense"
-              //   value={departureStation}
-              //   onChange={handleDepartureStationChange}
+              value={returnStation}
+              onChange={({ target }) => setReturnStation(target.value)}
             >
               {stations &&
                 stations
@@ -115,20 +110,16 @@ export default function FormDialog() {
               Covered Distance (m)
             </InputLabel>
             <TextField
-              autoFocus
               margin="dense"
               id="departureStation"
-              //   label="Return Time"
               type="number"
               fullWidth
               variant="standard"
             />
             <InputLabel style={{ marginTop: 20 }}>Duration Time (s)</InputLabel>
             <TextField
-              autoFocus
               margin="dense"
               id="departureStation"
-              //   label="Return Time"
               type="number"
               fullWidth
               variant="standard"
