@@ -1,68 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import stationService from "../services/stations";
-import StationMap from "../components/StationMap";
 import { useLoadScript } from "@react-google-maps/api";
 import { FaTrashAlt } from "react-icons/fa";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import StationMap from "../components/StationMap";
+import Tabination from "../components/Tabination";
 
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+// import SwipeableViews from "react-swipeable-views";
+// import { useTheme } from "@mui/material/styles";
+// import AppBar from "@mui/material/AppBar";
+// import Tabs from "@mui/material/Tabs";
+// import Tab from "@mui/material/Tab";
+// import Typography from "@mui/material/Typography";
+// import Box from "@mui/material/Box";
 
 //define helper functions for Tab navigation:
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component={"div"}>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
+//   return (
+//     <div
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`full-width-tabpanel-${index}`}
+//       aria-labelledby={`full-width-tab-${index}`}
+//       {...other}
+//     >
+//       {value === index && (
+//         <Box sx={{ p: 3 }}>
+//           <Typography component={"div"}>{children}</Typography>
+//         </Box>
+//       )}
+//     </div>
+//   );
+// }
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.number.isRequired,
+//   value: PropTypes.number.isRequired,
+// };
+// function a11yProps(index) {
+//   return {
+//     id: `full-width-tab-${index}`,
+//     "aria-controls": `full-width-tabpanel-${index}`,
+//   };
+// }
 
 //define stationView component for single station:
 export default function StationView() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const { ID } = useParams();
   const navigate = useNavigate();
   const { mapLoading } = useLoadScript({
     // eslint-disable-next-line no-undef
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
   });
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
+  // const handleChangeIndex = (index) => {
+  //   setValue(index);
+  // };
   const useStation = (ID) => {
     const [station, setStation] = useState(null);
     useEffect(() => {
@@ -104,22 +105,22 @@ export default function StationView() {
     fontSize: 15,
   };
 
-  const boxStyle = {
-    bgcolor: "transparent",
-    width: {
-      tablet: 640,
-      laptop: 1024,
-      desktop: 1280,
-    },
-  };
+  // const boxStyle = {
+  //   bgcolor: "transparent",
+  //   width: {
+  //     tablet: 640,
+  //     laptop: 1024,
+  //     desktop: 1280,
+  //   },
+  // };
 
-  const appBarStyle = {
-    borderBottom: 1,
-    borderColor: "divider",
-    width: { tablet: 640, laptop: 1024, desktop: 1280 },
-    fontSize: 12,
-    height: "window.innerHeight",
-  };
+  // const appBarStyle = {
+  //   borderBottom: 1,
+  //   borderColor: "divider",
+  //   width: { tablet: 640, laptop: 1024, desktop: 1280 },
+  //   fontSize: 12,
+  //   height: "window.innerHeight",
+  // };
   return (
     <div id="station-view-page">
       <div className="station-info-box">
@@ -135,7 +136,8 @@ export default function StationView() {
         </li>
       </div>
       <div id="station-view-div-box">
-        <Box sx={boxStyle} id="tab-box">
+        <Tabination mapLoading={mapLoading} station={station} />
+        {/* <Box sx={boxStyle} id="tab-box">
           <AppBar id="app-bar" position="static" sx={appBarStyle}>
             <Tabs
               id="tab-container"
@@ -253,7 +255,7 @@ export default function StationView() {
               )}
             </TabPanel>
           </SwipeableViews>
-        </Box>
+        </Box> */}
         <div id="station-info-table-sm">
           <table className="table table-hover">
             <thead>
