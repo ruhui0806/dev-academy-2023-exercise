@@ -3,6 +3,7 @@ import { FaSort } from "react-icons/fa";
 import JourneyRow from "../components/JourneyRow";
 import journeyService from "../services/journeys.js";
 import Pagination from "../components/pagination";
+import AddJourneyModal from "../components/AddJourneyModal";
 
 export default function Journeys() {
   const [journeys, setJourneys] = useState([]);
@@ -79,21 +80,28 @@ export default function Journeys() {
   return (
     <div id="journeys-page">
       <h3>Journeys</h3>
+      <div>
+        <AddJourneyModal />
+      </div>
       <div id="filter-journey">
-        <h5>Filter journey by covered distance (km) longer than:</h5>
-        <input
-          type="number"
-          id="valueForFilterByDistance"
-          placeholder="Filter by distance"
-          onChange={handleFilterByDistance}
-        />
-        <h5>Filter journey by duration (min) longer than:</h5>
-        <input
-          type="number"
-          id="valueForFilterByDuration"
-          placeholder="Filter by duration"
-          onChange={handleFilterByDuration}
-        />
+        <div className="journey-filter-box">
+          <h5>Filter journey by covered distance (km) longer than:</h5>
+          <input
+            type="number"
+            id="valueForFilterByDistance"
+            placeholder="Filter by distance"
+            onChange={handleFilterByDistance}
+          />
+        </div>
+        <div className="journey-filter-box">
+          <h5>Filter journey by duration (min) longer than:</h5>
+          <input
+            type="number"
+            id="valueForFilterByDuration"
+            placeholder="Filter by duration"
+            onChange={handleFilterByDuration}
+          />
+        </div>
       </div>
 
       <table>
