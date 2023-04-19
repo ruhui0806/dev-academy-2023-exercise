@@ -72,6 +72,7 @@ export default function StationView() {
       </div>
       <div id="station-view-div-box">
         <Tabination mapLoading={mapLoading} station={station} />
+        {/* below the station-info-table-sm div is only showed on smaller screen */}
         <div id="station-info-table-sm">
           <table className="table table-hover">
             <thead>
