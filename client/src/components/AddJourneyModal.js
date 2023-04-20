@@ -11,13 +11,15 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import stationService from "../services/stations.js";
 
-export default function FormDialog() {
+export default function FormDialog({ handleAddNewJourney }) {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
   const [departureTime, setDepartureTime] = useState("");
   const [returnTime, setReturnTime] = useState("");
   const [departureStation, setDepartureStation] = useState("");
   const [returnStation, setReturnStation] = useState("");
+  const [distance, setDistance] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     stationService.getAllStations().then((stations) => {
@@ -32,10 +34,31 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const addJourney = (e) => {
+  // console.log("return station", returnStation.split(",")[0]);
+  // console.log("return station", returnStation.split(",")[1]);
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const journeyObject = {
+      Departure: departureTime,
+      Return: returnTime,
+      Departure_station_name: departureStation.split(",")[1],
+      Departure_station_id: departureStation.split(",")[0],
+      Return_station_name: returnStation.split(",")[1],
+      Return_station_id: returnStation.split(",")[0],
+      Covered_distance_m: distance,
+      Duration_sec: duration,
+    };
+    handleAddNewJourney(journeyObject);
+    setOpen(false);
+    setDepartureStation("");
+    setReturnStation("");
+    setDepartureTime("");
+    setReturnTime("");
+    setDistance(0);
+    setDuration(0);
+    console.log("new journey", journeyObject);
   };
+
   if (!stations || stations.length === 0) {
     return <span className="loader"></span>;
   }
@@ -47,7 +70,7 @@ export default function FormDialog() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="dialog-title">Add New Journey</DialogTitle>
         <DialogContent>
-          <form onSubmit={addJourney}>
+          <form onSubmit={handleSubmit}>
             <InputLabel style={{ marginTop: 20 }}>Departure time</InputLabel>
             <TextField
               margin="dense"
@@ -82,7 +105,10 @@ export default function FormDialog() {
                 stations
                   .sort((a, b) => Number(a.ID) - Number(b.ID))
                   .map((station) => (
-                    <MenuItem key={station._id} value={station.Name}>
+                    <MenuItem
+                      key={station._id}
+                      value={station.ID + "," + station.Name}
+                    >
                       {station.ID}: {station.Name}
                     </MenuItem>
                   ))}
@@ -101,7 +127,10 @@ export default function FormDialog() {
                 stations
                   .sort((a, b) => Number(a.ID) - Number(b.ID))
                   .map((station) => (
-                    <MenuItem key={station._id} value={station.Name}>
+                    <MenuItem
+                      key={station._id}
+                      value={station.ID + "," + station.Name}
+                    >
                       {station.ID}: {station.Name}
                     </MenuItem>
                   ))}
@@ -111,25 +140,31 @@ export default function FormDialog() {
             </InputLabel>
             <TextField
               margin="dense"
-              id="departureStation"
+              id="distance"
               type="number"
               fullWidth
               variant="standard"
+              value={distance}
+              onChange={({ target }) => setDistance(target.value)}
             />
             <InputLabel style={{ marginTop: 20 }}>Duration Time (s)</InputLabel>
             <TextField
               margin="dense"
-              id="departureStation"
+              id="duration"
               type="number"
               fullWidth
               variant="standard"
+              value={duration}
+              onChange={({ target }) => setDuration(target.value)}
             />
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button type="submit" label="Submit">
+                Add New
+              </Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Add New</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

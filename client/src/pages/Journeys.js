@@ -15,7 +15,7 @@ export default function Journeys() {
     attr: "Return_station_name",
     direction: "descending",
   });
-  const [journeyCount, setJourneyCount] = useState(Number(782598));
+  const [journeyCount, setJourneyCount] = useState(Number(782599));
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
     let orderByColumn = direction + sortConfig.attr;
@@ -77,11 +77,17 @@ export default function Journeys() {
     setPage(0);
   };
 
+  const handleAddNewJourney = (object) => {
+    journeyService.addJourney(object);
+    setPage(0);
+    //setJourneyCount((journeyCount) => journeyCount + 1);
+    // setJourneys(object);
+  };
   return (
     <div id="journeys-page">
       <h3>Journeys</h3>
       <div>
-        <AddJourneyModal />
+        <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
       </div>
       <div id="filter-journey">
         <div className="journey-filter-box">
