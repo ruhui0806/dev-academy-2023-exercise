@@ -52,7 +52,7 @@ export default function FormDialog() {
             <TextField
               margin="dense"
               id="departureTime"
-              type="date"
+              type="datetime-local"
               fullWidth
               variant="standard"
               value={departureTime}
@@ -62,7 +62,7 @@ export default function FormDialog() {
             <TextField
               margin="dense"
               id="returnTime"
-              type="date"
+              type="datetime-local"
               fullWidth
               variant="standard"
               value={returnTime}
