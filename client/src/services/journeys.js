@@ -17,8 +17,13 @@ const getJourneys = async (
   );
   return res.data;
 };
+
+const addJourney = async (object) => {
+  const response = await axios.post(baseUrl, object);
+  return response.data;
+};
 // const deleteJourneyById = (objectId) => {
 //   const res = axios.delete(`${baseUrl}?objectId=${objectId}`);
 // }
 
-export default { getJourneys };
+export default { getJourneys, addJourney };

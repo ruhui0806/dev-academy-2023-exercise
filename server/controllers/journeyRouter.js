@@ -1,6 +1,6 @@
 const journeyRouter = require("express").Router();
 const Journey = require("../models/journey");
-
+const { newJourneyDataValidation } = require("../utils/validation");
 journeyRouter.get("/", async (request, response) => {
   const journeys = await Journey.find({
     Covered_distance_m: { $gte: request.query.filterByDistance },
@@ -21,19 +21,7 @@ journeyRouter.get("/", async (request, response) => {
 
 journeyRouter.post("/", async (request, response) => {
   const body = request.body;
-  if (
-    body.Departure &&
-    body.Departure_station_id &&
-    body.Departure_station_name &&
-    body.Return &&
-    body.Return_station_id &&
-    body.Return_station_name &&
-    body.Covered_distance_m &&
-    body.Duration_sec &&
-    Number(body.Duration_sec) > 10 &&
-    Number(body.Covered_distance_m) > 10 &&
-    body.Departure < body.Return
-  ) {
+  if (newJourneyDataValidation(body)) {
     const journey = new Journey({
       Departure: body.Departure,
       Departure_station_id: body.Departure_station_id,
@@ -47,7 +35,9 @@ journeyRouter.post("/", async (request, response) => {
     const savedJourney = await journey.save();
     response.json(savedJourney.toJSON());
   } else {
-    return response.status(400).json({ error: "content missing" });
+    return response
+      .status(400)
+      .json({ error: "content missing || incorrect data input" });
   }
 });
 module.exports = journeyRouter;
