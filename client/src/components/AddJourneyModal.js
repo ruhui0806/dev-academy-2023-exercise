@@ -14,12 +14,12 @@ import stationService from "../services/stations.js";
 export default function FormDialog({ handleAddNewJourney }) {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
-  const [departureTime, setDepartureTime] = useState("");
-  const [returnTime, setReturnTime] = useState("");
+  const [departureTime, setDepartureTime] = useState("2023-05-31T00:00:00");
+  const [returnTime, setReturnTime] = useState("2023-05-31T00:00:00");
   const [departureStation, setDepartureStation] = useState("");
   const [returnStation, setReturnStation] = useState("");
   const [distance, setDistance] = useState(0);
-  const [duration, setDuration] = useState(0);
+  // const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     stationService.getAllStations().then((stations) => {
@@ -46,7 +46,7 @@ export default function FormDialog({ handleAddNewJourney }) {
       Return_station_name: returnStation.split(",")[1],
       Return_station_id: returnStation.split(",")[0],
       Covered_distance_m: distance,
-      Duration_sec: duration,
+      Duration_sec: (Date.parse(returnTime) - Date.parse(departureTime)) / 1000,
     };
     handleAddNewJourney(journeyObject);
     setOpen(false);
@@ -55,7 +55,7 @@ export default function FormDialog({ handleAddNewJourney }) {
     setDepartureTime("");
     setReturnTime("");
     setDistance(0);
-    setDuration(0);
+    // setDuration(0);
     console.log("new journey", journeyObject);
   };
 
@@ -76,7 +76,7 @@ export default function FormDialog({ handleAddNewJourney }) {
               margin="dense"
               id="departureTime"
               type="datetime-local"
-              step="2"
+              inputProps={{ step: 1 }}
               fullWidth
               variant="standard"
               value={departureTime}
@@ -87,7 +87,7 @@ export default function FormDialog({ handleAddNewJourney }) {
               margin="dense"
               id="returnTime"
               type="datetime-local"
-              step="2"
+              inputProps={{ step: 1 }}
               fullWidth
               variant="standard"
               value={returnTime}
@@ -156,8 +156,10 @@ export default function FormDialog({ handleAddNewJourney }) {
               type="number"
               fullWidth
               variant="standard"
-              value={duration}
-              onChange={({ target }) => setDuration(target.value)}
+              value={
+                (Date.parse(returnTime) - Date.parse(departureTime)) / 1000
+              }
+              // onChange={({ target }) => setDuration(target.value)}
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
