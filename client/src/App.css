@@ -162,6 +162,9 @@ tfoot th {
   flex-direction: row;
   justify-content: space-between;
 }
+.journey-filter-box {
+  padding: 0;
+}
 input {
   width: 300px;
   height: 30px;
