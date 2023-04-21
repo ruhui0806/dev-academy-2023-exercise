@@ -52,8 +52,8 @@ export default function FormDialog({ handleAddNewJourney }) {
     setOpen(false);
     setDepartureStation("");
     setReturnStation("");
-    setDepartureTime("");
-    setReturnTime("");
+    setDepartureTime("2023-05-31T00:00:00");
+    setReturnTime("2023-05-31T00:00:00");
     setDistance(0);
     // setDuration(0);
     console.log("new journey", journeyObject);
