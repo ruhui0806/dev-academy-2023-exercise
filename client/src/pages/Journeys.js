@@ -3,6 +3,7 @@ import { FaSort } from "react-icons/fa";
 import JourneyRow from "../components/JourneyRow";
 import journeyService from "../services/journeys.js";
 import Pagination from "../components/pagination";
+import AddJourneyModal from "../components/AddJourneyModal";
 
 export default function Journeys() {
   const [journeys, setJourneys] = useState([]);
@@ -14,11 +15,11 @@ export default function Journeys() {
     attr: "Return_station_name",
     direction: "descending",
   });
-  const [journeyCount, setJourneyCount] = useState(Number(782598));
+  const [journeyCount, setJourneyCount] = useState(Number(782599));
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
     let orderByColumn = direction + sortConfig.attr;
-    //hint: offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
+    //NB: offset = page*journeysPerPage, limit=journeysPerPage, order = orderByColumn
     journeyService
       .getJourneys(
         page * journeysPerPage,
@@ -49,6 +50,8 @@ export default function Journeys() {
   };
   //component styles:
   const buttonStyle = {
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 5,
     paddingLeft: 7,
     paddingRight: 7,
@@ -74,24 +77,43 @@ export default function Journeys() {
     setPage(0);
   };
 
+  const handleAddNewJourney = (object) => {
+    journeyService.addJourney(object);
+    setPage(0);
+    // journeyService.addJourney(object).then((res) => {
+    //   setJourneys(journeys.concat(res.data));
+    // });
+  };
+  const handleDeleteJourney = (id) => {
+    journeyService
+      .deleteJourneyById(id)
+      .then(() => setJourneys(journeys.filter((j) => j._id !== id)));
+  };
   return (
     <div id="journeys-page">
       <h3>Journeys</h3>
+      <div>
+        <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
+      </div>
       <div id="filter-journey">
-        <h5>Filter journey by covered distance (km) longer than:</h5>
-        <input
-          type="number"
-          id="valueForFilterByDistance"
-          placeholder="Filter by distance"
-          onChange={handleFilterByDistance}
-        />
-        <h5>Filter journey by duration (min) longer than:</h5>
-        <input
-          type="number"
-          id="valueForFilterByDuration"
-          placeholder="Filter by duration"
-          onChange={handleFilterByDuration}
-        />
+        <div className="journey-filter-box">
+          <h5>Filter journey by covered distance (km) longer than:</h5>
+          <input
+            type="number"
+            id="valueForFilterByDistance"
+            placeholder="Filter by distance"
+            onChange={handleFilterByDistance}
+          />
+        </div>
+        <div className="journey-filter-box">
+          <h5>Filter journey by duration (min) longer than:</h5>
+          <input
+            type="number"
+            id="valueForFilterByDuration"
+            placeholder="Filter by duration"
+            onChange={handleFilterByDuration}
+          />
+        </div>
       </div>
 
       <table>
@@ -145,11 +167,16 @@ export default function Journeys() {
                 <FaSort />
               </button>
             </th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {journeys.map((journey) => (
-            <JourneyRow key={journey._id} journey={journey} />
+            <JourneyRow
+              key={journey._id}
+              journey={journey}
+              deleteJourney={handleDeleteJourney}
+            />
           ))}
         </tbody>
       </table>

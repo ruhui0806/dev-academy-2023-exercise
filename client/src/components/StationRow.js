@@ -1,23 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
-import stationService from "../services/stations";
-export default function StationRow({ station }) {
-  const navigate = useNavigate();
-  const handleDeleteStation = (id) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete ${station.currentStation.Name}?`
-      )
-    ) {
-      stationService
-        .deleteStationByID(id)
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
-
-      navigate("/stations");
-    }
-  };
+// import stationService from "../services/stations";
+export default function StationRow({ station, deleteStation }) {
   const buttonStyle = {
     paddingTop: 6,
     paddingBottom: 6,
@@ -25,6 +10,17 @@ export default function StationRow({ station }) {
     paddingRight: 7,
     fontSize: 15,
   };
+  const handleDeleteStation = (id) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete station:  ${station.ID} (ID)-${station.Name}`
+      )
+    ) {
+      deleteStation(id);
+      // journeyService.deleteJourneyById(id);
+    }
+  };
+
   return (
     <tr>
       <td>
@@ -52,7 +48,7 @@ export default function StationRow({ station }) {
         <button
           style={buttonStyle}
           className="button"
-          onClick={() => handleDeleteStation(station.ID)}
+          onClick={() => handleDeleteStation(station._id)}
         >
           <FaTrashAlt />{" "}
         </button>

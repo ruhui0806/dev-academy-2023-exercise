@@ -11,7 +11,13 @@ const StationMap = ({ x, y }) => {
         center={center}
         mapContainerStyle={{
           height: "400px",
-          width: "800px",
+          width: {
+            xs: 200,
+            sm: 300,
+            md: 400,
+            lg: 500,
+            xl: 600,
+          },
           marginTop: "20px",
           marginBottom: "20px",
         }}

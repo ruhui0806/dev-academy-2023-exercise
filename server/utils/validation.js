@@ -63,17 +63,18 @@ const isDate = (date) => {
   return Boolean(Date.parse(date));
 };
 
+//add journey validation for csv data:
 const journeyValidation = (row) => {
   if (row.length !== 8) {
     return false;
   }
   const departureDate = new Date(row[0]);
-  if (!isDate(departureDate) || row[0].length !== 19) {
+  if (!isDate(row[0]) || row[0].length !== 19) {
     // throw new Error('Incorrect date type: ' + departureDate)
     return false;
   }
   const returnDate = new Date(row[1]);
-  if (!isDate(returnDate) || row[1].length !== 19) {
+  if (!isDate(row[1]) || row[1].length !== 19) {
     // throw new Error('Incorrect date type: ' + returnDate)
     return false;
   }
@@ -111,6 +112,7 @@ const journeyValidation = (row) => {
   return true;
 };
 
+//add station validation for csv data:
 const stationValidation = (row) => {
   if (row.length !== 13) {
     return false;
@@ -171,4 +173,69 @@ const stationValidation = (row) => {
   return true;
 };
 
-module.exports = { journeyValidation, stationValidation };
+//add journey validation for new journey data:
+const newJourneyDataValidation = (object) => {
+  const parseDate = (date) => {
+    if (!isString(date) || !isDate(date)) {
+      throw new Error(`In correct or missing date format: ${date}`);
+    }
+    return date;
+  };
+
+  const parseID = (id) => {
+    if (!id || Number(id) < 0) {
+      throw new Error(`In correct or missing ID format: ${id}`);
+    }
+    return id;
+  };
+
+  const parseName = (name) => {
+    if (!isString(name)) {
+      throw new Error(`In correct or missing station name: ${name}`);
+    }
+    return name;
+  };
+
+  const parseDistance = (distance) => {
+    if (distance < 10 || isNaN(distance)) {
+      throw new Error(`In correct or missing journey distance: ${distance}`);
+    }
+    return distance;
+  };
+
+  const parseDuration = (duration) => {
+    if (duration < 10 || isNaN(duration)) {
+      throw new Error(`In correct or missing journey duration: ${duration}`);
+    }
+    return duration;
+  };
+
+  const Departure = parseDate(object.Departure);
+  const Return = parseDate(object.Return);
+  const Departure_station_id = parseID(object.Departure_station_id);
+  const Return_station_id = parseID(object.Return_station_id);
+  const Departure_station_name = parseName(object.Departure_station_name);
+  const Return_station_name = parseName(object.Return_station_name);
+  const Covered_distance_m = parseDistance(object.Covered_distance_m);
+  const Duration_sec = parseDuration(object.Duration_sec);
+  if (Date.parse(Departure) > Date.parse(Return)) {
+    throw new Error(
+      `departure time${Departure} should be earlier than return time: ${Return}`
+    );
+  }
+  return {
+    Departure,
+    Departure_station_id,
+    Departure_station_name,
+    Return,
+    Return_station_id,
+    Return_station_name,
+    Covered_distance_m,
+    Duration_sec,
+  };
+};
+module.exports = {
+  journeyValidation,
+  stationValidation,
+  newJourneyDataValidation,
+};

@@ -7,6 +7,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import StationMap from "../components/StationMap";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -20,7 +21,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -38,7 +39,7 @@ function a11yProps(index) {
   };
 }
 
-export default function Tabination(station) {
+export default function Tabination({ mapLoading, station }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -50,29 +51,40 @@ export default function Tabination(station) {
     setValue(index);
   };
 
+  const boxStyle = {
+    bgcolor: "transparent",
+    width: {
+      tablet: 640,
+      laptop: 1024,
+      desktop: 1280,
+    },
+  };
+
+  const appBarStyle = {
+    borderBottom: 1,
+    borderColor: "divider",
+    width: { tablet: 640, laptop: 1024, desktop: 1280 },
+    fontSize: 12,
+    height: "window.innerHeight",
+  };
   return (
-    <Box sx={{ bgcolor: "background.paper", width: 1000 }}>
-      <AppBar position="static">
+    <Box sx={boxStyle} id="tab-box">
+      <AppBar id="app-bar" position="static" sx={appBarStyle}>
         <Tabs
+          id="tab-container"
           value={value}
           onChange={handleChange}
-          indicatorColor="secondary"
+          indicatorColor="inherit"
           textColor="inherit"
           variant="fullWidth"
-          aria-label="full width tabs example"
         >
-          <Tab label="Count Journeys start here" {...a11yProps(0)} />
-          <Tab label="Count Journeys end here" {...a11yProps(1)} />
+          <Tab label="Journeys start here" {...a11yProps(0)} />
+          <Tab label="Journeys end here" {...a11yProps(1)} />
           <Tab label="Average journey distance start here" {...a11yProps(2)} />
           <Tab label="Average journey distance end here" {...a11yProps(3)} />
-          <Tab
-            label="Top 5 departure staions for journeys start here"
-            {...a11yProps(4)}
-          />
-          <Tab
-            label="Top 5 departure staions for journeys end here"
-            {...a11yProps(5)}
-          />
+          <Tab label="Top 5 return stations" {...a11yProps(4)} />
+          <Tab label="Top 5 departure stations" {...a11yProps(5)} />
+          <Tab label="Location " {...a11yProps(6)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -80,19 +92,53 @@ export default function Tabination(station) {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={0}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          The amount of journeys that start from {station.currentStation.Name}:{" "}
           {station.countJourneyStartHere}
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={1}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          The amount of journeys that end at {station.currentStation.Name}:{" "}
           {station.countJourneyEndHere}
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={2}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          Average ditance of journeys that start from{" "}
+          {station.currentStation.Name}:{" "}
           {Math.ceil(station.averageDepartunreDistance[0].averageDistance)}
         </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={3}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          Average ditance of journeys that end at {station.currentStation.Name}:{" "}
           {Math.ceil(station.averageReturnDistance[0].averageDistance)}
         </TabPanel>
-        <TabPanel value={value} index={4} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={4}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          <span>
+            Below are the top 5 Return stations for journeys starting from{" "}
+            {station.currentStation.Name}:
+          </span>
           <ul>
             {station.aggrJourneyDeparture.map((journey) => (
               <li key={journey._id}>
@@ -101,7 +147,16 @@ export default function Tabination(station) {
             ))}
           </ul>
         </TabPanel>
-        <TabPanel value={value} index={5} dir={theme.direction}>
+        <TabPanel
+          value={value}
+          index={5}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          <span>
+            Below are the top 5 departure stations for journeys ends here{" "}
+            {station.currentStation.Name}:
+          </span>
           <ul>
             {station.aggrJourneyReturn.map((journey) => (
               <li key={journey._id}>
@@ -109,6 +164,19 @@ export default function Tabination(station) {
               </li>
             ))}
           </ul>
+        </TabPanel>
+        <TabPanel
+          value={value}
+          index={6}
+          dir={theme.direction}
+          className="tab-panel"
+        >
+          {station && !mapLoading && (
+            <StationMap
+              x={Number(station.currentStation.x)}
+              y={Number(station.currentStation.y)}
+            />
+          )}
         </TabPanel>
       </SwipeableViews>
     </Box>

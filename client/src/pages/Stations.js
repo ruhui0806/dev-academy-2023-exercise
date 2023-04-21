@@ -51,6 +51,8 @@ const Stations = () => {
 
   //component styles:
   const buttonStyle = {
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 5,
     paddingLeft: 7,
     paddingRight: 7,
@@ -76,6 +78,11 @@ const Stations = () => {
     setPage(newPage);
   };
 
+  const handleDeleteStation = (id) => {
+    stationService
+      .deleteStationById(id)
+      .then(() => setStations(stations.filter((s) => s._id !== id)));
+  };
   return (
     <div id="stations-page">
       <form id="search-station">
@@ -151,12 +158,20 @@ const Stations = () => {
                   page * stationsPerPage + stationsPerPage
                 )
                 .map((station) => (
-                  <StationRow station={station} key={station.ID} />
+                  <StationRow
+                    station={station}
+                    key={station.ID}
+                    deleteStation={handleDeleteStation}
+                  />
                 ))
             : stationToShow
                 .sort(SortByColumn)
                 .map((station) => (
-                  <StationRow station={station} key={station.ID} />
+                  <StationRow
+                    station={station}
+                    key={station.ID}
+                    deleteStation={handleDeleteStation}
+                  />
                 ))}
         </tbody>
       </table>

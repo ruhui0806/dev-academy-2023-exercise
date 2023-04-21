@@ -11,7 +11,10 @@ stationRouter.delete("/:ID", async (request, response) => {
   await Station.findOneAndDelete({ ID: request.params.ID });
   response.status(204).end();
 });
-
+stationRouter.delete("/", async (request, response) => {
+  await Station.findByIdAndRemove(request.query.objectId);
+  response.status(204).end();
+});
 stationRouter.get("/:ID", async (request, response) => {
   const station = await Station.findOne({ ID: request.params.ID });
   if (station) {
