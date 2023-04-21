@@ -19,16 +19,6 @@ const getJourneys = async (
 };
 
 const addJourney = async (object) => {
-  // object = {
-  //   Departure: "2021-05-31T23:52:03",
-  //   Departure_station_id: "116",
-  //   Departure_station_name: "Linnanmäki",
-  //   Return: "2021-06-01T00:15:16",
-  //   Return_station_id: "117",
-  //   Return_station_name: "Brahen puistikko",
-  //   Covered_distance_m: 3700000,
-  //   Duration_sec: 1393,
-  // };
   const response = await axios.post(baseUrl, object);
   console.log("add new journey", response.data);
   return response.data;

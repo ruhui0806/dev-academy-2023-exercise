@@ -80,9 +80,6 @@ export default function Journeys() {
   const handleAddNewJourney = (object) => {
     journeyService.addJourney(object);
     setPage(0);
-    // journeyService.addJourney(object).then((res) => {
-    //   setJourneys(journeys.concat(res.data));
-    // });
   };
   const handleDeleteJourney = (id) => {
     journeyService

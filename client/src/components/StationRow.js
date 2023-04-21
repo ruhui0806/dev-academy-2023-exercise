@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
-// import stationService from "../services/stations";
+
 export default function StationRow({ station, deleteStation }) {
   const buttonStyle = {
     paddingTop: 6,
@@ -17,7 +17,6 @@ export default function StationRow({ station, deleteStation }) {
       )
     ) {
       deleteStation(id);
-      // journeyService.deleteJourneyById(id);
     }
   };
 

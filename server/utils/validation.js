@@ -1,59 +1,3 @@
-// const isString = (text) => {
-//     return (typeof text === 'string' || text instanceof String) && text.length > 0
-// }
-// const parseString = (input) => {
-//     if (!isString(input)) {
-//         throw new Error('Incorrect or missing input')
-//     }
-//     return input
-// }
-// const isDate = (date) => {
-//     return Boolean(Date.parse(date))
-// };
-
-// const parseDate = (date) => {
-//     if (!isString(date) || !isDate(date) || date.length !== 19) {
-//         throw new Error('Incorrect date: ' + date)
-//     }
-//     return Date.parse(date)
-// }
-// const parseIntID = (input) => {
-//     parsedId = Number(input)
-//     if (id < 0 || !Number.isInteger(id)) {
-//         throw new Error('Incorrect id: ' + id)
-//     }
-//     return parsedId
-// }
-
-// const parseNumber = (input) => {
-//     const parsedInput = Number(input)
-//     if (input < 10 || isNaN(input)) {
-//         throw new Error('Incorrect input: ' + input)
-//     }
-//     return parsedInput
-// }
-
-// const journeyValidation = (journeyRow) => {
-
-//     if ('Departure' in journeyRow && 'Return' in journeyRow && 'Departure' in journeyRow && 'Departure_station_id' in journeyRow && 'Return_station_id' in journeyRow && 'Return_station_name' in journeyRow && 'Covered_distance_m' in journeyRow && 'Duration_sec' in journeyRow) {
-//         const validateJourney = {
-//             Departure: parseDate(journeyRow[0]),
-//             Return: parseDate(journeyRow[1]),
-//             Departure_station_id: parseIntID(journeyRow[2]),
-//             Departure_station_name: parseString(journeyRow[3]),
-//             Return_station_name: parseString(journeyRow[4]),
-//             Return_station_id: parseIntID(journeyRow[5]),
-//             Covered_distance_m: parseNumber(journeyRow[6]),
-//             Duration_sec: parseNumber(journeyRow[7])
-//         }
-//         if (Departure > Return) {
-//             throw new Error('peuarture time must not be earlier than return time')
-//         }
-//         return validateJourney
-//     }
-//     throw new Error('missing data')
-// }
-
 const isString = (text) => {
   return (
     (typeof text === "string" || text instanceof String) && text.length > 0
@@ -70,16 +14,13 @@ const journeyValidation = (row) => {
   }
   const departureDate = new Date(row[0]);
   if (!isDate(row[0]) || row[0].length !== 19) {
-    // throw new Error('Incorrect date type: ' + departureDate)
     return false;
   }
   const returnDate = new Date(row[1]);
   if (!isDate(row[1]) || row[1].length !== 19) {
-    // throw new Error('Incorrect date type: ' + returnDate)
     return false;
   }
   if (departureDate.getTime() > returnDate.getTime()) {
-    // throw new Error('Departure date should not be later than return date');
     return false;
   }
   const Departure_station_id = Number(row[2]);
@@ -117,10 +58,7 @@ const stationValidation = (row) => {
   if (row.length !== 13) {
     return false;
   }
-  // const stationFID = Number(row[0])
-  // if (stationFID < 0 || !Number.isInteger(stationFID)) {
-  //     return false
-  // }
+
   const stationID = Number(row[1]);
   if (stationID < 0 || !Number.isInteger(stationID)) {
     return false;
@@ -147,15 +85,6 @@ const stationValidation = (row) => {
   if (!(typeof stationAdress === "string" || stationAdress instanceof String)) {
     return false;
   }
-
-  // const stationKaupunki = row[7]
-  // if (typeof stationKaupunki === 'string' || stationKaupunki instanceof String) { return false }
-
-  // const stationStad = row[8]
-  // if (typeof stationStad === 'string' || stationStad instanceof String) { return false }
-
-  // const stationOperaattor = row[9]
-  // if (typeof stationOperaattor === 'string' || stationOperaattor instanceof String) { return false }
 
   const stationKapasiteet = Number(row[10]);
   if (stationKapasiteet < 0 || !Number.isInteger(stationKapasiteet)) {

@@ -19,7 +19,6 @@ export default function FormDialog({ handleAddNewJourney }) {
   const [departureStation, setDepartureStation] = useState("");
   const [returnStation, setReturnStation] = useState("");
   const [distance, setDistance] = useState(0);
-  // const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     stationService.getAllStations().then((stations) => {
@@ -34,8 +33,6 @@ export default function FormDialog({ handleAddNewJourney }) {
   const handleClose = () => {
     setOpen(false);
   };
-  // console.log("return station", returnStation.split(",")[0]);
-  // console.log("return station", returnStation.split(",")[1]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const journeyObject = {
