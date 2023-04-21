@@ -33,8 +33,9 @@ const addJourney = async (object) => {
   console.log("add new journey", response.data);
   return response.data;
 };
-// const deleteJourneyById = (objectId) => {
-//   const res = axios.delete(`${baseUrl}?objectId=${objectId}`);
-// }
+const deleteJourneyById = async (objectId) => {
+  const response = await axios.delete(`${baseUrl}?objectId=${objectId}`);
+  return response.data;
+};
 
-export default { getJourneys, addJourney };
+export default { getJourneys, addJourney, deleteJourneyById };

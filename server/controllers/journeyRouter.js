@@ -40,4 +40,9 @@ journeyRouter.post("/", async (request, response) => {
       .json({ error: "content missing || incorrect data input" });
   }
 });
+
+journeyRouter.delete("/", async (request, response) => {
+  await Journey.findByIdAndRemove(request.query.objectId);
+  response.status(204).end();
+});
 module.exports = journeyRouter;

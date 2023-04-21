@@ -49,10 +49,9 @@ export default function StationView() {
     return <span className="loader"></span>;
   }
   const buttonStyle = {
-    paddingTop: 6,
-    paddingBottom: 6,
-    paddingLeft: 7,
-    paddingRight: 7,
+    marginTop: 1,
+    marginBottom: 1,
+    padding: 6,
     fontSize: 15,
   };
 
@@ -157,9 +156,9 @@ export default function StationView() {
           Go Back
         </Link>
         <button
-          className="button"
           style={buttonStyle}
-          onClick={() => handleDeleteStation(station.currentStation.ID)}
+          className="button"
+          onClick={() => handleDeleteStation(ID)}
         >
           <FaTrashAlt />{" "}
         </button>

@@ -80,8 +80,14 @@ export default function Journeys() {
   const handleAddNewJourney = (object) => {
     journeyService.addJourney(object);
     setPage(0);
-    //setJourneyCount((journeyCount) => journeyCount + 1);
-    // setJourneys(object);
+    // journeyService.addJourney(object).then((res) => {
+    //   setJourneys(journeys.concat(res.data));
+    // });
+  };
+  const handleDeleteJourney = (id) => {
+    journeyService
+      .deleteJourneyById(id)
+      .then(() => setJourneys(journeys.filter((j) => j._id !== id)));
   };
   return (
     <div id="journeys-page">
@@ -161,11 +167,16 @@ export default function Journeys() {
                 <FaSort />
               </button>
             </th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {journeys.map((journey) => (
-            <JourneyRow key={journey._id} journey={journey} />
+            <JourneyRow
+              key={journey._id}
+              journey={journey}
+              deleteJourney={handleDeleteJourney}
+            />
           ))}
         </tbody>
       </table>

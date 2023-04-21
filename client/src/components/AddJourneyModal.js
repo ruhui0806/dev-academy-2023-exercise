@@ -76,6 +76,7 @@ export default function FormDialog({ handleAddNewJourney }) {
               margin="dense"
               id="departureTime"
               type="datetime-local"
+              step="2"
               fullWidth
               variant="standard"
               value={departureTime}
@@ -86,6 +87,7 @@ export default function FormDialog({ handleAddNewJourney }) {
               margin="dense"
               id="returnTime"
               type="datetime-local"
+              step="2"
               fullWidth
               variant="standard"
               value={returnTime}
