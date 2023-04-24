@@ -72,8 +72,12 @@ export default function Journeys() {
     setFilterByDistanceInput(event.target.value * 1000);
   };
   const handleFilterByDistanceChange = () => {
-    setValueForFilterByDistance(filterByDistanceInput);
-    setPage(0);
+    if (filterByDistanceInput > 0) {
+      setValueForFilterByDistance(filterByDistanceInput);
+      setPage(0);
+    } else {
+      alert("The filter value should not be a negative number.");
+    }
   };
   const handleFilterByDuration = (event) => {
     event.preventDefault();
@@ -81,8 +85,12 @@ export default function Journeys() {
     setPage(0);
   };
   const handleFilterByDurationChange = () => {
-    setValueForFilterByDuration(filterByDurationInput);
-    setPage(0);
+    if (filterByDurationInput > 0 || filterByDurationInput === 0) {
+      setValueForFilterByDuration(filterByDurationInput);
+      setPage(0);
+    } else {
+      alert("The filter value should not be a negative number.");
+    }
   };
   const handleAddNewJourney = (object) => {
     journeyService.addJourney(object);
@@ -91,7 +99,10 @@ export default function Journeys() {
   const handleDeleteJourney = (id) => {
     journeyService
       .deleteJourneyById(id)
-      .then(() => setJourneys(journeys.filter((j) => j._id !== id)));
+      .then(() => setJourneys(journeys.filter((j) => j._id !== id)))
+      .catch((error) => {
+        alert(`Error occured: ${error}`);
+      });
   };
 
   return (
@@ -165,7 +176,7 @@ export default function Journeys() {
               </button>
             </th>
             <th>
-              Covered distance km
+              Distance-km
               <button
                 style={buttonStyle}
                 className="button-order"
@@ -177,7 +188,7 @@ export default function Journeys() {
               </button>
             </th>
             <th>
-              Duration in min
+              Duration-min
               <button
                 style={buttonStyle}
                 className="button-order"
