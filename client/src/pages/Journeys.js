@@ -5,6 +5,7 @@ import journeyService from "../services/journeys.js";
 import Pagination from "../components/pagination";
 import AddJourneyModal from "../components/AddJourneyModal";
 import { MdFilterAlt } from "react-icons/md";
+import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
 export default function Journeys() {
   const [journeys, setJourneys] = useState([]);
   const [page, setPage] = useState(0);
@@ -18,6 +19,7 @@ export default function Journeys() {
     direction: "descending",
   });
   const [journeyCount, setJourneyCount] = useState(Number(782599));
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
     let orderByColumn = direction + sortConfig.attr;
@@ -30,10 +32,16 @@ export default function Journeys() {
         valueForFilterByDistance,
         valueForFilterByDuration
       )
-      .then((data) => {
-        setJourneys(data.journeys);
-        setJourneyCount(data.journeysCount);
-      });
+      .then(
+        (data) => {
+          setJourneys(data.journeys);
+          setJourneyCount(data.journeysCount);
+        },
+        (error) => {
+          // Show error boundary
+          showBoundary(error);
+        }
+      );
   }, [
     page,
     journeysPerPage,
@@ -109,7 +117,9 @@ export default function Journeys() {
     <div id="journeys-page">
       <h3>Journeys</h3>
       <div>
-        <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
+        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+          <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
+        </ErrorBoundary>
       </div>
       <div id="filter-journey">
         <div className="journey-filter-box">
