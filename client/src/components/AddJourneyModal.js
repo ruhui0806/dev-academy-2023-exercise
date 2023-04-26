@@ -170,7 +170,6 @@ export default function FormDialog({ handleAddNewJourney }) {
               value={
                 (Date.parse(returnTime) - Date.parse(departureTime)) / 1000
               }
-              // onChange={({ target }) => setDuration(target.value)}
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
