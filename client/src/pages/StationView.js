@@ -10,10 +10,6 @@ import Tabination from "../components/Tabination";
 export default function StationView() {
   const { ID } = useParams();
   const navigate = useNavigate();
-  const { mapLoading } = useLoadScript({
-    // eslint-disable-next-line no-undef
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
-  });
 
   const useStation = (ID) => {
     const [station, setStation] = useState(null);
@@ -31,6 +27,13 @@ export default function StationView() {
     }, [ID]);
     return station;
   };
+
+  const station = useStation(ID);
+
+  const { mapLoading } = useLoadScript({
+    // eslint-disable-next-line no-undef
+    googleMapsApiKey: station && station.REACT_APP_GOOGLE_MAP_API_KEY,
+  });
   const handleDeleteStation = (id) => {
     if (
       window.confirm(
@@ -45,7 +48,7 @@ export default function StationView() {
       navigate("/stations");
     }
   };
-  const station = useStation(ID);
+
   if (!station) {
     return <span className="loader"></span>;
   }

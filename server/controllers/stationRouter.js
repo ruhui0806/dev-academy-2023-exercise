@@ -1,7 +1,7 @@
 const stationRouter = require("express").Router();
 const Station = require("../models/station");
 const Journey = require("../models/journey");
-
+const config = require("../utils/config");
 stationRouter.get("/", async (request, response) => {
   const stations = await Station.find({});
   response.json(stations);
@@ -54,6 +54,7 @@ stationRouter.get("/:ID", async (request, response) => {
         "$Return_station_id"
       )
     );
+    const googleMapApiKey = config.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     response.json({
       currentStation: station,
@@ -63,6 +64,7 @@ stationRouter.get("/:ID", async (request, response) => {
       aggrJourneyDeparture: aggrJourneyDeparture,
       averageDepartunreDistance: averageDepartunreDistance,
       averageReturnDistance: averageReturnDistance,
+      REACT_APP_GOOGLE_MAP_API_KEY: googleMapApiKey,
     });
   } else {
     response.status(404).send({ error: "This is an unknown endpoint." });
