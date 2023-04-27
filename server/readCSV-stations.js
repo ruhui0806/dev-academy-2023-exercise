@@ -48,7 +48,7 @@ fs.createReadStream("./stations.csv")
       });
       logger.info(station_object);
       Station.create(station_object).catch((error) => {
-        console.log(error);
+        logger.error(error.message);
       });
     } else {
       logger.error("Incorrect data type in this row:" + row);

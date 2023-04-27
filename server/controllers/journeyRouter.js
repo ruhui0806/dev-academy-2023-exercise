@@ -15,8 +15,6 @@ journeyRouter.get("/", async (request, response) => {
     Duration_sec: { $gte: request.query.filterByDuration },
   }).count();
   response.json({ journeys, journeysCount });
-
-  console.log(request.query);
 });
 
 journeyRouter.post("/", async (request, response) => {
