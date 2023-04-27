@@ -36,8 +36,8 @@ export default function JourneyRow({ journey, deleteJourney }) {
           {journey.Return_station_name}
         </Link>
       </td>
-      <td>{journey.Covered_distance_m / 1000}</td>
-      <td>{Math.ceil(journey.Duration_sec / 60)}</td>
+      <td>{Number.parseFloat(journey.Covered_distance_m / 1000).toFixed(2)}</td>
+      <td>{Number.parseFloat(journey.Duration_sec / 60).toFixed(2)}</td>
       <td>
         <button
           style={buttonStyle}

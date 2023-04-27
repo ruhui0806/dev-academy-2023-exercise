@@ -4,6 +4,7 @@ import React from "react";
 import Stations from "./pages/Stations";
 import Journeys from "./pages/Journeys";
 import StationView from "./pages/StationView";
+import Error from "./pages/Error";
 
 const App = () => {
   return (
@@ -23,9 +24,22 @@ const App = () => {
           </Link>
         </div>
         <Routes>
-          <Route path="/stations" element={<Stations />} />
-          <Route path="/stations/:ID" element={<StationView />} />
-          <Route path="/journeys" element={<Journeys />} />
+          <Route
+            path="/stations"
+            element={<Stations />}
+            errorElement={<Error />}
+          />
+          <Route
+            path="/stations/:ID"
+            element={<StationView />}
+            errorElement={<Error />}
+          />
+          <Route
+            path="/journeys"
+            element={<Journeys />}
+            errorElement={<Error />}
+          />
+          <Route path="/*" element={<Error />} errorElement={<Error />} />
         </Routes>
       </Router>
     </div>

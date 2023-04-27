@@ -4,18 +4,22 @@ import JourneyRow from "../components/JourneyRow";
 import journeyService from "../services/journeys.js";
 import Pagination from "../components/pagination";
 import AddJourneyModal from "../components/AddJourneyModal";
-
+import { MdFilterAlt } from "react-icons/md";
+import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
 export default function Journeys() {
   const [journeys, setJourneys] = useState([]);
   const [page, setPage] = useState(0);
   const [journeysPerPage, setJourneysPerPage] = useState(10); //limit
   const [valueForFilterByDistance, setValueForFilterByDistance] = useState(0);
+  const [filterByDistanceInput, setFilterByDistanceInput] = useState(0);
   const [valueForFilterByDuration, setValueForFilterByDuration] = useState(0);
+  const [filterByDurationInput, setFilterByDurationInput] = useState(0);
   const [sortConfig, setSortConfig] = useState({
     attr: "Return_station_name",
     direction: "descending",
   });
   const [journeyCount, setJourneyCount] = useState(Number(782599));
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
     let orderByColumn = direction + sortConfig.attr;
@@ -28,10 +32,16 @@ export default function Journeys() {
         valueForFilterByDistance,
         valueForFilterByDuration
       )
-      .then((data) => {
-        setJourneys(data.journeys);
-        setJourneyCount(data.journeysCount);
-      });
+      .then(
+        (data) => {
+          setJourneys(data.journeys);
+          setJourneyCount(data.journeysCount);
+        },
+        (error) => {
+          // Show error boundary
+          showBoundary(error);
+        }
+      );
   }, [
     page,
     journeysPerPage,
@@ -50,11 +60,10 @@ export default function Journeys() {
   };
   //component styles:
   const buttonStyle = {
-    marginTop: 5,
-    marginBottom: 5,
-    marginLeft: 5,
-    paddingLeft: 7,
-    paddingRight: 7,
+    marginTop: 4,
+    marginBottom: 4,
+    marginLeft: 8,
+    padding: 6,
     fontSize: 15,
   };
   const handleChangePage = (event, newPage) => {
@@ -68,15 +77,29 @@ export default function Journeys() {
   };
   const handleFilterByDistance = (event) => {
     event.preventDefault();
-    setValueForFilterByDistance(event.target.value * 1000);
-    setPage(0);
+    setFilterByDistanceInput(event.target.value * 1000);
+  };
+  const handleFilterByDistanceChange = () => {
+    if (filterByDistanceInput > 0) {
+      setValueForFilterByDistance(filterByDistanceInput);
+      setPage(0);
+    } else {
+      alert("The filter value should not be a negative number.");
+    }
   };
   const handleFilterByDuration = (event) => {
     event.preventDefault();
-    setValueForFilterByDuration(event.target.value * 60);
+    setFilterByDurationInput(event.target.value * 60);
     setPage(0);
   };
-
+  const handleFilterByDurationChange = () => {
+    if (filterByDurationInput > 0 || filterByDurationInput === 0) {
+      setValueForFilterByDuration(filterByDurationInput);
+      setPage(0);
+    } else {
+      alert("The filter value should not be a negative number.");
+    }
+  };
   const handleAddNewJourney = (object) => {
     journeyService.addJourney(object);
     setPage(0);
@@ -84,32 +107,54 @@ export default function Journeys() {
   const handleDeleteJourney = (id) => {
     journeyService
       .deleteJourneyById(id)
-      .then(() => setJourneys(journeys.filter((j) => j._id !== id)));
+      .then(() => setJourneys(journeys.filter((j) => j._id !== id)))
+      .catch((error) => {
+        alert(`Error occured: ${error}`);
+      });
   };
+
   return (
     <div id="journeys-page">
       <h3>Journeys</h3>
       <div>
-        <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
+        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+          <AddJourneyModal handleAddNewJourney={handleAddNewJourney} />
+        </ErrorBoundary>
       </div>
       <div id="filter-journey">
         <div className="journey-filter-box">
           <h5>Filter journey by covered distance (km) longer than:</h5>
           <input
             type="number"
-            id="valueForFilterByDistance"
+            min="0"
+            id="filterByDistanceInput"
             placeholder="Filter by distance"
             onChange={handleFilterByDistance}
           />
+          <button
+            onClick={handleFilterByDistanceChange}
+            style={buttonStyle}
+            className="button"
+          >
+            <MdFilterAlt />{" "}
+          </button>
         </div>
         <div className="journey-filter-box">
           <h5>Filter journey by duration (min) longer than:</h5>
           <input
             type="number"
-            id="valueForFilterByDuration"
+            min="0"
+            id="filterByDurationInput"
             placeholder="Filter by duration"
             onChange={handleFilterByDuration}
           />
+          <button
+            onClick={handleFilterByDurationChange}
+            style={buttonStyle}
+            className="button"
+          >
+            <MdFilterAlt />{" "}
+          </button>
         </div>
       </div>
 
@@ -141,7 +186,7 @@ export default function Journeys() {
               </button>
             </th>
             <th>
-              Covered distance km
+              Distance-km
               <button
                 style={buttonStyle}
                 className="button-order"
@@ -153,7 +198,7 @@ export default function Journeys() {
               </button>
             </th>
             <th>
-              Duration in min
+              Duration-min
               <button
                 style={buttonStyle}
                 className="button-order"

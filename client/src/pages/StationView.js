@@ -17,12 +17,16 @@ export default function StationView() {
 
   const useStation = (ID) => {
     const [station, setStation] = useState(null);
+
     useEffect(() => {
-      if (ID !== "") {
+      if (!isNaN(Number(ID)) && ID.length === 3) {
         stationService
           .getStationByID(ID)
           .then((data) => setStation(data))
           .catch((err) => console.log(err));
+      } else {
+        alert("Station ID does not exist");
+        navigate("/stations");
       }
     }, [ID]);
     return station;
@@ -45,6 +49,7 @@ export default function StationView() {
   if (!station) {
     return <span className="loader"></span>;
   }
+
   if (mapLoading) {
     return <span className="loader"></span>;
   }

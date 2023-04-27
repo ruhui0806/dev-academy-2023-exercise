@@ -10,7 +10,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import stationService from "../services/stations.js";
-
+import { useErrorBoundary } from "react-error-boundary";
 export default function FormDialog({ handleAddNewJourney }) {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
@@ -19,7 +19,8 @@ export default function FormDialog({ handleAddNewJourney }) {
   const [departureStation, setDepartureStation] = useState("");
   const [returnStation, setReturnStation] = useState("");
   const [distance, setDistance] = useState(0);
-
+  const [error, setError] = useState(null);
+  const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     stationService.getAllStations().then((stations) => {
       setStations(stations);
@@ -35,28 +36,42 @@ export default function FormDialog({ handleAddNewJourney }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const journeyObject = {
-      Departure: departureTime,
-      Return: returnTime,
-      Departure_station_name: departureStation.split(",")[1],
-      Departure_station_id: departureStation.split(",")[0],
-      Return_station_name: returnStation.split(",")[1],
-      Return_station_id: returnStation.split(",")[0],
-      Covered_distance_m: distance,
-      Duration_sec: (Date.parse(returnTime) - Date.parse(departureTime)) / 1000,
-    };
-    handleAddNewJourney(journeyObject);
-    setOpen(false);
-    setDepartureStation("");
-    setReturnStation("");
-    setDepartureTime("2023-05-31T00:00:00");
-    setReturnTime("2023-05-31T00:00:00");
-    setDistance(0);
-    console.log("new journey", journeyObject);
+    try {
+      const journeyObject = {
+        Departure: departureTime,
+        Return: returnTime,
+        Departure_station_name: departureStation.split(",")[1],
+        Departure_station_id: departureStation.split(",")[0],
+        Return_station_name: returnStation.split(",")[1],
+        Return_station_id: returnStation.split(",")[0],
+        Covered_distance_m: distance,
+        Duration_sec:
+          (Date.parse(returnTime) - Date.parse(departureTime)) / 1000,
+      };
+      handleAddNewJourney(journeyObject);
+      setOpen(false);
+      setDepartureStation("");
+      setReturnStation("");
+      setDepartureTime("2023-05-31T00:00:00");
+      setReturnTime("2023-05-31T00:00:00");
+      setDistance(0);
+      console.log("new journey", journeyObject);
+    } catch (error) {
+      showBoundary(error);
+      setError(error);
+      setTimeout(() => setError(null), 3000);
+    }
   };
 
   if (!stations || stations.length === 0) {
-    return <span className="loader"></span>;
+    return (
+      <button onClick={handleClickOpen} className="button-link">
+        ADD NEW JOURNEY
+      </button>
+    );
+  }
+  if (error) {
+    return <div>Something went wrong</div>;
   }
   return (
     <div>
@@ -155,7 +170,6 @@ export default function FormDialog({ handleAddNewJourney }) {
               value={
                 (Date.parse(returnTime) - Date.parse(departureTime)) / 1000
               }
-              // onChange={({ target }) => setDuration(target.value)}
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
