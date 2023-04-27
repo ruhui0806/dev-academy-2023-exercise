@@ -49,14 +49,7 @@ export default function StationView() {
   if (!station) {
     return <span className="loader"></span>;
   }
-  // if (!station) {
-  //   return (
-  //     <div>
-  //       <h1>404</h1>
-  //       <p>Error occured: Page not found. / Something went wrong.</p>
-  //     </div>
-  //   );
-  // }
+
   if (mapLoading) {
     return <span className="loader"></span>;
   }
