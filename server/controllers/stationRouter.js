@@ -65,7 +65,7 @@ stationRouter.get("/:ID", async (request, response) => {
       averageReturnDistance: averageReturnDistance,
     });
   } else {
-    response.status(404).send({ error: "unknown endpoint" });
+    response.status(404).send({ error: "This is an unknown endpoint." });
   }
 });
 
