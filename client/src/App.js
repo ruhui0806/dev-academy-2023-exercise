@@ -39,7 +39,7 @@ const App = () => {
             element={<Journeys />}
             errorElement={<Error />}
           />
-          <Route path="*" element={<Error />} />
+          <Route path="/*" element={<Error />} errorElement={<Error />} />
         </Routes>
       </Router>
     </div>
