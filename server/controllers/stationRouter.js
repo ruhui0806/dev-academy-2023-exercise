@@ -7,14 +7,6 @@ stationRouter.get("/", async (request, response) => {
   response.json(stations);
 });
 
-stationRouter.delete("/:ID", async (request, response) => {
-  await Station.findOneAndDelete({ ID: request.params.ID });
-  response.status(204).end();
-});
-stationRouter.delete("/", async (request, response) => {
-  await Station.findByIdAndRemove(request.query.objectId);
-  response.status(204).end();
-});
 stationRouter.get("/:ID", async (request, response) => {
   const station = await Station.findOne({ ID: request.params.ID });
   if (station) {
@@ -64,9 +56,24 @@ stationRouter.get("/:ID", async (request, response) => {
       averageReturnDistance: averageReturnDistance,
       REACT_APP_GOOGLE_MAP_API_KEY: googleMapApiKey,
     });
+  } else if (!Number(request.params.ID)) {
+    response
+      .status(400)
+      .send({ error: "request params ID should be a integer." });
   } else {
-    response.status(404).send({ error: "This is an unknown endpoint." });
+    response
+      .status(404)
+      .send({ error: "Station with the current ID does not exist." });
   }
+});
+
+stationRouter.delete("/:ID", async (request, response) => {
+  await Station.findOneAndDelete({ ID: request.params.ID });
+  response.status(204).end();
+});
+stationRouter.delete("/", async (request, response) => {
+  await Station.findByIdAndRemove(request.query.objectId);
+  response.status(204).end();
 });
 
 const AggrCountParams = (matchObj, sortByKey, sortCount, limit) => {
