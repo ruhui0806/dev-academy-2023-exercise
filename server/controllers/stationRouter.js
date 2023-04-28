@@ -23,9 +23,7 @@ stationRouter.get("/:ID", async (request, response) => {
     }).count();
     const countJourneyEndHere = await Journey.find({
       Return_station_id: request.params.ID,
-    })
-      .count()
-      .count();
+    }).count();
     const aggrJourneyReturn = await Journey.aggregate(
       AggrCountParams(
         { Return_station_id: request.params.ID },
