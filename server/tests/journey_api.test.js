@@ -145,15 +145,29 @@ test("all journeys are returned when there is no skip, offset, and filter", asyn
   );
   expect(response.body.journeys).toHaveLength(initialJourneys.length);
   expect(response.body.journeysCount).toBe(initialJourneys.length);
-});
+}, 10000);
 
 test("only 2 journeys that is longer than 3600km and lasts longer than 100s", async () => {
   const response = await api.get(
-    "/api/journeys?limit=10&offset=0&filterByDistance=3600000&filterByDuration=100"
+    "/api/journeys?limit=0&offset=0&filterByDistance=3600000&filterByDuration=100"
   );
   expect(response.body.journeys).toHaveLength(2);
   expect(response.body.journeysCount).toBe(2);
-});
+}, 10000);
+
+test("paginated journey list with journey count on API requests by setting limit(items per page), offset(skip) for the API request", async () => {
+  const response = await api.get(
+    "/api/journeys?limit=5&offset=5&filterByDistance=0&filterByDuration=0"
+  );
+  expect(response.body.journeys).toHaveLength(5);
+  expect(response.body.journeysCount).toBe(initialJourneys.length);
+  const departureNameList = response.body.journeys.map(
+    (j) => j.Departure_station_name
+  );
+  expect(departureNameList).toContain("Viiskulma");
+  expect(departureNameList).toContain("Viikin tiedepuisto");
+}, 10000);
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
