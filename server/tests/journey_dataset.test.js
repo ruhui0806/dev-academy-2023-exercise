@@ -1,9 +1,4 @@
-// const mongoose = require("mongoose");
-// const supertest = require("supertest");
-// const app = require("../app");
-// const Journey = require("../models/journey");
 const { journeyValidation } = require("../utils/validation");
-// const api = supertest(app);
 
 describe("journey validation", () => {
   test("It should accept a valid trip", () => {
