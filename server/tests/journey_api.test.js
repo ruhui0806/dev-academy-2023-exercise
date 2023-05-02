@@ -139,7 +139,7 @@ test("journeys are returned as json", async () => {
     .expect("Content-Type", /application\/json/);
 }, 10000);
 
-test("all journeys are returned when there is no skip, offset, and filter", async () => {
+test("all journeys are returned when skip, offset, and filter equals to 0", async () => {
   const response = await api.get(
     "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
   );
@@ -166,6 +166,7 @@ test("paginated journey list with journey count on API requests by setting limit
   );
   expect(departureNameList).toContain("Viiskulma");
   expect(departureNameList).toContain("Viikin tiedepuisto");
+  expect(departureNameList).not.toContain("Kaivopuisto");
 }, 10000);
 
 afterAll(async () => {
