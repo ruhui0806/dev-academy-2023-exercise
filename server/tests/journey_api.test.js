@@ -169,6 +169,17 @@ test("Journey filteration works on the API side: only 2 journeys will be returne
   expect(response.body.journeysCount).toBe(2);
 }, 10000);
 
+test("Journey can be deleted", async () => {
+  const response = await api.get(
+    "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
+  );
+  const objectIdList = response.body.journeys.map((j) => j._id);
+  const testObjectId = objectIdList[0];
+  console.log(testObjectId);
+  const response1 = await api.delete(`/api/journeys?objectId=${testObjectId}`);
+  expect(response1.status).toBe(204);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
