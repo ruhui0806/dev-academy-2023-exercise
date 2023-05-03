@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 const app = require("../app");
 const Journey = require("../models/journey");
-const { initialJourneys } = require("./test_helper");
+const { initialJourneys, JourneyInDb } = require("./test_helper");
 
 beforeEach(async () => {
   await Journey.deleteMany({});
@@ -53,11 +53,12 @@ test("A journey can be deleted", async () => {
   );
   const objectIdList = response.body.journeys.map((j) => j._id);
   const testObjectId = objectIdList[0];
-  console.log(testObjectId);
   const responseDelete = await api.delete(
     `/api/journeys?objectId=${testObjectId}`
   );
+  const journeysAtEnd = await JourneyInDb();
   expect(responseDelete.status).toBe(204);
+  expect(journeysAtEnd).toHaveLength(initialJourneys.length - 1);
 });
 test("A journey can be created", async () => {
   const newJourney = {
@@ -75,10 +76,25 @@ test("A journey can be created", async () => {
     .send(newJourney)
     .expect(201)
     .expect("Content-Type", /application\/json/);
-  const response = await api.get(
-    "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
-  );
-  expect(response.body.journeys).toHaveLength(initialJourneys.length + 1);
+  const journeysAtEnd = await JourneyInDb();
+  expect(journeysAtEnd).toHaveLength(initialJourneys.length + 1);
+}, 10000);
+
+test("a journey does not pass newJourneyDataValidation is not added", async () => {
+  const badJourney = {
+    Departure: "2021-05-08TAB12:28:31",
+    Departure_station_id: "001",
+    Departure_station_name: "Kaivopuisto",
+    Return: "2021-05-26T13:07:04",
+    Return_station_id: "001",
+    Return_station_name: "Kaivopuisto",
+    Covered_distance_m: 3600,
+    Duration_sec: 1557513,
+  };
+  await api.post("/api/journeys").send(badJourney).expect(400);
+
+  const journeysAtEnd = await JourneyInDb();
+  expect(journeysAtEnd).toHaveLength(initialJourneys.length);
 }, 10000);
 
 afterAll(async () => {

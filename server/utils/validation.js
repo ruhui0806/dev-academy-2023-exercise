@@ -112,7 +112,7 @@ const newJourneyDataValidation = (object) => {
   };
 
   const parseID = (id) => {
-    if (!id || Number(id) < 0) {
+    if (!id || Number(id) < 0 || isNaN(Number(id))) {
       throw new Error(`In correct or missing ID format: ${id}`);
     }
     return id;
