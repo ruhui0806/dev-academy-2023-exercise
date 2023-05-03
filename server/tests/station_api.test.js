@@ -27,11 +27,11 @@ test("It should return 404 for trying to retrieve the nonexisting station by ID"
   expect(response.status).toBe(404);
 });
 
-test("It should return 400 if the station identifier is syntactically invalid - if numbers are used then giving a string should return this error", async () => {
+test("It should return 400 if the station identifier is invalid: if numbers are used then giving a string should return this error", async () => {
   const response = await api.get("/api/stations/Kaivopuisto");
   expect(response.status).toBe(400);
   expect(response.body.error).toContain(
-    "request params ID should be a integer."
+    "Request params ID should be a integer."
   );
 });
 

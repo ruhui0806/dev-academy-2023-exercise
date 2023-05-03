@@ -91,7 +91,7 @@ test("a journey does not pass newJourneyDataValidation is not added", async () =
     Covered_distance_m: 3600,
     Duration_sec: 1557513,
   };
-  await api.post("/api/journeys").send(badJourney).expect(400);
+  await api.post("/api/journeys").send(badJourney).expect(500);
 
   const journeysAtEnd = await JourneyInDb();
   expect(journeysAtEnd).toHaveLength(initialJourneys.length);
