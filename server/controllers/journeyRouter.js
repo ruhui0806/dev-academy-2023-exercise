@@ -31,7 +31,7 @@ journeyRouter.post("/", async (request, response) => {
       Duration_sec: body.Duration_sec,
     });
     const savedJourney = await journey.save();
-    response.json(savedJourney.toJSON());
+    response.status(201).json(savedJourney.toJSON());
   } else {
     return response
       .status(400)

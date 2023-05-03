@@ -169,16 +169,39 @@ test("Journey filteration works on the API side: only 2 journeys will be returne
   expect(response.body.journeysCount).toBe(2);
 }, 10000);
 
-test("Journey can be deleted", async () => {
+test("A journey can be deleted", async () => {
   const response = await api.get(
     "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
   );
   const objectIdList = response.body.journeys.map((j) => j._id);
   const testObjectId = objectIdList[0];
   console.log(testObjectId);
-  const response1 = await api.delete(`/api/journeys?objectId=${testObjectId}`);
-  expect(response1.status).toBe(204);
+  const responseDelete = await api.delete(
+    `/api/journeys?objectId=${testObjectId}`
+  );
+  expect(responseDelete.status).toBe(204);
 });
+test("A journey can be created", async () => {
+  const newJourney = {
+    Departure: "2021-05-08T12:28:31",
+    Departure_station_id: "001",
+    Departure_station_name: "Kaivopuisto",
+    Return: "2021-05-26T13:07:04",
+    Return_station_id: "001",
+    Return_station_name: "Kaivopuisto",
+    Covered_distance_m: 3600,
+    Duration_sec: 1557513,
+  };
+  await api
+    .post("/api/journeys")
+    .send(newJourney)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  const response = await api.get(
+    "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
+  );
+  expect(response.body.journeys).toHaveLength(initialJourneys.length + 1);
+}, 10000);
 
 afterAll(async () => {
   await mongoose.connection.close();
