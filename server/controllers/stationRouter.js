@@ -59,7 +59,7 @@ stationRouter.get("/:ID", async (request, response) => {
   } else if (!Number(request.params.ID)) {
     response
       .status(400)
-      .send({ error: "request params ID should be a integer." });
+      .send({ error: "Request params ID should be a integer." });
   } else {
     response
       .status(404)
