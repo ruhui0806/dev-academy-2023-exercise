@@ -62,10 +62,6 @@ test("A journey can be deleted", async () => {
 });
 
 test("A journey with invalid object ID can not be deleted", async () => {
-  // const response = await api.get(
-  //   "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
-  // );
-
   const testObjectId = "malformattedID";
   const responseDelete = await api.delete(
     `/api/journeys?objectId=${testObjectId}`

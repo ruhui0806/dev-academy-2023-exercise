@@ -68,8 +68,15 @@ stationRouter.get("/:ID", async (request, response) => {
 });
 
 stationRouter.delete("/:ID", async (request, response) => {
-  await Station.findOneAndDelete({ ID: request.params.ID });
-  response.status(204).end();
+  const station = await Station.findOne({ ID: request.params.ID });
+  if (station) {
+    await Station.findOneAndDelete({ ID: request.params.ID });
+    response.status(204).end();
+  } else {
+    return response
+      .status(400)
+      .send({ error: "Request params ID should be a integer." });
+  }
 });
 stationRouter.delete("/", async (request, response) => {
   await Station.findByIdAndRemove(request.query.objectId);

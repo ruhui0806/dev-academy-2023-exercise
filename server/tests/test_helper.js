@@ -1,4 +1,5 @@
 const Journey = require("../models/journey");
+const Station = require("../models/station");
 const initialJourneys = [
   {
     Departure: "2021-05-08T12:28:31",
@@ -308,4 +309,9 @@ const JourneyInDb = async () => {
   const journeys = await Journey.find({});
   return journeys.map((j) => j.toJSON());
 };
-module.exports = { initialJourneys, initialStations, JourneyInDb };
+
+const stationInDb = async () => {
+  const stations = await Station.find({});
+  return stations.map((s) => s.toJSON());
+};
+module.exports = { initialJourneys, initialStations, JourneyInDb, stationInDb };
