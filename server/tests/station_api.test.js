@@ -36,22 +36,21 @@ test("It should return 400 if the station identifier is invalid: if numbers are 
 });
 
 test("It should return 200 and the station info for a valid call", async () => {
-  const response = await api.get("/api/stations/503");
+  const response = await api.get("/api/stations/001");
+
   expect(response.status).toBe(200);
-  expect(response.body.currentStation).toHaveProperty("Name", "Keilalahti");
-  expect(response.body.currentStation).toHaveProperty(
-    "Osoite",
-    "Keilalahdentie 2"
-  );
-  expect(response.body.currentStation).toHaveProperty("Kaupunki", "Espoo");
-  expect(response.body.currentStation).toHaveProperty("x", "24.827467");
-  expect(response.body.currentStation).toHaveProperty("y", "60.171524");
+  expect(response.body.currentStation).toHaveProperty("Name", "Kaivopuisto");
+  expect(response.body.currentStation).toHaveProperty("Osoite", "Meritori 1");
+  expect(response.body.currentStation).toHaveProperty("x", "24.9502114714031");
+  expect(response.body.currentStation).toHaveProperty("y", "60.155369615074");
   expect(response.body).toHaveProperty("currentStation");
-  expect(response.body).toHaveProperty("countJourneyStartHere");
+  expect(response.body).toHaveProperty("countJourneyStartHere", 2);
   expect(response.body).toHaveProperty("countJourneyEndHere");
   expect(response.body).toHaveProperty("aggrJourneyReturn");
   expect(response.body).toHaveProperty("aggrJourneyDeparture");
-  expect(response.body).toHaveProperty("averageDepartunreDistance");
+  expect(response.body).toHaveProperty("averageDepartunreDistance", [
+    { _id: "001", averageDistance: 3680771 },
+  ]);
   expect(response.body).toHaveProperty("averageReturnDistance");
 }, 10000);
 test("A station can be deleted with a valid objectId", async () => {
@@ -75,7 +74,7 @@ test("It should return 400 for trying to delete a nonexisting station by objectI
   expect(stationAtEnd).toHaveLength(initialStations.length);
 });
 test("A station can be deleted with a valid ID", async () => {
-  const testObjectID = "503";
+  const testObjectID = "001";
   const responseDelete = await api.delete(`/api/stations/${testObjectID}`);
   const stationAtEnd = await stationInDb();
   expect(responseDelete.status).toBe(204);
