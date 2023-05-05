@@ -29,35 +29,35 @@ describe("journey validation", () => {
     const result = journeyValidation(parsedJourneyRow);
     expect(result).toBe(false);
   });
-  test("It should reject if a departure/return station id is not a positive integer", () => {
+  test("It should reject if a departure station id is not a positive integer (float)", () => {
     const journeyRow =
       "2021-05-31T23:57:25,2021-06-01T00:05:46,0.94,Laajalahden aukio,100,Teljäntie,2043,500";
     const parsedJourneyRow = journeyRow.split(",");
     const result = journeyValidation(parsedJourneyRow);
     expect(result).toBe(false);
   });
-  test("It should reject if a return station id is not a positive integer", () => {
+  test("It should reject if a return station id is not a positive integer (negative integer)", () => {
     const journeyRow =
       "2021-05-31T23:57:25,2021-06-01T00:05:46,094,Laajalahden aukio,-100,Teljäntie,2043,500";
     const parsedJourneyRow = journeyRow.split(",");
     const result = journeyValidation(parsedJourneyRow);
     expect(result).toBe(false);
   });
-  test("It should reject if a departure station id is not a positive integer ", () => {
+  test("It should reject if a departure station id is not a positive integer (string)", () => {
     const journeyRow =
       "2021-05-31T23:57:25,2021-06-01T00:05:46,A94,Laajalahden aukio,B100,Teljäntie,2043,500";
     const parsedJourneyRow = journeyRow.split(",");
     const result = journeyValidation(parsedJourneyRow);
     expect(result).toBe(false);
   });
-  test("It should reject if duration of the trip is not a positive integer", () => {
+  test("It should reject if duration of the trip is not a positive integer (string)", () => {
     const journeyRow =
       "2021-05-31T23:57:25,2021-06-01T00:05:46,094,Laajalahden aukio,100,Teljäntie,20A43,500";
     const parsedJourneyRow = journeyRow.split(",");
     const result = journeyValidation(parsedJourneyRow);
     expect(result).toBe(false);
   });
-  test("It should reject if length of the trip is not a positive integer", () => {
+  test("It should reject if length of the trip is not a positive integer (string)", () => {
     const journeyRow =
       "2021-05-31T23:57:25,2021-06-01T00:05:46,094,Laajalahden aukio,100,Teljäntie,2043,50B0";
     const parsedJourneyRow = journeyRow.split(",");

@@ -25,7 +25,7 @@ test("all journeys are returned when skip, offset, and filter equals to 0", asyn
   expect(response.body.journeysCount).toBe(initialJourneys.length);
 }, 10000);
 
-test("The journey list should be paginated with journey count on API requests by setting limit(items per page), offset(skip) for the API request", async () => {
+test("The journey list should be paginated by setting limit(items per page), offset(skip) on the API request", async () => {
   const response = await api.get(
     "/api/journeys?limit=5&offset=5&filterByDistance=0&filterByDuration=0"
   );
@@ -60,7 +60,22 @@ test("A journey can be deleted", async () => {
   expect(responseDelete.status).toBe(204);
   expect(journeysAtEnd).toHaveLength(initialJourneys.length - 1);
 });
-test("A journey can be created", async () => {
+
+test("A journey with invalid object ID can not be deleted", async () => {
+  // const response = await api.get(
+  //   "/api/journeys?offset=0&filterByDistance=0&filterByDuration=0"
+  // );
+
+  const testObjectId = "malformattedID";
+  const responseDelete = await api.delete(
+    `/api/journeys?objectId=${testObjectId}`
+  );
+  const journeysAtEnd = await JourneyInDb();
+  expect(responseDelete.status).toBe(400);
+  expect(journeysAtEnd).toHaveLength(initialJourneys.length);
+});
+
+test("A journey can be added", async () => {
   const newJourney = {
     Departure: "2021-05-08T12:28:31",
     Departure_station_id: "001",
@@ -80,7 +95,7 @@ test("A journey can be created", async () => {
   expect(journeysAtEnd).toHaveLength(initialJourneys.length + 1);
 }, 10000);
 
-test("a journey does not pass newJourneyDataValidation is not added", async () => {
+test("A journey does not pass newJourneyDataValidation is not added", async () => {
   const badJourney = {
     Departure: "2021-05-08TAB12:28:31",
     Departure_station_id: "001",
