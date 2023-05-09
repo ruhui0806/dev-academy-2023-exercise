@@ -8,3 +8,6 @@ npm run test
 Run tests one by one:
 The following command only runs the tests found in the tests/journey_api.test.js file:
 npm test -- tests/journey_api.test.js
+
+Run React Test:
+CI=true npm test -- tests/JourneyRow.test.js
