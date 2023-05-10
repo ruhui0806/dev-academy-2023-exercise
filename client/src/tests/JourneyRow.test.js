@@ -42,6 +42,7 @@ test("click the delete button calls event handler once and calls window confirm 
       />
     </Router>
   );
+  screen.debug();
   const element = screen.getByText("Test Departure Station Name");
   expect(element).toBeDefined();
 

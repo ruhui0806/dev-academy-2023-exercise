@@ -11,7 +11,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import stationService from "../services/stations.js";
 import { useErrorBoundary } from "react-error-boundary";
-export default function FormDialog({ handleAddNewJourney }) {
+export default function AddJourneyModal({ handleAddNewJourney }) {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
   const [departureTime, setDepartureTime] = useState("2023-05-31T00:00:00");
