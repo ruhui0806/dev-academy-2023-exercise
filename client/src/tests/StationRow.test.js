@@ -24,6 +24,28 @@ test("render stationRow", () => {
     </Router>
   );
   screen.debug();
-  const element = screen.getByText("test station");
-  expect(element).toBeDefined();
+  const stationIDelement = screen.getByRole("link", { name: `${station.ID}` });
+  expect(stationIDelement).toBeInTheDocument();
+  expect(stationIDelement).toHaveAttribute("href", "/stations/123");
+
+  const stationNameElement = screen.getByRole("link", {
+    name: `${station.Name}`,
+  });
+  expect(stationNameElement).toBeInTheDocument();
+  expect(stationNameElement).toHaveAttribute("href", "/stations/123");
+
+  const stationOsoiteElement = screen.getByRole("link", {
+    name: `${station.Osoite}`,
+  });
+  expect(stationOsoiteElement).toBeInTheDocument();
+  expect(stationOsoiteElement).toHaveAttribute("href", "/stations/123");
+
+  const stationKapasiteetElement = screen.getByRole("link", {
+    name: `${station.Kapasiteet}`,
+  });
+  expect(stationKapasiteetElement).toBeInTheDocument();
+  expect(stationKapasiteetElement).toHaveAttribute("href", "/stations/123");
+
+  const deleteButton = screen.getByRole("button");
+  expect(deleteButton).toBeInTheDocument();
 });
