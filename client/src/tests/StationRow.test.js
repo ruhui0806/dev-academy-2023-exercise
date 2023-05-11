@@ -26,25 +26,31 @@ test("render stationRow", () => {
   screen.debug();
   const stationIDelement = screen.getByRole("link", { name: `${station.ID}` });
   expect(stationIDelement).toBeInTheDocument();
-  expect(stationIDelement).toHaveAttribute("href", "/stations/123");
+  expect(stationIDelement).toHaveAttribute("href", `/stations/${station.ID}`);
 
   const stationNameElement = screen.getByRole("link", {
     name: `${station.Name}`,
   });
   expect(stationNameElement).toBeInTheDocument();
-  expect(stationNameElement).toHaveAttribute("href", "/stations/123");
+  expect(stationNameElement).toHaveAttribute("href", `/stations/${station.ID}`);
 
   const stationOsoiteElement = screen.getByRole("link", {
     name: `${station.Osoite}`,
   });
   expect(stationOsoiteElement).toBeInTheDocument();
-  expect(stationOsoiteElement).toHaveAttribute("href", "/stations/123");
+  expect(stationOsoiteElement).toHaveAttribute(
+    "href",
+    `/stations/${station.ID}`
+  );
 
   const stationKapasiteetElement = screen.getByRole("link", {
     name: `${station.Kapasiteet}`,
   });
   expect(stationKapasiteetElement).toBeInTheDocument();
-  expect(stationKapasiteetElement).toHaveAttribute("href", "/stations/123");
+  expect(stationKapasiteetElement).toHaveAttribute(
+    "href",
+    `/stations/${station.ID}`
+  );
 
   const deleteButton = screen.getByRole("button");
   expect(deleteButton).toBeInTheDocument();
