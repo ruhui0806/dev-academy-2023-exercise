@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import stationService from "../services/stations";
 import { useLoadScript } from "@react-google-maps/api";
 import { FaTrashAlt } from "react-icons/fa";
 import StationMap from "../components/StationMap";
 import Tabination from "../components/Tabination";
-
+import useStation from "../components/useStation";
 //define stationView component for single station:
 export default function StationView() {
   const { ID } = useParams();
   const navigate = useNavigate();
 
-  const useStation = (ID) => {
-    const [station, setStation] = useState(null);
+  // const useStation = (ID) => {
+  //   const [station, setStation] = useState(null);
 
-    useEffect(() => {
-      if (!isNaN(Number(ID)) && ID.length === 3) {
-        stationService
-          .getStationByID(ID)
-          .then((data) => setStation(data))
-          .catch((err) => console.log(err));
-      } else {
-        alert("Station ID does not exist");
-        navigate("/stations");
-      }
-    }, [ID]);
-    return station;
-  };
+  //   useEffect(() => {
+  //     if (!isNaN(Number(ID)) && ID.length === 3) {
+  //       stationService
+  //         .getStationByID(ID)
+  //         .then((data) => setStation(data))
+  //         .catch((err) => console.log(err));
+  //     } else {
+  //       alert("Station ID does not exist");
+  //       navigate("/stations");
+  //     }
+  //   }, [ID]);
+  //   return station;
+  // };
 
   const station = useStation(ID);
 
