@@ -129,7 +129,7 @@ export default function Journeys() {
           <button
             onClick={handleFilterByDistanceChange}
             style={buttonStyle}
-            className="button"
+            id="btn-filter-distance"
           >
             <MdFilterAlt />{" "}
           </button>
@@ -146,7 +146,7 @@ export default function Journeys() {
           <button
             onClick={handleFilterByDurationChange}
             style={buttonStyle}
-            className="button"
+            id="btn-filter-duration"
           >
             <MdFilterAlt />{" "}
           </button>
@@ -186,7 +186,7 @@ export default function Journeys() {
                 style={buttonStyle}
                 className="button-order"
                 onClick={() => requestSort("Covered_distance_m")}
-                id="valueForFilterByDistance"
+                id="btn-sort-covered_distance_m"
               >
                 {" "}
                 <FaSort />
@@ -198,7 +198,7 @@ export default function Journeys() {
                 style={buttonStyle}
                 className="button-order"
                 onClick={() => requestSort("Duration_sec")}
-                id="btn-sort-id"
+                id="btn-sort-duration_sec"
               >
                 {" "}
                 <FaSort />
