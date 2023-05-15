@@ -37,10 +37,7 @@ export default function Journeys() {
           setJourneys(data.journeys);
           setJourneyCount(data.journeysCount);
         },
-        (error) => {
-          // Show error boundary
-          showBoundary(error);
-        }
+        (error) => showBoundary(error)
       );
   }, [
     page,
@@ -105,12 +102,10 @@ export default function Journeys() {
     setPage(0);
   };
   const handleDeleteJourney = (id) => {
-    journeyService
-      .deleteJourneyById(id)
-      .then(() => setJourneys(journeys.filter((j) => j._id !== id)))
-      .catch((error) => {
-        alert(`Error occured: ${error}`);
-      });
+    journeyService.deleteJourneyById(id).then(
+      () => setJourneys(journeys.filter((j) => j._id !== id)),
+      (error) => showBoundary(error)
+    );
   };
 
   return (

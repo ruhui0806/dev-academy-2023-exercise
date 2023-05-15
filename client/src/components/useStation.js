@@ -17,6 +17,7 @@ const useStation = (ID) => {
       navigate("/stations");
     }
   }, [ID]);
+
   return station;
 };
 export default useStation;

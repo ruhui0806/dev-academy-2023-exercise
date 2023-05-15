@@ -9,26 +9,8 @@ import useStation from "../components/useStation";
 //define stationView component for single station:
 export default function StationView() {
   const { ID } = useParams();
-  const navigate = useNavigate();
-
-  // const useStation = (ID) => {
-  //   const [station, setStation] = useState(null);
-
-  //   useEffect(() => {
-  //     if (!isNaN(Number(ID)) && ID.length === 3) {
-  //       stationService
-  //         .getStationByID(ID)
-  //         .then((data) => setStation(data))
-  //         .catch((err) => console.log(err));
-  //     } else {
-  //       alert("Station ID does not exist");
-  //       navigate("/stations");
-  //     }
-  //   }, [ID]);
-  //   return station;
-  // };
-
   const station = useStation(ID);
+  const navigate = useNavigate();
 
   const { mapLoading } = useLoadScript({
     // eslint-disable-next-line no-undef
