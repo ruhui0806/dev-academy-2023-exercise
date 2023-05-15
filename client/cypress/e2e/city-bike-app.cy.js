@@ -97,3 +97,9 @@ describe("station list view", () => {
     cy.get("tr td:nth-child(3):first").should("have.text", "Helsinginkatu 22");
   });
 });
+
+describe("single station view", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000/stations/001");
+  });
+});
