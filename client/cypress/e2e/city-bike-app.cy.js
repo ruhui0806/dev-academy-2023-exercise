@@ -102,4 +102,50 @@ describe("single station view", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/stations/001");
   });
+  it("contain info on journeys start from current station", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", { name: "Journeys start here" }).click();
+    cy.contains("The amount of journeys that start from Kaivopuisto:");
+  });
+  it("contain info on journeys end at current station", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", { name: "Journeys end here" }).click();
+    cy.contains("The amount of journeys that end at Kaivopuisto:");
+  });
+  it("contain info on journeys' average distance starting from current station", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", {
+      name: "Average journey distance start here",
+    }).click();
+    cy.contains("Average ditance of journeys that start from Kaivopuisto:");
+  });
+  it("contain info on journeys' average distance ending at current station", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", {
+      name: "Average journey distance end here",
+    }).click();
+    cy.contains("Average ditance of journeys that end at Kaivopuisto:");
+  });
+  it("contain info on top 5 return stations of journeys that start from here", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", {
+      name: "Top 5 return stations",
+    }).click();
+    cy.contains(
+      "Below are the top 5 Return stations for journeys starting from Kaivopuisto:"
+    );
+    cy.get("ul li:first").should("exist");
+    cy.get("ul li:nth-child(5)").should("exist");
+  });
+  it("contain info on top 5 departure stations of journeys that end from here", () => {
+    cy.get("#tab-container").should("exist");
+    cy.findByRole("tab", {
+      name: "Top 5 departure stations",
+    }).click();
+    cy.contains(
+      "Below are the top 5 departure stations for journeys ends here Kaivopuisto:"
+    );
+    cy.get("ul li:first").should("exist");
+    cy.get("ul li:nth-child(5)").should("exist");
+  });
 });
