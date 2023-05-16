@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React, { useState, useEffect } from "react";
 import { FaSort } from "react-icons/fa";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 import stationService from "../services/stations.js";
 import StationRow from "../components/StationRow";
 const Stations = () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaSort } from "react-icons/fa";
 import JourneyRow from "../components/JourneyRow";
 import journeyService from "../services/journeys.js";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 import AddJourneyModal from "../components/AddJourneyModal";
 import { MdFilterAlt } from "react-icons/md";
 import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
