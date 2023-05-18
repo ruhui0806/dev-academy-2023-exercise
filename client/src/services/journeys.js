@@ -31,7 +31,7 @@ const addJourney = async (object) => {
     console.log("add new journey", response.data);
     return response.data;
   } catch (error) {
-    alert(`Add journey failed with wrong data type:  ${error}`);
+    alert("Add journey failed: wrong data type.");
   }
 };
 const deleteJourneyById = async (objectId) => {

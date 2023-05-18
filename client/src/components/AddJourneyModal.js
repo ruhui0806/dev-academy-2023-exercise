@@ -14,8 +14,8 @@ import { useErrorBoundary } from "react-error-boundary";
 export default function AddJourneyModal({ handleAddNewJourney }) {
   const [open, setOpen] = useState(false);
   const [stations, setStations] = useState([]);
-  const [departureTime, setDepartureTime] = useState("2023-05-31T00:00:00");
-  const [returnTime, setReturnTime] = useState("2023-05-31T00:00:00");
+  const [departureTime, setDepartureTime] = useState("");
+  const [returnTime, setReturnTime] = useState("");
   const [departureStation, setDepartureStation] = useState("");
   const [returnStation, setReturnStation] = useState("");
   const [distance, setDistance] = useState(0);
@@ -33,6 +33,11 @@ export default function AddJourneyModal({ handleAddNewJourney }) {
 
   const handleClose = () => {
     setOpen(false);
+    setDepartureStation("");
+    setReturnStation("");
+    setDepartureTime("");
+    setReturnTime("");
+    setDistance(0);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,8 +57,8 @@ export default function AddJourneyModal({ handleAddNewJourney }) {
       setOpen(false);
       setDepartureStation("");
       setReturnStation("");
-      setDepartureTime("2023-05-31T00:00:00");
-      setReturnTime("2023-05-31T00:00:00");
+      setDepartureTime("");
+      setReturnTime("");
       setDistance(0);
       console.log("new journey", journeyObject);
     } catch (error) {
@@ -81,7 +86,7 @@ export default function AddJourneyModal({ handleAddNewJourney }) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle id="dialog-title">Add New Journey</DialogTitle>
         <DialogContent>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} id="addJourneyForm">
             <InputLabel style={{ marginTop: 20 }}>Departure time</InputLabel>
             <TextField
               margin="dense"

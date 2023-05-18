@@ -149,3 +149,13 @@ describe("single station view", () => {
     cy.get("ul li:nth-child(5)").should("exist");
   });
 });
+
+describe("Add new Journey", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000/journeys");
+    cy.findByRole("button", { name: "ADD NEW JOURNEY" }).click().wait(1000);
+  });
+  it("add new journey form can be opened", () => {
+    cy.get("#addJourneyForm").should("be.visible");
+  });
+});
