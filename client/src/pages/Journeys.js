@@ -130,6 +130,7 @@ export default function Journeys() {
             onClick={handleFilterByDistanceChange}
             style={buttonStyle}
             id="btn-filter-distance"
+            className="button"
           >
             <MdFilterAlt />{" "}
           </button>
@@ -147,6 +148,7 @@ export default function Journeys() {
             onClick={handleFilterByDurationChange}
             style={buttonStyle}
             id="btn-filter-duration"
+            className="button"
           >
             <MdFilterAlt />{" "}
           </button>

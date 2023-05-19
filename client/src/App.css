@@ -41,7 +41,8 @@ a:hover {
 }
 .button,
 .button-link,
-.button-order {
+.button-order,
+.button-filter {
   display: inline-flex;
   width: auto;
   justify-content: center;
