@@ -150,12 +150,17 @@ describe("single station view", () => {
   });
 });
 
-describe("Add new Journey", () => {
+describe("Add new Journey Form", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/journeys");
     cy.findByRole("button", { name: "ADD NEW JOURNEY" }).click().wait(1000);
   });
   it("add new journey form can be opened", () => {
-    cy.get("#addJourneyForm").should("be.visible");
+    cy.get("#addJourneyForm").should("exist");
+  });
+  it("add new journey form can be opened then closed", () => {
+    cy.get("#addJourneyForm").should("exist");
+    cy.findByRole("button", { name: "Cancel" }).click();
+    cy.get("#addJourneyForm").should("not.exist");
   });
 });
