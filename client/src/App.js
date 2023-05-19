@@ -24,6 +24,7 @@ const App = () => {
           </Link>
         </div>
         <Routes>
+          <Route path="/" element={<Stations />} errorElement={<Error />} />
           <Route
             path="/stations"
             element={<Stations />}
