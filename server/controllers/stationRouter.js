@@ -1,20 +1,12 @@
 const stationRouter = require("express").Router();
 const Station = require("../models/station");
 const Journey = require("../models/journey");
-
+const config = require("../utils/config");
 stationRouter.get("/", async (request, response) => {
   const stations = await Station.find({});
   response.json(stations);
 });
 
-stationRouter.delete("/:ID", async (request, response) => {
-  await Station.findOneAndDelete({ ID: request.params.ID });
-  response.status(204).end();
-});
-stationRouter.delete("/", async (request, response) => {
-  await Station.findByIdAndRemove(request.query.objectId);
-  response.status(204).end();
-});
 stationRouter.get("/:ID", async (request, response) => {
   const station = await Station.findOne({ ID: request.params.ID });
   if (station) {
@@ -23,9 +15,7 @@ stationRouter.get("/:ID", async (request, response) => {
     }).count();
     const countJourneyEndHere = await Journey.find({
       Return_station_id: request.params.ID,
-    })
-      .count()
-      .count();
+    }).count();
     const aggrJourneyReturn = await Journey.aggregate(
       AggrCountParams(
         { Return_station_id: request.params.ID },
@@ -54,6 +44,7 @@ stationRouter.get("/:ID", async (request, response) => {
         "$Return_station_id"
       )
     );
+    const googleMapApiKey = config.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     response.json({
       currentStation: station,
@@ -63,10 +54,33 @@ stationRouter.get("/:ID", async (request, response) => {
       aggrJourneyDeparture: aggrJourneyDeparture,
       averageDepartunreDistance: averageDepartunreDistance,
       averageReturnDistance: averageReturnDistance,
+      REACT_APP_GOOGLE_MAP_API_KEY: googleMapApiKey,
     });
+  } else if (!Number(request.params.ID)) {
+    response
+      .status(400)
+      .send({ error: "Request params ID should be a integer." });
   } else {
-    response.status(404).send({ error: "unknown endpoint" });
+    response
+      .status(404)
+      .send({ error: "Station with the current ID does not exist." });
   }
+});
+
+stationRouter.delete("/:ID", async (request, response) => {
+  const station = await Station.findOne({ ID: request.params.ID });
+  if (station) {
+    await Station.findOneAndDelete({ ID: request.params.ID });
+    response.status(204).end();
+  } else {
+    return response
+      .status(400)
+      .send({ error: "Request params ID should be a integer." });
+  }
+});
+stationRouter.delete("/", async (request, response) => {
+  await Station.findByIdAndRemove(request.query.objectId);
+  response.status(204).end();
 });
 
 const AggrCountParams = (matchObj, sortByKey, sortCount, limit) => {

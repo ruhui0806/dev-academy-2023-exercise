@@ -62,6 +62,7 @@ fs.createReadStream("./2021-05.csv", { highWaterMark: 8 * 1024 })
     logger.info("finished");
     logger.info("failed rows currently: " + failedRows);
     logger.info("Journeys saved:", journeyRows.length);
+    //insertMany() function is the Shortcut for validating an array of documents and inserting them into MongoDB if they're all valid.
     Journey.insertMany(journeyRows)
       .then(function () {
         console.log("Data inserted"); // Success

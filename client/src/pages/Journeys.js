@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaSort } from "react-icons/fa";
 import JourneyRow from "../components/JourneyRow";
 import journeyService from "../services/journeys.js";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 import AddJourneyModal from "../components/AddJourneyModal";
 import { MdFilterAlt } from "react-icons/md";
 import { ErrorBoundary, useErrorBoundary } from "react-error-boundary";
@@ -37,10 +37,7 @@ export default function Journeys() {
           setJourneys(data.journeys);
           setJourneyCount(data.journeysCount);
         },
-        (error) => {
-          // Show error boundary
-          showBoundary(error);
-        }
+        (error) => showBoundary(error)
       );
   }, [
     page,
@@ -105,12 +102,10 @@ export default function Journeys() {
     setPage(0);
   };
   const handleDeleteJourney = (id) => {
-    journeyService
-      .deleteJourneyById(id)
-      .then(() => setJourneys(journeys.filter((j) => j._id !== id)))
-      .catch((error) => {
-        alert(`Error occured: ${error}`);
-      });
+    journeyService.deleteJourneyById(id).then(
+      () => setJourneys(journeys.filter((j) => j._id !== id)),
+      (error) => showBoundary(error)
+    );
   };
 
   return (
@@ -134,7 +129,7 @@ export default function Journeys() {
           <button
             onClick={handleFilterByDistanceChange}
             style={buttonStyle}
-            className="button"
+            id="btn-filter-distance"
           >
             <MdFilterAlt />{" "}
           </button>
@@ -151,7 +146,7 @@ export default function Journeys() {
           <button
             onClick={handleFilterByDurationChange}
             style={buttonStyle}
-            className="button"
+            id="btn-filter-duration"
           >
             <MdFilterAlt />{" "}
           </button>
@@ -191,7 +186,7 @@ export default function Journeys() {
                 style={buttonStyle}
                 className="button-order"
                 onClick={() => requestSort("Covered_distance_m")}
-                id="valueForFilterByDistance"
+                id="btn-sort-covered_distance_m"
               >
                 {" "}
                 <FaSort />
@@ -203,7 +198,7 @@ export default function Journeys() {
                 style={buttonStyle}
                 className="button-order"
                 onClick={() => requestSort("Duration_sec")}
-                id="btn-sort-id"
+                id="btn-sort-duration_sec"
               >
                 {" "}
                 <FaSort />

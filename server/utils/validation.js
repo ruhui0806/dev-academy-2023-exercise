@@ -104,15 +104,17 @@ const stationValidation = (row) => {
 
 //add journey validation for new journey data:
 const newJourneyDataValidation = (object) => {
+  const dateNow = Date.now();
   const parseDate = (date) => {
-    if (!isString(date) || !isDate(date)) {
+    if (!isString(date) || !isDate(date) || date > dateNow) {
       throw new Error(`In correct or missing date format: ${date}`);
     }
+
     return date;
   };
 
   const parseID = (id) => {
-    if (!id || Number(id) < 0) {
+    if (!id || Number(id) < 0 || isNaN(Number(id))) {
       throw new Error(`In correct or missing ID format: ${id}`);
     }
     return id;
