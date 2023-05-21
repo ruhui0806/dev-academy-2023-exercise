@@ -15,16 +15,14 @@ The deployed app can be found here:
 
 # Installation (on Mac OS as an example)
 
-To install the app, you need to install Node.js on your system.
+To install the app, you need to install Node.js and Node Package Manager (npm) on your computer.
 
 To check if you have installed Node.js and npm, Run the following command in your terminal:
 
     node -v
     npm -v
 
-To install Node.js using Homebrew (Homebrew need to be installed on your system).
-
-Homebrew installation: Paste the following command in a macOS Terminal or Linux shell prompt.
+Homebrew is straightforward for installing Node.js and NPM. To install Homebrew, paste the following command in a macOS Terminal or Linux shell prompt.
 
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -40,18 +38,8 @@ To clone the whole repository, run the following command:
 
     git clone https://github.com/ruhui0806/dev-academy-2023-exercise.git
 
-## Clone the backend:
+To install the backend and frontend, go to the server folder and client folder, and run the following command:
 
-To clone the backend, go to the repository and run the following commands:
-
-    cd dev-academy-2023-exercise/server
-    npm install
-
-## Clone the frontend:
-
-To clone the frontend, go to the repository and run the following commands:
-
-    cd dev-academy-2023-exercise/client
     npm install
 
 # Database configuration
@@ -68,8 +56,22 @@ To use the MongoDB database, you need to follow these steps:
 <li> The page will display MongoDB URI, which will be added to your application. The URI looks like this:
     
     mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority
-<li> Copy link above, and replace the "password" tag with your password for database connection. 
-This link will be added to the .env file in your backend folder (server folder).
+<li> Create a .env file under the root of server folder. Copy paste the link above to the .env file and name it as "MONGODB_URI" (like below). Replace the "password" tag with your password for database connection:
+
+    MONGODB_URI= "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority"
+
+# Google Map API key configuration
+
+This application use Google Map API key for displaying stations location. To make the application function properly, you need to have a Google Map API key.
+Follow the following instructions to obtain a Google Map API key:
+
+<li> Go to the <a ref="https://console.cloud.google.com/">Google Cloud Console </a> and log in to your account. 
+<li> Click the "Select a project" dropdown button and select your project by clicking the project's name. If you don't have a project, click the "NEW PROJECT" button to create one.
+<li> Go to the project dashboard and click on the "APIs and services" and then on the next page, click on "Credentials" in the left sidebar.
+<li> Once you are in the credential dashboard, click "CREATE CREDENTIALS" on the topbar and then choose "API key". Wait until the key is created. Save your API key from the popup window.
+<li> Add the billing informaion and payment method to your google account in order to get access to the Google API service. 
+<br></br>
+ You can either restrict your key by clicking on your api key then "Restric key" option (under the "API restrictions"), and select APIs you want to use (e.g., Maps Javascript API, Maps Embed API, Places API, Geocoding API, Geolocation API), then click "save". Or you can leave your API key as no restrictions.
 
 # how to run test for backend:
 
