@@ -10,7 +10,7 @@ The deployed app can be found here:
 
 <li>Installation
 <li>Database configuration
-<li>Download datasets
+
 <li>Run tests
 
 # Installation (on Mac OS as an example)
@@ -55,6 +55,21 @@ To clone the frontend, go to the repository and run the following commands:
     npm install
 
 # Database configuration
+
+This application uses MongoDB Atlas database for data storage.
+To use the MongoDB database, you need to follow these steps:
+
+<li> Register/Login to your account: https://account.mongodb.com/account/login
+<li> Once you've created and logged into your account, select the free option of cloud database creation.
+<li> Pick the cloud provider (e.g., aws), and region (e.g., Stockholm).
+<li> Set up the username and password for the database connection (they are different from your loggin credentials). These will be used for connecting your app to the database.
+<li> Go to the "Network Access" tab and set "ALLOW ACCESS FROM ANYWHERE".
+<li> Go to the "Database" tab and click connect. Then choose "Connect to your aaplication".
+<li> The page will display MongoDB URI, which will be added to your application. The URI looks like this:
+    
+    mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority
+<li> Copy link above, and replace the "password" tag with your password for database connection. 
+This link will be added to the .env file in your backend folder (server folder).
 
 # how to run test for backend:
 
