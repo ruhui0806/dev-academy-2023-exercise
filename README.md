@@ -4,14 +4,28 @@ This is the pre-assignment for Solita Dev Academy Finland 2023: Helsinki City Bi
 
 The aim of this project is to provide information on journeys and display stations information of Helsinki City Bikes.
 
-The deployed app can be found here:
-<br></br>
+More information about the pre-assignment requirements can be found <a ref="https://github.com/solita/dev-academy-2023-exercise">here</a>.
+
+<br>
+
+# Technologies highlight
+
+<li>Node.js + Express
+<li>REST API
+<li>React.js
+<li>MongoDB  + Mongoose
+<li>CSS, Material UI
+
+<br>
 
 # Contents
 
 <li>Installation
+<li>Backend configuration
 <li>Database configuration
-
+<li>Google Map API configuration
+<li>Add data to the database
+<li>Run the application
 <li>Run tests
 <br></br>
 
@@ -48,8 +62,8 @@ To install the backend and frontend, go to the server folder and client folder, 
 
 # Backend configuration
 
-<li>To make the backend run, go to the server folder and create a ".env" file.
-<li> Add the following environment variable in the .env file:
+To make the backend run, go to the server folder and create a ".env" file.
+Add the following environment variable in the .env file:
 
     PORT = 3001
 
@@ -76,9 +90,9 @@ To use the MongoDB database, you need to follow these steps:
 
     MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
 
-<br></br>
+<br>
 
-# Google Map API key configuration
+# Google Map API configuration
 
 This application use Google Map API key for displaying stations location. To make the application function properly, you need to have a Google Map API key.
 Follow the following instructions to obtain a Google Map API key:
@@ -87,9 +101,9 @@ Follow the following instructions to obtain a Google Map API key:
 <li> Click the "Select a project" dropdown button and select your project by clicking the project's name. If you don't have a project, click the "NEW PROJECT" button to create one.
 <li> Go to the project dashboard and click on the "APIs and services" and then on the next page, click on "Credentials" in the left sidebar.
 <li> Once you are in the credential dashboard, click "CREATE CREDENTIALS" on the topbar and then choose "API key". Wait until the key is created. 
-<li> Save your API key from the popup window to the .env file, and name it as "REACT_APP_GOOGLE_MAPS_API_KEY":
+<li> Save your API key from the popup window to the .env file, and name it as follows:
 
-    REACT_APP_GOOGLE_MAPS_API_KEY = "repalce-with-your-google-map-api-key"
+    REACT_APP_GOOGLE_MAPS_API_KEY = "replace-with-your-google-map-api-key"
 
 <li> Add the billing informaion and payment method to your google account in order to get access to the Google API service. 
 <br></br>
