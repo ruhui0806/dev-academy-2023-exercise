@@ -76,7 +76,6 @@ To use the MongoDB database, you need to follow these steps:
 
     MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
 
-<li> 
 <br></br>
 
 # Google Map API key configuration
@@ -159,22 +158,36 @@ Now the data will be parsed, filtered, and uploaded to the MongoDB database.
 
 # Run test for backend:
 
-go to the server folder, and run with the following command:
-npm run test
+<li> Under the server folder, add the environment variable "TEST_MONGODB_URI" to .env file for testing with a separate database:
 
-Run tests one by one:
+    TEST_MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.rsorbpa.mongodb.net/testCitybike?retryWrites=true&w=majority"
 
-The following command only runs the tests found in the tests/journey_api.test.js file:
-npm test -- tests/journey_api.test.js
+<li> Go to the server folder, and run all the tests with the following command:
 
-# how to run test for frontend:
+    npm run test
 
-Run React Test: go to the client folder, and run with the following command:
-CI=true npm test -- tests/JourneyRow.test.js
+<li> Or run tests one by one. The following command only runs the tests in the tests/journey_api.test.js file:
 
-Run e2e test: When both the backend and frontend are running, go to the client folder,we can start Cypress with the command:
-npm run cypress:open
+    npm test -- tests/journey_api.test.js
 
-then select "E2E Testing" tab from the page
-then click "Start E2E Testing in Chrome/Electron"
-then click to run the file "city-bike-app.cy.js"
+# Run test for frontend
+
+## Run React Test
+
+<li> Go to the client folder, and run each test with the following command:
+
+    CI=true npm test -- tests/JourneyRow.test.js
+
+NB: run the test in JourneyRow.test.js file.
+<br></br>
+
+## Run end-to-end test
+
+<li> Make sure that both the backend and frontend are running
+<li> Go to the client folder, we can start Cypress with the command:
+
+    npm run cypress:open
+
+ <li> Select "E2E Testing" tab from the page.
+<li> Click "Start E2E Testing in Chrome/Electron".
+<li> Click on the file name "city-bike-app.cy.js" to run the test.
