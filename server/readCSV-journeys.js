@@ -35,6 +35,7 @@ const journeyHeaders = [
 
 let failedRows = 0;
 let journeyRows = [];
+//Replace the "./2021-05.csv" with "./2021-06.csv" and "./2021-07.csv", save and rerun the code: npm run readCSV-journeys.js, respectively.
 fs.createReadStream("./2021-05.csv", { highWaterMark: 8 * 1024 })
   .pipe(
     parse({
@@ -62,7 +63,6 @@ fs.createReadStream("./2021-05.csv", { highWaterMark: 8 * 1024 })
     logger.info("finished");
     logger.info("failed rows currently: " + failedRows);
     logger.info("Journeys saved:", journeyRows.length);
-    //insertMany() function is the Shortcut for validating an array of documents and inserting them into MongoDB if they're all valid.
     Journey.insertMany(journeyRows)
       .then(function () {
         console.log("Data inserted"); // Success

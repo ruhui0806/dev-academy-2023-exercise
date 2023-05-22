@@ -54,7 +54,6 @@ fs.createReadStream("./stations.csv")
         station_object[columnName] = row[idx];
       });
       logger.info(station_object);
-      //use Mongoose models create() function to create new documents.
       Station.create(station_object).catch((error) => {
         logger.error(error.message);
       });

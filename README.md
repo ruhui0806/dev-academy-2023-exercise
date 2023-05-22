@@ -5,6 +5,7 @@ This is the pre-assignment for Solita Dev Academy Finland 2023: Helsinki City Bi
 The aim of this project is to provide information on journeys and display stations information of Helsinki City Bikes.
 
 The deployed app can be found here:
+<br></br>
 
 # Contents
 
@@ -12,6 +13,7 @@ The deployed app can be found here:
 <li>Database configuration
 
 <li>Run tests
+<br></br>
 
 # Installation (on Mac OS as an example)
 
@@ -42,6 +44,17 @@ To install the backend and frontend, go to the server folder and client folder, 
 
     npm install
 
+<br>
+
+# Backend configuration
+
+<li>To make the backend run, go to the server folder and create a ".env" file.
+<li> Add the following environment variable in the .env file:
+
+    PORT = 3001
+
+<br>
+
 # Database configuration
 
 This application uses MongoDB Atlas database for data storage.
@@ -59,9 +72,9 @@ To use the MongoDB database, you need to follow these steps:
 <li> The page will display MongoDB URI, which will be added to your application. The URI looks like this:
     
     mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority
-<li> Create a .env file under the root of server folder. Copy paste the link above to the .env file and name it as "MONGODB_URI" (like below). Replace the "password" tag with your password for database connection:
+<li>  Copy paste the link above to the .env file (in the server folder) and name it as "MONGODB_URI" (like below). Replace the "password" tag with your password for database connection:
 
-    MONGODB_URI= "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
+    MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
 
 <li> 
 <br></br>
@@ -74,17 +87,83 @@ Follow the following instructions to obtain a Google Map API key:
 <li> Go to the <a ref="https://console.cloud.google.com/">Google Cloud Console </a> and log in to your account. 
 <li> Click the "Select a project" dropdown button and select your project by clicking the project's name. If you don't have a project, click the "NEW PROJECT" button to create one.
 <li> Go to the project dashboard and click on the "APIs and services" and then on the next page, click on "Credentials" in the left sidebar.
-<li> Once you are in the credential dashboard, click "CREATE CREDENTIALS" on the topbar and then choose "API key". Wait until the key is created. Save your API key from the popup window.
+<li> Once you are in the credential dashboard, click "CREATE CREDENTIALS" on the topbar and then choose "API key". Wait until the key is created. 
+<li> Save your API key from the popup window to the .env file, and name it as "REACT_APP_GOOGLE_MAPS_API_KEY":
+
+    REACT_APP_GOOGLE_MAPS_API_KEY = "repalce-with-your-google-map-api-key"
+
 <li> Add the billing informaion and payment method to your google account in order to get access to the Google API service. 
 <br></br>
- You can either restrict your key by clicking on your api key then "Restric key" option (under the "API restrictions"), and select APIs you want to use (e.g., Maps Javascript API, Maps Embed API, Places API, Geocoding API, Geolocation API), then click "save". Or you can leave your API key as no restrictions.
+ NB: You can either restrict your key by clicking on your api key then "Restric key" option (under the "API restrictions"), and select APIs you want to use (e.g., Maps Javascript API, Maps Embed API, Places API, Geocoding API, Geolocation API), then click "save". Or you can leave your API key as no restrictions.
+<br></br>
 
-# how to run test for backend:
+# Add data to the database
+
+As the free version of MongoDB atlas can only store up to 512 MB data, so you can upload maximum two months of the journey data. Upgrade your MongoDB if you want to use more data.
+
+First, you need to install the wget package using homebrew in the server folder:
+
+    cd server
+    brew install wget
+
+## Add journey data to the database
+
+Follow the steps below to download journey data from the internet and upload them to your MongoDB database:
+
+<li> Go to the server folder, and download data:
+
+    wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
+    wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
+    wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
+
+<li> Rename them as "2021-05.csv, 2021-06.csv, 2021-07.csv" respectively.
+<li> Open the file "readCSV-journey.js" in your editor. Match the file name in your file system with the name in the code (line 39):
+
+    fs.createReadStream("./2021-05.csv")
+
+NB: Example above will parse the journey data in the file "2021-05.csv".
+
+<li> Run the following command in the server folder:
+
+    npm run readCSV-journey.js
+
+<li> Repeat the above steps until you have finished upload journey files.
+
+## Add station data to the database
+
+Follow the steps below to download station data from the internet and upload them to your MongoDB database:
+
+<li> Go to the server folder and download the station data:
+
+    wget https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
+
+<li> Rename the file as "stations.csv".
+<li> Under the server folder, run the following command to parse and upload data to MongoDB:
+
+    npm run readCSV-stations.js
+
+<br>
+
+Now the data will be parsed, filtered, and uploaded to the MongoDB database.
+
+# Run the application
+
+<li> Run the backend with the following command in the server folder:
+
+    npm run dev
+
+<li> Then go to the client folder, and run the frontend:
+
+    cd ../client
+    npm start
+
+# Run test for backend:
 
 go to the server folder, and run with the following command:
 npm run test
 
 Run tests one by one:
+
 The following command only runs the tests found in the tests/journey_api.test.js file:
 npm test -- tests/journey_api.test.js
 

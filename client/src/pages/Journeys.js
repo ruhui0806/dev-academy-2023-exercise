@@ -18,7 +18,7 @@ export default function Journeys() {
     attr: "Return_station_name",
     direction: "descending",
   });
-  const [journeyCount, setJourneyCount] = useState(Number(782599));
+  const [journeyCount, setJourneyCount] = useState(Number(0));
   const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     let direction = sortConfig.direction === "ascending" ? "" : "-";
