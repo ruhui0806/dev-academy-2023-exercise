@@ -4,7 +4,7 @@ This is the pre-assignment for Solita Dev Academy Finland 2023: Helsinki City Bi
 
 The aim of this project is to provide information on journeys and display stations information of Helsinki City Bikes.
 
-More information about the pre-assignment requirements can be found <a ref="https://github.com/solita/dev-academy-2023-exercise">here</a>.
+More information about the pre-assignment requirements can be found here: https://github.com/solita/dev-academy-2023-exercise
 
 <br>
 
@@ -46,7 +46,9 @@ Then run the following command to install node.js:
 
     brew install node
 
-You can find more information on install Node.js and npm from <a ref="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">here</a>.
+You can find more information on install Node.js and npm from here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+
+<br>
 
 ## Clone the whole repository
 
@@ -74,7 +76,8 @@ Add the following environment variable in the .env file:
 This application uses MongoDB Atlas database for data storage.
 To use the MongoDB database, you need to follow these steps:
 
-<li> Register/Login to your account from <a ref="https://account.mongodb.com/account/login">here</a>. 
+<li> Register/Login to your account from here: https://account.mongodb.com/account/login
+
 <li> Create a new project, and the under the project, click "Build a Database".
 <li> Select one option of cloud database creation (NB: The free option will only allow you to store max. 512 MB data, i.e., 2 months of journeys data).
 <li> Pick the cloud provider (e.g., aws), and region (e.g., Stockholm).
@@ -97,7 +100,9 @@ To use the MongoDB database, you need to follow these steps:
 This application use Google Map API key for displaying stations location. To make the application function properly, you need to have a Google Map API key.
 Follow the following instructions to obtain a Google Map API key:
 
-<li> Go to the <a ref="https://console.cloud.google.com/">Google Cloud Console </a> and log in to your account. 
+<li> Go to the following website and log in to your account:
+https://console.cloud.google.com/
+  
 <li> Click the "Select a project" dropdown button and select your project by clicking the project's name. If you don't have a project, click the "NEW PROJECT" button to create one.
 <li> Go to the project dashboard and click on the "APIs and services" and then on the next page, click on "Credentials" in the left sidebar.
 <li> Once you are in the credential dashboard, click "CREATE CREDENTIALS" on the topbar and then choose "API key". Wait until the key is created. 
