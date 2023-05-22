@@ -47,18 +47,24 @@ To install the backend and frontend, go to the server folder and client folder, 
 This application uses MongoDB Atlas database for data storage.
 To use the MongoDB database, you need to follow these steps:
 
-<li> Register/Login to your account: https://account.mongodb.com/account/login
-<li> Once you've created and logged into your account, select the free option of cloud database creation.
+<li> Register/Login to your account from <a ref="https://account.mongodb.com/account/login">here</a>. 
+<li> Create a new project, and the under the project, click "Build a Database".
+<li> Select one option of cloud database creation (NB: The free option will only allow you to store max. 512 MB data, i.e., 2 months of journeys data).
 <li> Pick the cloud provider (e.g., aws), and region (e.g., Stockholm).
-<li> Set up the username and password for the database connection (they are different from your loggin credentials). These will be used for connecting your app to the database.
+<li> Set up the username and password for the database connection (they are different from your loggin credentials).<Strong> The credential will be used for connecting your app to the database.</Strong> Then click "Create User".
+<li> Then it will let you choose the environment. Let's choose "My Local Environment".
+<li> Optionally, you can add IP address to your access list. Then 
 <li> Go to the "Network Access" tab and set "ALLOW ACCESS FROM ANYWHERE".
 <li> Go to the "Database" tab and click connect. Then choose "Connect to your aaplication".
 <li> The page will display MongoDB URI, which will be added to your application. The URI looks like this:
     
-    mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority
+    mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority
 <li> Create a .env file under the root of server folder. Copy paste the link above to the .env file and name it as "MONGODB_URI" (like below). Replace the "password" tag with your password for database connection:
 
-    MONGODB_URI= "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/?retryWrites=true&w=majority"
+    MONGODB_URI= "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
+
+<li> 
+<br></br>
 
 # Google Map API key configuration
 
