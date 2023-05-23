@@ -57,7 +57,11 @@ To clone the whole repository, run the following command:
 
     git clone https://github.com/ruhui0806/dev-academy-2023-exercise.git
 
-To install the backend and frontend, go to the server folder and client folder, and run the following command:
+Go to the repository:
+
+    cd dev-academy-2023-exercise
+
+To install the backend and frontend, go to the server folder and client folder, and run the following command, respectively:
 
     npm install
 
@@ -84,16 +88,16 @@ To use the MongoDB database, you need to follow these steps:
 <li> Pick the cloud provider (e.g., aws), and region (e.g., Stockholm).
 <li> Set up the username and password for the database connection (they are different from your loggin credentials).<Strong> The credential will be used for connecting your app to the database.</Strong> Then click "Create User".
 <li> Then it will let you choose the environment. Let's choose "My Local Environment".
-<li> Optionally, you can add IP address to your access list. Then 
-<li> Go to the "Network Access" tab and set "ALLOW ACCESS FROM ANYWHERE".
-<li> Go to the "Database" tab and click connect. Then choose "Connect to your aaplication".
-<li> The page will display MongoDB URI, which will be added to your application. The URI looks like this:
+<li> Optionally, you can set allow network access from anywhere: Go to the "Network Access" tab (left sidebar), click on "+ ADD IP ADDRESS", then click on "ALLOW ACCESS FROM ANYWHERE". Then click "confirm".
+<li> Go to the "Database" tab on the left sidebar and click "Connect". Then choose "Connect to your aplication". On the pop out view, click on "Drivers" option. This will lead to a new page, where the driver is Node.js by default.
+<li> The page will also display MongoDB URI, which will be added to your application. The URI looks like this:
     
-    mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority
-<li>  Copy paste the link above to the .env file (in the server folder) and name it as "MONGODB_URI" (like below). Replace the "password" tag with your password for database connection:
+    mongodb+srv://ruhuiwen0608:<password>@cluster0.qtg0yd1.mongodb.net/?retryWrites=true&w=majority
+<li>  Copy paste the link above to the .env file (in the server folder) and name it as "MONGODB_URI" (like below).
 
-    MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/citybike?retryWrites=true&w=majority"
+    MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/yourDatabaseName?retryWrites=true&w=majority"
 
+<li>Replace the "<'password>" tag with your password for database connection, and replace "yourDatabaseName" with your application name in the URI (before the question mark):
 <br>
 
 # Google Map API configuration
@@ -120,9 +124,8 @@ https://console.cloud.google.com/
 
 As the free version of MongoDB atlas can only store up to 512 MB data, so you can upload maximum two months of the journey data. Upgrade your MongoDB if you want to use more data.
 
-First, you need to install the wget package using homebrew in the server folder:
+First, you need to install the wget using homebrew:
 
-    cd server
     brew install wget
 
 ## Add journey data to the database
@@ -130,12 +133,13 @@ First, you need to install the wget package using homebrew in the server folder:
 Follow the steps below to download journey data from the internet and upload them to your MongoDB database:
 
 <li> Go to the server folder, and download data:
-
+    
+    cd server
     wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
     wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
     wget https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
 
-<li> Rename them as "2021-05.csv, 2021-06.csv, 2021-07.csv" respectively.
+<li> Name them as "2021-05.csv, 2021-06.csv, 2021-07.csv" respectively.
 <li> Open the file "readCSV-journey.js" in your editor. Match the file name in your file system with the name in the code (line 39):
 
     fs.createReadStream("./2021-05.csv")
@@ -144,7 +148,7 @@ NB: Example above will parse the journey data in the file "2021-05.csv".
 
 <li> Run the following command in the server folder:
 
-    npm run readCSV-journey.js
+    node readCSV-journeys.js
 
 <li> Repeat the above steps until you have finished upload journey files.
 <br></br>
@@ -160,7 +164,7 @@ Follow the steps below to download station data from the internet and upload the
 <li> Rename the file as "stations.csv".
 <li> Under the server folder, run the following command to parse and upload data to MongoDB:
 
-    npm run readCSV-stations.js
+    node readCSV-stations.js
 
 Now the data will be parsed, filtered, and uploaded to the MongoDB database.
 <br></br>
@@ -224,6 +228,6 @@ NB: run the test in JourneyRow.test.js file.
 
     npm run cypress:open
 
- <li> Select "E2E Testing" tab from the page.
+<li> Select "E2E Testing" tab from the page.
 <li> Click "Start E2E Testing in Chrome/Electron".
 <li> Click on the file name "city-bike-app.cy.js" to run the test.
