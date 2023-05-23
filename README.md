@@ -65,6 +65,10 @@ To install the backend and frontend, go to the server folder and client folder, 
 
     npm install
 
+Note: if the above command fails, you can try the following command:
+
+    npm install --force
+
 <br>
 
 # Backend configuration
@@ -98,7 +102,7 @@ To use the MongoDB database, you need to follow these steps:
     MONGODB_URI = "mongodb+srv://ruhuiwensahla:<password>@cluster0.o1opl.mongodb.net/yourDatabaseName?retryWrites=true&w=majority"
 
 <li>Replace the "<'password>" tag with your password for database connection, and replace "yourDatabaseName" with your application name in the URI (before the question mark):
-<br>
+<br></br>
 
 # Google Map API configuration
 
@@ -193,11 +197,14 @@ To run the application in Docker, you need to Download Docker and install it fir
 
 After installation, open the Docker.
 
-Then in the terminal, go to the server folder, and run the following command:
+By default the application will run on localhost:3001. Make sure no program is running on port 3001 when you run the application in Docker.
 
+In the terminal, go to the server folder, and run the following command:
+
+    npm run build:ui
     docker compose up --build
 
-By default the application will run on localhost:3001: http://localhost:3001/
+Now the application is running on: http://localhost:3001/.
 
 <br>
 
@@ -230,7 +237,7 @@ NB: run the test in JourneyRow.test.js file.
 
 ## Run end-to-end test
 
-<li> Make sure that both the backend and frontend are running
+<li> Make sure that both the backend and frontend are running properly.
 <li> Go to the client folder, we can start Cypress with the command:
 
     npm run cypress:open
