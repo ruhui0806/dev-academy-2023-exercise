@@ -27,6 +27,7 @@ More information about the pre-assignment requirements can be found here: https:
 <li>Add data to the database
 <li>Run the application
 <li>Run tests
+
 <br></br>
 
 # Installation (on Mac OS as an example)
@@ -146,6 +147,7 @@ NB: Example above will parse the journey data in the file "2021-05.csv".
     npm run readCSV-journey.js
 
 <li> Repeat the above steps until you have finished upload journey files.
+<br></br>
 
 ## Add station data to the database
 
@@ -160,9 +162,8 @@ Follow the steps below to download station data from the internet and upload the
 
     npm run readCSV-stations.js
 
-<br>
-
 Now the data will be parsed, filtered, and uploaded to the MongoDB database.
+<br></br>
 
 # Run the application
 
@@ -174,6 +175,20 @@ Now the data will be parsed, filtered, and uploaded to the MongoDB database.
 
     cd ../client
     npm start
+
+## Run the application in Docker:
+
+To run the application in Docker, you need to Download Docker and install it firstly: https://www.docker.com/get-started/
+
+After installation, open the Docker.
+
+Then in the terminal, go to the server folder, and run the following command:
+
+    docker compose up --build
+
+By default the application will run on localhost:3001: http://localhost:3001/
+
+<br>
 
 # Run test for backend:
 
@@ -188,6 +203,8 @@ Now the data will be parsed, filtered, and uploaded to the MongoDB database.
 <li> Or run tests one by one. The following command only runs the tests in the tests/journey_api.test.js file:
 
     npm test -- tests/journey_api.test.js
+
+<br>
 
 # Run test for frontend
 
