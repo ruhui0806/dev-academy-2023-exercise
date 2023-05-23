@@ -150,6 +150,7 @@ NB: Example above will parse the journey data in the file "2021-05.csv".
 
     node readCSV-journeys.js
 
+<li> Press keys "ctrl + C" to stop the process.
 <li> Repeat the above steps until you have finished upload journey files.
 <br></br>
 
@@ -161,18 +162,24 @@ Follow the steps below to download station data from the internet and upload the
 
     wget https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
 
-<li> Rename the file as "stations.csv".
+<li> Rename the file as "stations.csv":
+
+    mv 726277c507ef4914b0aec3cbcfcbfafc_0.csv stations.csv
+
 <li> Under the server folder, run the following command to parse and upload data to MongoDB:
 
     node readCSV-stations.js
+
+<li> Press keys "ctrl + C" to stop the process.
 
 Now the data will be parsed, filtered, and uploaded to the MongoDB database.
 <br></br>
 
 # Run the application
 
-<li> Run the backend with the following command in the server folder:
+<li> Go to the server folder and run the backend:
 
+    cd server
     npm run dev
 
 <li> Then go to the client folder, and run the frontend:
