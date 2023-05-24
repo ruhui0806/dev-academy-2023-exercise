@@ -204,7 +204,7 @@ In the terminal, go to the server folder, and run the following command:
     npm run build:ui
     docker compose up --build
 
-Now the application is running on: http://localhost:3001/.
+Now the application is running on: http://localhost:3001/
 
 <br>
 
