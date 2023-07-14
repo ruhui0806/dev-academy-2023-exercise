@@ -4,6 +4,8 @@ This is the pre-assignment for Solita Dev Academy Finland 2023: Helsinki City Bi
 
 The aim of this project is to provide information on journeys and display stations information of Helsinki City Bikes.
 
+You can find the deployed application via the link: https://citybike-backend.onrender.com/
+
 More information about the pre-assignment requirements can be found here: https://github.com/solita/dev-academy-2023-exercise
 
 <br>
